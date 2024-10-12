@@ -4,10 +4,11 @@ from wolfsheep import WolfSheepModel
 
 
 class WolfSheepAgent(Agent):
-    def __init__(self, unique_id: int, model: WolfSheepModel, energy: int, gender: bool = False):
+    def __init__(self, unique_id: int, model: WolfSheepModel, energy_from_food: int, gender: bool = False):
         super().__init__(unique_id, model)
 
-        self.energy = energy
+        self.energy_from_food = energy_from_food
+        self.energy = self.model.random.randrange(2 * self.energy_from_food)
         # True: female
         # False: male
         self.gender = gender
@@ -38,11 +39,14 @@ class WolfSheepAgent(Agent):
         self.model.grid.move_agent(self, dest_cell)
 
     def eat(self):
+        pass  # self.energy += self.energy_from_food
+
+    def reproduce(self):
         pass
 
     # death by having no energy
     def die(self):
-        if self.energy == 0:
+        if self.energy < 0:
             self.destroy()
 
     def destroy(self):
@@ -52,17 +56,31 @@ class WolfSheepAgent(Agent):
 
 
 class WolfAgent(WolfSheepAgent):
-    def __init__(self, unique_id: int, model: WolfSheepModel, energy: int, gender: bool = False):
-        super().__init__(unique_id, model, energy, gender)
+    def __init__(self, unique_id: int, model: WolfSheepModel, energy_from_food: int, gender: bool = False):
+        super().__init__(unique_id, model, energy_from_food, gender)
         self.race = 0
 
 
 class SheepAgent(WolfSheepAgent):
-    def __init__(self, unique_id: int, model: WolfSheepModel, energy: int, gender: bool = False):
-        super().__init__(unique_id, model, energy, gender)
+    def __init__(self, unique_id: int, model: WolfSheepModel, energy_from_food: int, gender: bool = False):
+        super().__init__(unique_id, model, energy_from_food, gender)
         self.race = 1
 
 
 class GrassAgent(Agent):
-    def __init__(self, unique_id: int, model: WolfSheepModel):
+    def __init__(self, unique_id: int, model: WolfSheepModel, grown: bool, regrow_time: int):
         super().__init__(unique_id, model)
+        self.race = 2
+        self.grown = grown
+        self.regrow_time = regrow_time
+        self.countdown = regrow_time
+
+    def step(self):
+        if not self.grown:
+            self.grow()
+
+    def grow(self):
+        self.countdown -= 1
+        if self.countdown == 0:
+            self.countdown = self.regrow_time
+            self.grown = True

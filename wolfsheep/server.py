@@ -23,6 +23,17 @@ def ws_model_portrayal(agent):
             portrayal["Shape"] = "pics/sheep.png"
         portrayal["scale"] = 1
         portrayal["Layer"] = 1
+    if isinstance(agent, ws.GrassAgent):
+        if agent.grown:
+            portrayal["Color"] = ["green"]
+        else:
+            portrayal["Color"] = ["brown"]
+        portrayal["Shape"] = "rect"
+        portrayal["Filled"] = "true"
+        portrayal["Layer"] = 0
+        portrayal["w"] = 1
+        portrayal["h"] = 1
+
     return portrayal
 
 
@@ -35,8 +46,9 @@ model_params = {
     "model_type": 0,
     "n_wolf": 50,
     "n_sheep": 100,
-    "wolf_energy": 20,
-    "sheep_energy": 20
+    "wolf_energy_from_food": 20,
+    "sheep_energy_from_food": 4,
+    "regrow_time": 30
 }
 
 server = ModularServer(ws.WolfSheepModel, [canvas_element], "Wolves and Sheep", model_params)

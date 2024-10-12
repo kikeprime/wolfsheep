@@ -7,7 +7,8 @@ import wolfsheep as ws
 
 
 class WolfSheepModel(Model):
-    def __init__(self, width, height, torus, model_type, n_wolf, n_sheep, wolf_energy, sheep_energy):
+    def __init__(self, width, height, torus, model_type, n_wolf, n_sheep,
+                 wolf_energy_from_food, sheep_energy_from_food, regrow_time):
         super().__init__()
         self.schedule = RandomActivation(self)
         self.grid = MultiGrid(width, height, torus)
@@ -17,28 +18,48 @@ class WolfSheepModel(Model):
         # 1: Wolves, Sheep, Grass model
         # 2: Wolves, Sheep model
         self.model_type = model_type
+
         # Adding wolves
         for wolf_id in range(n_wolf):
             if model_type == 0:
                 gender = self.random.choice([True, False])
             else:
                 gender = False
-            wolf = ws.WolfAgent(wolf_id, self, wolf_energy, gender)
+            wolf = ws.WolfAgent(wolf_id, self, wolf_energy_from_food, gender)
             self.schedule.add(wolf)
-            x = self.random.randrange(0, width)
-            y = self.random.randrange(0, height)
+            x = self.random.randrange(width)
+            y = self.random.randrange(height)
             self.grid.place_agent(wolf, (x, y))
+
         # Adding sheep
         for sheep_id in range(n_sheep):
             if model_type == 0:
                 gender = self.random.choice([True, False])
             else:
                 gender = True
-            sheep = ws.SheepAgent(sheep_id, self, sheep_energy, gender)
+            sheep = ws.SheepAgent(sheep_id, self, sheep_energy_from_food, gender)
             self.schedule.add(sheep)
-            x = self.random.randrange(0, width)
-            y = self.random.randrange(0, height)
+            x = self.random.randrange(width)
+            y = self.random.randrange(height)
             self.grid.place_agent(sheep, (x, y))
+
+        # Adding grass
+        for grass_id in range(width * height):
+            if model_type == 2:
+                grass = ws.GrassAgent(grass_id, self, True, regrow_time)
+                self.schedule.add(grass)
+                if grass_id != 0:
+                    self.grid.place_agent(grass, (grass_id % width, grass_id // width))
+                else:
+                    self.grid.place_agent(grass, (0, 0))
+            else:
+                grown = self.random.choice([True, False])
+                grass = ws.GrassAgent(grass_id, self, grown, regrow_time)
+                self.schedule.add(grass)
+                if grass_id != 0:
+                    self.grid.place_agent(grass, (grass_id % width, grass_id // width))
+                else:
+                    self.grid.place_agent(grass, (0, 0))
 
         self.datacollector = DataCollector(
             model_reporters={
