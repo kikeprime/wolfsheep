@@ -3,7 +3,7 @@ from mesa.model import Model
 from mesa.time import RandomActivation
 from mesa.space import MultiGrid
 
-import wolfsheep.wolfsheep as ws
+import wolfsheep as ws
 
 
 class WolfSheepModel(Model):

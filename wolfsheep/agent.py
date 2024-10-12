@@ -1,9 +1,9 @@
 from mesa.agent import Agent
 
-from wolfsheep.wolfsheep import WolfSheepModel
+from wolfsheep import WolfSheepModel
 
 
-class _WolfSheepAgent(Agent):
+class WolfSheepAgent(Agent):
     def __init__(self, unique_id: int, model: WolfSheepModel, energy: int, gender: bool = False):
         super().__init__(unique_id, model)
 
@@ -19,11 +19,11 @@ class _WolfSheepAgent(Agent):
         pass
 
 
-class WolfAgent(_WolfSheepAgent):
+class WolfAgent(WolfSheepAgent):
     def __init__(self, unique_id: int, model: WolfSheepModel, energy: int, gender: bool = False):
         super().__init__(unique_id, model, energy, gender)
 
 
-class SheepAgent(_WolfSheepAgent):
+class SheepAgent(WolfSheepAgent):
     def __init__(self, unique_id: int, model: WolfSheepModel, energy: int, gender: bool = False):
         super().__init__(unique_id, model, energy, gender)
