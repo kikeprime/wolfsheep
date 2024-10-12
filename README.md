@@ -1,2 +1,2 @@
-# wolfsheep
-Wolves and Sheep population model
+# Wolves and Sheep population model
+
