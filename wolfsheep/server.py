@@ -10,20 +10,27 @@ def ws_model_portrayal(agent):
 
     portrayal = {}
     if isinstance(agent, ws.WolfAgent):
-        portrayal["Shape"] = None
+        if agent.gender:
+            portrayal["Shape"] = "pics/fwolf.png"
+        else:
+            portrayal["Shape"] = "pics/wolf.png"
         portrayal["scale"] = 1
-        portrayal["Layer"] = 1
+        portrayal["Layer"] = 0
     if isinstance(agent, ws.SheepAgent):
-        portrayal["Shape"] = None
+        if agent.gender:
+            portrayal["Shape"] = "pics/fsheep.png"
+        else:
+            portrayal["Shape"] = "pics/sheep.png"
         portrayal["scale"] = 1
         portrayal["Layer"] = 1
+    return portrayal
 
 
-canvas_element = CanvasGrid(ws_model_portrayal, 15, 15, 500, 500)
+canvas_element = CanvasGrid(ws_model_portrayal, 30, 30, 500, 500)
 
 model_params = {
-    "width": 15,
-    "height": 15,
+    "width": 30,
+    "height": 30,
     "torus": True,
     "n_wolf": 50,
     "n_sheep": 100,
