@@ -12,6 +12,7 @@ class WolfSheepModel(Model):
         self.schedule = RandomActivation(self)
         self.grid = MultiGrid(width, height, torus)
 
+        # model-version in the NetLogo code
         # 0: My extended model
         # 1: Wolves, Sheep, Grass model
         # 2: Wolves, Sheep model
@@ -39,8 +40,53 @@ class WolfSheepModel(Model):
             y = self.random.randrange(0, height)
             self.grid.place_agent(sheep, (x, y))
 
-        self.datacollector = DataCollector()
+        self.datacollector = DataCollector(
+            model_reporters={
+                "Number of wolves": wolf_counter,
+                "Number of sheep": sheep_counter,
+                "Number of female wolves": fwolf_counter,
+                "Number of male wolves": mwolf_counter,
+                "Number of female sheep": fsheep_counter,
+                "Number of male sheep": msheep_counter
+            }
+        )
+        self.datacollector.collect(self)
 
     def step(self):
         self.schedule.step()
         self.datacollector.collect(self)
+
+
+# Agent counters
+def agent_counter(model, race, by_gender, gender=False):
+    result = 0
+    for agent in model.schedule.agents:
+        agent: ws.WolfSheepAgent
+        if agent.race == race:
+            if by_gender and agent.gender == gender or not by_gender:
+                result += 1
+    return result
+
+
+def wolf_counter(model):
+    return agent_counter(model,0, False)
+
+
+def sheep_counter(model):
+    return agent_counter(model, 1, False)
+
+
+def fwolf_counter(model):
+    return agent_counter(model, 0, True, True)
+
+
+def mwolf_counter(model):
+    return agent_counter(model, 0, True, False)
+
+
+def fsheep_counter(model):
+    return agent_counter(model, 1, True, True)
+
+
+def msheep_counter(model):
+    return agent_counter(model, 1, True, False)
