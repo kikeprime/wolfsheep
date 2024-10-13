@@ -18,6 +18,7 @@ class WolfSheepAgent(Agent):
         # 1: Sheep
         # 2: Grass
         self.race = None
+        self.can_reproduce = False
 
     def step(self):
         self.model: WolfSheepModel
@@ -44,9 +45,18 @@ class WolfSheepAgent(Agent):
     def eat(self):
         pass
 
+    # In my model there should be at least one of each gender who can reproduce and the females will give birth
     def reproduce(self):
         self.model: WolfSheepModel
         if self.pos is not None and self.model.random.random() < self.reproduction_rate:
+            self.can_reproduce = True
+            agent: WolfAgent
+            mates = [agent for agent in self.model.agents
+                     if agent.pos == self.pos and agent.race == self.race
+                     and agent.gender != self.gender and agent.can_reproduce]
+            if self.model.model_type == 0:
+                if len(mates) == 0 or self.gender is False:
+                    return
             self.energy = self.energy // 2
             if self.race == 0:
                 child = WolfAgent(self.model.n_wolf, self.model, self.energy_from_food, self.reproduction_rate)
