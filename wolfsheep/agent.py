@@ -9,16 +9,20 @@ class WolfSheepAgent(Agent):
 
         self.energy_from_food = energy_from_food
         self.energy = self.model.random.randrange(2 * self.energy_from_food)
-        self.reproduction_rate = reproduction_rate
+        self.reproduction_rate = reproduction_rate / 100.0
+
         # True: female
         # False: male
         self.gender = None
-        # The child classes set this
+
+        # the subclasses set this
         # 0: Wolf
         # 1: Sheep
         # 2: Grass
         self.race = None
+
         self.can_reproduce = False
+        self.dead = False
 
     def step(self):
         self.model: WolfSheepModel
@@ -28,7 +32,8 @@ class WolfSheepAgent(Agent):
             self.energy -= 1
             self.eat()
             self.die()
-        self.reproduce()
+        if not self.dead:
+            self.reproduce()
 
     def move(self):
         self.model: WolfSheepModel
@@ -41,19 +46,18 @@ class WolfSheepAgent(Agent):
         dest_cell = self.model.random.choice(cells_to_move)
         self.model.grid.move_agent(self, dest_cell)
 
-    # subclasses will define this
+    # the subclasses will define this
     def eat(self):
         pass
 
     # In my model there should be at least one of each gender who can reproduce and the females will give birth
     def reproduce(self):
         self.model: WolfSheepModel
-        if self.pos is not None and self.model.random.random() < self.reproduction_rate:
+        if self.model.random.random() < self.reproduction_rate:
             self.can_reproduce = True
-            agent: WolfAgent
-            mates = [agent for agent in self.model.agents
-                     if agent.pos == self.pos and agent.race == self.race
-                     and agent.gender != self.gender and agent.can_reproduce]
+            agent: WolfSheepAgent
+            mates = [agent for agent in self.model.grid.get_cell_list_contents([self.pos])
+                     if agent.race == self.race and agent.gender != self.gender and agent.can_reproduce]
             if self.model.model_type == 0:
                 if len(mates) == 0 or self.gender is False:
                     return
@@ -77,6 +81,7 @@ class WolfSheepAgent(Agent):
         self.model: WolfSheepModel
         self.model.grid.remove_agent(self)
         self.model.schedule.remove(self)
+        self.dead = True
 
 
 class WolfAgent(WolfSheepAgent):
@@ -85,8 +90,9 @@ class WolfAgent(WolfSheepAgent):
         self.race = 0
 
     def eat(self):
+        self.model: WolfSheepModel
         agent: SheepAgent
-        sheep = [agent for agent in self.model.schedule.agents if agent.pos == self.pos and agent.race == 1]
+        sheep = [agent for agent in self.model.grid.get_cell_list_contents([self.pos]) if agent.race == 1]
         if len(sheep) > 0:
             self.model.random.choice(sheep).energy = -1  # the safest method to kill them
             self.energy += self.energy_from_food
@@ -98,9 +104,10 @@ class SheepAgent(WolfSheepAgent):
         self.race = 1
 
     def eat(self):
+        self.model: WolfSheepModel
         agent: GrassAgent
-        for agent in self.model.agents:
-            if agent.pos == self.pos and agent.race == 2 and agent.grown:
+        for agent in self.model.grid.get_cell_list_contents([self.pos]):
+            if agent.race == 2 and agent.grown:
                 self.energy += self.energy_from_food
                 agent.grown = False
 
