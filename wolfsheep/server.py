@@ -43,7 +43,7 @@ model_params = {
     "width": 30,
     "height": 30,
     "torus": True,
-    "model_type": 1,
+    "model_type": 0,
     "n_wolf": 50,
     "n_sheep": 100,
     "wolf_energy_from_food": 20,

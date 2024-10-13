@@ -80,13 +80,6 @@ class WolfAgent(WolfSheepAgent):
         if len(sheep) > 0:
             self.model.random.choice(sheep).energy = -1  # the safest method to kill them
             self.energy += self.energy_from_food
-            
-    def reproduce(self):
-        self.model: WolfSheepModel
-        if self.model.model_type >= 1:
-            super().reproduce()
-        else:
-            super().reproduce()
 
 
 class SheepAgent(WolfSheepAgent):

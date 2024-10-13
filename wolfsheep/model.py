@@ -54,7 +54,9 @@ class WolfSheepModel(Model):
                 grass = ws.GrassAgent(grass_id, self, True, 0)
             else:
                 grown = self.random.choice([True, False])
-                grass = ws.GrassAgent(grass_id, self, grown, self.random.randrange(regrow_time))
+                grass = ws.GrassAgent(grass_id, self, grown, regrow_time)
+                if not grass.grown:
+                    grass.countdown = self.random.randrange(regrow_time)
             self.schedule.add(grass)
             self.grid.place_agent(grass, (grass_id % width, grass_id // width))
 
