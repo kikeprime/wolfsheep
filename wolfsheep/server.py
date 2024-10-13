@@ -1,5 +1,6 @@
 from mesa.visualization.ModularVisualization import ModularServer
 from mesa.visualization.modules import CanvasGrid
+from mesa.visualization.modules import ChartModule
 from mesa.visualization.UserParam import *
 
 import wolfsheep as ws
@@ -39,6 +40,16 @@ def ws_model_portrayal(agent):
 
 
 canvas_element = CanvasGrid(ws_model_portrayal, 30, 30, 500, 500)
+chart_list = [
+    {"Label": "Number of wolves", "Color": "red"},
+    {"Label": "Number of female wolves", "Color": "orange"},
+    {"Label": "Number of male wolves", "Color": "grey"},
+    {"Label": "Number of sheep", "Color": "blue"},
+    {"Label": "Number of female sheep", "Color": "white"},
+    {"Label": "Number of male sheep", "Color": "black"},
+    {"Label": "Number of grass patches", "Color": "green"}
+]
+chart_element = ChartModule(chart_list, data_collector_name="datacollector")
 
 model_params = {
     "width": 30,
@@ -54,4 +65,5 @@ model_params = {
     "regrow_time": Slider("Grass regrow time", 30, 0, 100)
 }
 
-server = ModularServer(ws.WolfSheepModel, [canvas_element], "Wolves and Sheep", model_params)
+
+server = ModularServer(ws.WolfSheepModel, [canvas_element, chart_element], "Wolves and Sheep", model_params)
