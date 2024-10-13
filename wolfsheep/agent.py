@@ -1,4 +1,3 @@
-import mesa
 from mesa.agent import Agent
 
 from wolfsheep import WolfSheepModel
@@ -77,11 +76,17 @@ class WolfAgent(WolfSheepAgent):
 
     def eat(self):
         agent: SheepAgent
-        sheeps = [agent for agent in self.model.schedule.agents if agent.race == 1 and agent.pos == self.pos]
-        if len(sheeps) > 0:
-            sheep = self.model.random.choice(sheeps)
-            sheep.energy = -1 # the safest method to kill them
+        sheep = [agent for agent in self.model.schedule.agents if agent.pos == self.pos and agent.race == 1]
+        if len(sheep) > 0:
+            self.model.random.choice(sheep).energy = -1  # the safest method to kill them
             self.energy += self.energy_from_food
+            
+    def reproduce(self):
+        self.model: WolfSheepModel
+        if self.model.model_type >= 1:
+            super().reproduce()
+        else:
+            super().reproduce()
 
 
 class SheepAgent(WolfSheepAgent):

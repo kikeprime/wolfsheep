@@ -7,7 +7,7 @@ def main():
     width = 30
     height = 30
     torus = True
-    model_type = 0
+    model_type = 1
     n_wolf = 50
     n_sheep = 100
     wolf_energy_from_food = 20
@@ -26,7 +26,7 @@ def main():
     model_data = model.datacollector.get_model_vars_dataframe()
     model_data.plot()
     plt.show()
-    print(model_data[["Number of wolves", "Number of sheep"]])
+    print(model_data[["Number of wolves", "Number of sheep", "Number of female wolves", "Number of male sheep"]])
 
 
 if __name__ == "__main__":

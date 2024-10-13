@@ -15,14 +15,14 @@ def ws_model_portrayal(agent):
         else:
             portrayal["Shape"] = "pics/wolf.png"
         portrayal["scale"] = 1
-        portrayal["Layer"] = 0
+        portrayal["Layer"] = 1
     if isinstance(agent, ws.SheepAgent):
         if agent.gender:
             portrayal["Shape"] = "pics/fsheep.png"
         else:
             portrayal["Shape"] = "pics/sheep.png"
         portrayal["scale"] = 1
-        portrayal["Layer"] = 1
+        portrayal["Layer"] = 2
     if isinstance(agent, ws.GrassAgent):
         if agent.grown:
             portrayal["Color"] = ["green"]
@@ -43,7 +43,7 @@ model_params = {
     "width": 30,
     "height": 30,
     "torus": True,
-    "model_type": 0,
+    "model_type": 1,
     "n_wolf": 50,
     "n_sheep": 100,
     "wolf_energy_from_food": 20,

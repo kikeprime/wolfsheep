@@ -30,7 +30,7 @@ class WolfSheepModel(Model):
             if model_type == 0:
                 wolf.gender = self.random.choice([True, False])
             else:
-                wolf.gender = True
+                wolf.gender = False
             self.schedule.add(wolf)
             x = self.random.randrange(width)
             y = self.random.randrange(height)
