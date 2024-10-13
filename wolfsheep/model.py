@@ -7,8 +7,10 @@ import wolfsheep as ws
 
 
 class WolfSheepModel(Model):
-    def __init__(self, width, height, torus, model_type, n_wolf, n_sheep,
-                 wolf_energy_from_food, sheep_energy_from_food, regrow_time):
+    def __init__(self, width, height, torus,
+                 model_type, n_wolf, n_sheep,
+                 wolf_energy_from_food, sheep_energy_from_food,
+                 wolf_reproduction_rate, sheep_reproduction_rate, regrow_time):
         super().__init__()
         self.schedule = RandomActivation(self)
         self.grid = MultiGrid(width, height, torus)
@@ -19,25 +21,28 @@ class WolfSheepModel(Model):
         # 2: Wolves, Sheep model
         self.model_type = model_type
 
+        self.n_wolf = n_wolf
+        self.n_sheep = n_sheep
+
         # Adding wolves
-        for wolf_id in range(n_wolf):
+        for wolf_id in range(self.n_wolf):
+            wolf = ws.WolfAgent(wolf_id, self, wolf_energy_from_food, wolf_reproduction_rate)
             if model_type == 0:
-                gender = self.random.choice([True, False])
+                wolf.gender = self.random.choice([True, False])
             else:
-                gender = False
-            wolf = ws.WolfAgent(wolf_id, self, wolf_energy_from_food, gender)
+                wolf.gender = True
             self.schedule.add(wolf)
             x = self.random.randrange(width)
             y = self.random.randrange(height)
             self.grid.place_agent(wolf, (x, y))
 
         # Adding sheep
-        for sheep_id in range(n_sheep):
+        for sheep_id in range(self.n_sheep):
+            sheep = ws.SheepAgent(sheep_id, self, sheep_energy_from_food, sheep_reproduction_rate)
             if model_type == 0:
-                gender = self.random.choice([True, False])
+                sheep.gender = self.random.choice([True, False])
             else:
-                gender = True
-            sheep = ws.SheepAgent(sheep_id, self, sheep_energy_from_food, gender)
+                sheep.gender = True
             self.schedule.add(sheep)
             x = self.random.randrange(width)
             y = self.random.randrange(height)
@@ -46,20 +51,12 @@ class WolfSheepModel(Model):
         # Adding grass
         for grass_id in range(width * height):
             if model_type == 2:
-                grass = ws.GrassAgent(grass_id, self, True, regrow_time)
-                self.schedule.add(grass)
-                if grass_id != 0:
-                    self.grid.place_agent(grass, (grass_id % width, grass_id // width))
-                else:
-                    self.grid.place_agent(grass, (0, 0))
+                grass = ws.GrassAgent(grass_id, self, True, 0)
             else:
                 grown = self.random.choice([True, False])
-                grass = ws.GrassAgent(grass_id, self, grown, regrow_time)
-                self.schedule.add(grass)
-                if grass_id != 0:
-                    self.grid.place_agent(grass, (grass_id % width, grass_id // width))
-                else:
-                    self.grid.place_agent(grass, (0, 0))
+                grass = ws.GrassAgent(grass_id, self, grown, self.random.randrange(regrow_time))
+            self.schedule.add(grass)
+            self.grid.place_agent(grass, (grass_id % width, grass_id // width))
 
         self.datacollector = DataCollector(
             model_reporters={
@@ -68,7 +65,8 @@ class WolfSheepModel(Model):
                 "Number of female wolves": fwolf_counter,
                 "Number of male wolves": mwolf_counter,
                 "Number of female sheep": fsheep_counter,
-                "Number of male sheep": msheep_counter
+                "Number of male sheep": msheep_counter,
+                "Number of grass patches": grass_counter
             }
         )
         self.datacollector.collect(self)
@@ -77,12 +75,21 @@ class WolfSheepModel(Model):
         self.schedule.step()
         self.datacollector.collect(self)
 
+    def place_child(self, child, pos):
+        if child.race == 0:
+            self.n_wolf += 1
+        else:
+            self.n_sheep += 1
+        self.schedule.add(child)
+        neighborhood = self.grid.get_neighborhood(pos, True, include_center=False, radius=1)
+        self.grid.place_agent(child, self.random.choice(neighborhood))
+
 
 # Agent counters
 def agent_counter(model, race, by_gender, gender=False):
     result = 0
     for agent in model.schedule.agents:
-        agent: ws.WolfSheepAgent
+        agent: ws.WolfAgent | ws.SheepAgent
         if agent.race == race:
             if by_gender and agent.gender == gender or not by_gender:
                 result += 1
@@ -111,3 +118,12 @@ def fsheep_counter(model):
 
 def msheep_counter(model):
     return agent_counter(model, 1, True, False)
+
+
+def grass_counter(model):
+    result = 0
+    for agent in model.schedule.agents:
+        agent: ws.GrassAgent
+        if agent.race == 2 and agent.grown:
+            result += 1
+    return result

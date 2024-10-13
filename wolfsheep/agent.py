@@ -1,17 +1,19 @@
+import mesa
 from mesa.agent import Agent
 
 from wolfsheep import WolfSheepModel
 
 
 class WolfSheepAgent(Agent):
-    def __init__(self, unique_id: int, model: WolfSheepModel, energy_from_food: int, gender: bool = False):
+    def __init__(self, unique_id: int, model: WolfSheepModel, energy_from_food: int, reproduction_rate: float):
         super().__init__(unique_id, model)
 
         self.energy_from_food = energy_from_food
         self.energy = self.model.random.randrange(2 * self.energy_from_food)
+        self.reproduction_rate = reproduction_rate
         # True: female
         # False: male
-        self.gender = gender
+        self.gender = None
         # The child classes set this
         # 0: Wolf
         # 1: Sheep
@@ -26,6 +28,7 @@ class WolfSheepAgent(Agent):
             self.energy -= 1
             self.eat()
             self.die()
+        self.reproduce()
 
     def move(self):
         self.model: WolfSheepModel
@@ -33,38 +36,65 @@ class WolfSheepAgent(Agent):
             pos=self.pos,
             moore=True,
             include_center=False,
-            radius=4
+            radius=1
         )
         dest_cell = self.model.random.choice(cells_to_move)
         self.model.grid.move_agent(self, dest_cell)
 
+    # subclasses will define this
     def eat(self):
-        pass  # self.energy += self.energy_from_food
-
-    def reproduce(self):
         pass
 
-    # death by having no energy
+    def reproduce(self):
+        self.model: WolfSheepModel
+        if self.pos is not None and self.model.random.random() < self.reproduction_rate:
+            self.energy = self.energy // 2
+            if self.race == 0:
+                child = WolfAgent(self.model.n_wolf, self.model, self.energy_from_food, self.reproduction_rate)
+                child.gender = False
+            else:
+                child = SheepAgent(self.model.n_sheep, self.model, self.energy_from_food, self.reproduction_rate)
+                child.gender = True
+            if self.model.model_type == 0:
+                child.gender = self.random.choice([True, False])
+            self.model.place_child(child, self.pos)
+
+    # death by starvation
     def die(self):
         if self.energy < 0:
             self.destroy()
 
     def destroy(self):
         self.model: WolfSheepModel
-        self.model.schedule.remove(self)
         self.model.grid.remove_agent(self)
+        self.model.schedule.remove(self)
 
 
 class WolfAgent(WolfSheepAgent):
-    def __init__(self, unique_id: int, model: WolfSheepModel, energy_from_food: int, gender: bool = False):
-        super().__init__(unique_id, model, energy_from_food, gender)
+    def __init__(self, unique_id, model, energy_from_food, reproduction_rate):
+        super().__init__(unique_id, model, energy_from_food, reproduction_rate)
         self.race = 0
+
+    def eat(self):
+        agent: SheepAgent
+        sheeps = [agent for agent in self.model.schedule.agents if agent.race == 1 and agent.pos == self.pos]
+        if len(sheeps) > 0:
+            sheep = self.model.random.choice(sheeps)
+            sheep.energy = -1 # the safest method to kill them
+            self.energy += self.energy_from_food
 
 
 class SheepAgent(WolfSheepAgent):
-    def __init__(self, unique_id: int, model: WolfSheepModel, energy_from_food: int, gender: bool = False):
-        super().__init__(unique_id, model, energy_from_food, gender)
+    def __init__(self, unique_id, model, energy_from_food, reproduction_rate):
+        super().__init__(unique_id, model, energy_from_food, reproduction_rate)
         self.race = 1
+
+    def eat(self):
+        agent: GrassAgent
+        for agent in self.model.agents:
+            if agent.pos == self.pos and agent.race == 2 and agent.grown:
+                self.energy += self.energy_from_food
+                agent.grown = False
 
 
 class GrassAgent(Agent):
@@ -80,7 +110,8 @@ class GrassAgent(Agent):
             self.grow()
 
     def grow(self):
-        self.countdown -= 1
-        if self.countdown == 0:
-            self.countdown = self.regrow_time
+        if self.countdown <= 0:
             self.grown = True
+            self.countdown = self.regrow_time
+        else:
+            self.countdown -= 1

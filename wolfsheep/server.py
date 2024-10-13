@@ -48,6 +48,8 @@ model_params = {
     "n_sheep": 100,
     "wolf_energy_from_food": 20,
     "sheep_energy_from_food": 4,
+    "wolf_reproduction_rate": 0.05,
+    "sheep_reproduction_rate": 0.04,
     "regrow_time": 30
 }
 
