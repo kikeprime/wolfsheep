@@ -13,16 +13,16 @@ def ws_model_portrayal(agent):
     portrayal = {}
     if isinstance(agent, ws.WolfAgent):
         if agent.gender:
-            portrayal["Shape"] = "pics/fwolf.png"
+            portrayal["Shape"] = "wolfsheep/pics/fwolf.png"
         else:
-            portrayal["Shape"] = "pics/wolf.png"
+            portrayal["Shape"] = "wolfsheep/pics/wolf.png"
         portrayal["scale"] = 1
         portrayal["Layer"] = 1
     if isinstance(agent, ws.SheepAgent):
         if agent.gender:
-            portrayal["Shape"] = "pics/fsheep.png"
+            portrayal["Shape"] = "wolfsheep/pics/fsheep.png"
         else:
-            portrayal["Shape"] = "pics/sheep.png"
+            portrayal["Shape"] = "wolfsheep/pics/sheep.png"
         portrayal["scale"] = 1
         portrayal["Layer"] = 2
     if isinstance(agent, ws.GrassAgent):
