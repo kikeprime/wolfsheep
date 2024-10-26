@@ -11,7 +11,7 @@ class WolfSheepModel(Model):
                  model_type, n_wolf, n_sheep,
                  wolf_energy_from_food, sheep_energy_from_food,
                  wolf_reproduction_rate, sheep_reproduction_rate, regrow_time,
-                 seed):
+                 allow_hunting, allow_flocking, seed):
         super().__init__()
         self.schedule = RandomActivation(self)
         self.grid = MultiGrid(width, height, torus)
@@ -26,6 +26,10 @@ class WolfSheepModel(Model):
 
         self.n_wolf = n_wolf
         self.n_sheep = n_sheep
+
+        self.allow_hunting = allow_hunting
+        self.allow_flocking = allow_flocking
+
         self.random.seed(seed)
 
         # Adding wolves
@@ -82,10 +86,6 @@ class WolfSheepModel(Model):
         self.datacollector.collect(self)
 
     def place_child(self, child, pos):
-        if child.race == 0:
-            self.n_wolf += 1
-        else:
-            self.n_sheep += 1
         self.schedule.add(child)
         neighborhood = self.grid.get_neighborhood(pos, True, include_center=False, radius=1)
         self.grid.place_agent(child, self.random.choice(neighborhood))

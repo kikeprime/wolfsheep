@@ -57,7 +57,7 @@ model_types = ["Extended model", "Wolves, sheep and grass model", "Wolves and sh
 model_params = {
     "width": 30,
     "height": 30,
-    "torus": Checkbox("Torus", True, ""),
+    "torus": Checkbox("Torus", True, "Whether the edges are connected or not."),
     "model_type": Choice("Model type", model_types[0], model_types, ""),
     "n_wolf": Slider("Initial number of wolves", 50, 0, 100, 1, ""),
     "n_sheep": Slider("Initial number of sheep", 100, 0, 100, 1, ""),
@@ -70,6 +70,8 @@ model_params = {
     "sheep_reproduction_rate": Slider("Reproduction rate of the sheep (%)",
                                       4, 0, 100, 1, ""),
     "regrow_time": Slider("Grass regrow time", 30, 0, 100, 1, ""),
+    "allow_hunting": Checkbox("Allow hunting", True, "The wolves actively hunt."),
+    "allow_flocking": Checkbox("Allow flocking", True, "The sheep will flock."),
     "seed": NumberInput("Random Seed", 474, "Seed for random number generators")
 }
 
