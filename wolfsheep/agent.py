@@ -1,11 +1,22 @@
+from importlib.metadata import version
 from mesa.agent import Agent
 
 from wolfsheep import WolfSheepModel
 
+mesa_version = version("mesa")
+
 
 class WolfSheepAgent(Agent):
     def __init__(self, unique_id: int, model: WolfSheepModel, energy_from_food: int, reproduction_rate: float):
-        super().__init__(unique_id, model)
+        if mesa_version == "2.4.0":
+            super().__init__(unique_id, model)
+        elif mesa_version > "2.4.0":
+            super().__init__(model)
+        else:
+            try:
+                super().__init__(unique_id, model)
+            except:
+                print("Incompatible mesa version.")
 
         self.energy_from_food = energy_from_food
         self.energy = self.model.random.randrange(2 * self.energy_from_food)
@@ -63,10 +74,10 @@ class WolfSheepAgent(Agent):
                     return
             self.energy = self.energy // 2
             if self.race == 0:
-                child = WolfAgent(self.model.n_wolf, self.model, self.energy_from_food, self.reproduction_rate)
+                child = WolfAgent(self.model.next_id(), self.model, self.energy_from_food, self.reproduction_rate)
                 child.gender = False
             else:
-                child = SheepAgent(self.model.n_sheep, self.model, self.energy_from_food, self.reproduction_rate)
+                child = SheepAgent(self.model.next_id(), self.model, self.energy_from_food, self.reproduction_rate)
                 child.gender = True
             if self.model.model_type == 0:
                 child.gender = self.random.choice([True, False])
@@ -114,7 +125,16 @@ class SheepAgent(WolfSheepAgent):
 
 class GrassAgent(Agent):
     def __init__(self, unique_id: int, model: WolfSheepModel, grown: bool, regrow_time: int):
-        super().__init__(unique_id, model)
+        if mesa_version == "2.4.0":
+            super().__init__(unique_id, model)
+        elif mesa_version > "2.4.0":
+            super().__init__(model)
+        else:
+            try:
+                super().__init__(unique_id, model)
+            except:
+                print("Incompatible mesa version.")
+
         self.race = 2
         self.grown = grown
         self.regrow_time = regrow_time

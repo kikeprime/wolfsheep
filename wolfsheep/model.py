@@ -16,18 +16,20 @@ class WolfSheepModel(Model):
         self.grid = MultiGrid(width, height, torus)
 
         # model-version in the NetLogo code
-        # 0: My extended model
-        # 1: Wolves, Sheep, Grass model
-        # 2: Wolves, Sheep model
-        self.model_type = model_type
+        model_types = {
+            "Extended model": 0,
+            "Wolves, sheep and grass model": 1,
+            "Wolves and sheep model": 2
+        }
+        self.model_type = model_types[model_type]
 
         self.n_wolf = n_wolf
         self.n_sheep = n_sheep
 
         # Adding wolves
         for wolf_id in range(self.n_wolf):
-            wolf = ws.WolfAgent(wolf_id, self, wolf_energy_from_food, wolf_reproduction_rate)
-            if model_type == 0:
+            wolf = ws.WolfAgent(self.next_id(), self, wolf_energy_from_food, wolf_reproduction_rate)
+            if self.model_type == 0:
                 wolf.gender = self.random.choice([True, False])
             else:
                 wolf.gender = False
@@ -38,8 +40,8 @@ class WolfSheepModel(Model):
 
         # Adding sheep
         for sheep_id in range(self.n_sheep):
-            sheep = ws.SheepAgent(sheep_id, self, sheep_energy_from_food, sheep_reproduction_rate)
-            if model_type == 0:
+            sheep = ws.SheepAgent(self.next_id(), self, sheep_energy_from_food, sheep_reproduction_rate)
+            if self.model_type == 0:
                 sheep.gender = self.random.choice([True, False])
             else:
                 sheep.gender = True
@@ -50,11 +52,11 @@ class WolfSheepModel(Model):
 
         # Adding grass
         for grass_id in range(width * height):
-            if model_type == 2:
-                grass = ws.GrassAgent(grass_id, self, True, 0)
+            if self.model_type == 2:
+                grass = ws.GrassAgent(self.next_id(), self, True, 0)
             else:
                 grown = self.random.choice([True, False])
-                grass = ws.GrassAgent(grass_id, self, grown, regrow_time)
+                grass = ws.GrassAgent(self.next_id(), self, grown, regrow_time)
                 if not grass.grown:
                     grass.countdown = self.random.randrange(regrow_time)
             self.schedule.add(grass)
@@ -68,7 +70,7 @@ class WolfSheepModel(Model):
                 "Number of male wolves": mwolf_counter,
                 "Number of female sheep": fsheep_counter,
                 "Number of male sheep": msheep_counter,
-                "Number of grass patches": grass_counter
+                "Ratio of grass patches (%)": grass_counter
             }
         )
         self.datacollector.collect(self)
@@ -128,4 +130,4 @@ def grass_counter(model):
         agent: ws.GrassAgent
         if agent.race == 2 and agent.grown:
             result += 1
-    return result
+    return 100 * result / float(model.grid.width * model.grid.height)
