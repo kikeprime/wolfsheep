@@ -61,11 +61,16 @@ model_params = {
     "model_type": Choice("Model type", model_types[0], model_types, ""),
     "n_wolf": Slider("Initial number of wolves", 50, 0, 100, 1, ""),
     "n_sheep": Slider("Initial number of sheep", 100, 0, 100, 1, ""),
-    "wolf_energy_from_food": Slider("Energy gain from eating (wolves)", 20, 0, 100, 1, ""),
-    "sheep_energy_from_food": Slider("Energy gain from eating (sheep)", 4, 0, 100, 1, ""),
-    "wolf_reproduction_rate": Slider("Reproduction rate of the wolves (%)", 5, 0, 100, ""),
-    "sheep_reproduction_rate": Slider("Reproduction rate of the sheep (%)", 4, 0, 100, ""),
-    "regrow_time": Slider("Grass regrow time", 30, 0, 100, "")
+    "wolf_energy_from_food": Slider("Energy gain from eating (wolves)",
+                                    20, 0, 100, 1, ""),
+    "sheep_energy_from_food": Slider("Energy gain from eating (sheep)",
+                                     4, 0, 100, 1, ""),
+    "wolf_reproduction_rate": Slider("Reproduction rate of the wolves (%)",
+                                     5, 0, 100, 1, ""),
+    "sheep_reproduction_rate": Slider("Reproduction rate of the sheep (%)",
+                                      4, 0, 100, 1, ""),
+    "regrow_time": Slider("Grass regrow time", 30, 0, 100, 1, ""),
+    "seed": NumberInput("Random Seed", 474, "Seed for random number generators")
 }
 
 server = ModularServer(ws.WolfSheepModel, visualization_elements,"Wolves and Sheep", model_params)

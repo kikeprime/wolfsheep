@@ -10,7 +10,8 @@ class WolfSheepModel(Model):
     def __init__(self, width, height, torus,
                  model_type, n_wolf, n_sheep,
                  wolf_energy_from_food, sheep_energy_from_food,
-                 wolf_reproduction_rate, sheep_reproduction_rate, regrow_time):
+                 wolf_reproduction_rate, sheep_reproduction_rate, regrow_time,
+                 seed):
         super().__init__()
         self.schedule = RandomActivation(self)
         self.grid = MultiGrid(width, height, torus)
@@ -25,6 +26,7 @@ class WolfSheepModel(Model):
 
         self.n_wolf = n_wolf
         self.n_sheep = n_sheep
+        self.random.seed(seed)
 
         # Adding wolves
         for wolf_id in range(self.n_wolf):
