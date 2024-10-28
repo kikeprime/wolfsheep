@@ -41,9 +41,9 @@ def ws_model_portrayal(agent):
 canvas_element = CanvasGrid(ws_model_portrayal, 30, 30, 500, 500)
 chart_list = [
     {"Label": "Number of wolves", "Color": "red"},
+    {"Label": "Number of sheep", "Color": "blue"},
     {"Label": "Number of female wolves", "Color": "orange"},
     {"Label": "Number of male wolves", "Color": "grey"},
-    {"Label": "Number of sheep", "Color": "blue"},
     {"Label": "Number of female sheep", "Color": "white"},
     {"Label": "Number of male sheep", "Color": "black"},
     {"Label": "Ratio of grass patches (%)", "Color": "green"}

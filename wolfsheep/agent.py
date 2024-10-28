@@ -46,6 +46,7 @@ class WolfSheepAgent(Agent):
         if not self.dead:
             self.reproduce()
 
+    # Default move method, no hunting and no flocking
     def move(self):
         self.model: WolfSheepModel
         cells_to_move = self.model.grid.get_neighborhood(
@@ -64,7 +65,11 @@ class WolfSheepAgent(Agent):
     # In my model there should be at least one of each gender who can reproduce and the females will give birth
     def reproduce(self):
         self.model: WolfSheepModel
-        if self.model.random.random() < self.reproduction_rate:
+        if self.model.model_type == 0:
+            reproduction_rate = self.reproduction_rate ** 0.5
+        else:
+            reproduction_rate = self.reproduction_rate
+        if self.model.random.random() < reproduction_rate:
             self.can_reproduce = True
             agent: WolfSheepAgent
             mates = [agent for agent in self.model.grid.get_cell_list_contents([self.pos])
@@ -108,6 +113,33 @@ class WolfAgent(WolfSheepAgent):
             self.model.random.choice(sheep).energy = -1  # the safest method to kill them
             self.energy += self.energy_from_food
 
+    # Hunting if the parameter is true
+    # Choose a neighboring cell with sheep
+    def move(self):
+        self.model: WolfSheepModel
+        if self.model.allow_hunting:
+            cells = self.model.grid.get_neighborhood(
+                pos=self.pos,
+                moore=True,
+                include_center=False,
+                radius=1
+            )
+            cells_to_move = []
+            cell_contents = {cell: self.model.grid.get_cell_list_contents([cell]) for cell in cells}
+            for cell in cell_contents.keys():
+                if cell_contents[cell] is not None:
+                    cell_contents[cell] = {type(agent) for agent in cell_contents[cell]}
+                    if SheepAgent in cell_contents[cell]:
+                        cells_to_move.append(cell)
+            if len(cells_to_move) > 0:
+                dest_cell = self.model.random.choice(cells_to_move)
+                self.model.grid.move_agent(self, dest_cell)
+            else:
+                dest_cell = self.model.random.choice(cells)
+                self.model.grid.move_agent(self, dest_cell)
+        else:
+            super().move()
+
 
 class SheepAgent(WolfSheepAgent):
     def __init__(self, unique_id, model, energy_from_food, reproduction_rate):
@@ -121,6 +153,34 @@ class SheepAgent(WolfSheepAgent):
             if agent.race == 2 and agent.grown:
                 self.energy += self.energy_from_food
                 agent.grown = False
+                
+    def move(self):
+        self.model: WolfSheepModel
+        if self.model.allow_flocking and self.energy > 0:
+            cells = self.model.grid.get_neighborhood(
+                pos=self.pos,
+                moore=True,
+                include_center=False,
+                radius=1
+            )
+            cells_to_move = []
+            cell_contents = {cell: self.model.grid.get_cell_list_contents([cell]) for cell in cells}
+            for cell in cell_contents.keys():
+                if cell_contents[cell] is not None:
+                    cell_contents[cell] = {type(agent) for agent in cell_contents[cell]}
+                    if SheepAgent in cell_contents[cell]:
+                        # Include center to not make reproduction impossible
+                        for neighbor in self.model.grid.get_neighborhood(cell, True, True, 5):
+                            if neighbor in cells:# and neighbor not in cells_to_move:
+                                cells_to_move.append(cell)
+            if len(cells_to_move) > 0:
+                dest_cell = self.model.random.choice(cells_to_move)
+                self.model.grid.move_agent(self, dest_cell)
+            else:
+                dest_cell = self.model.random.choice(cells)
+                self.model.grid.move_agent(self, dest_cell)
+        else:
+            super().move()
 
 
 class GrassAgent(Agent):
