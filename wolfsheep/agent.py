@@ -15,6 +15,7 @@ class WolfSheepAgent(Agent):
         else:
             try:
                 super().__init__(unique_id, model)
+            # I must use bare except because if there are any issues, then the entire model should stop
             except:
                 print("Incompatible mesa version.")
 
@@ -171,7 +172,7 @@ class SheepAgent(WolfSheepAgent):
                     if SheepAgent in cell_contents[cell]:
                         # Include center to not make reproduction impossible
                         for neighbor in self.model.grid.get_neighborhood(cell, True, True, 5):
-                            if neighbor in cells:# and neighbor not in cells_to_move:
+                            if neighbor in cells:
                                 cells_to_move.append(cell)
             if len(cells_to_move) > 0:
                 dest_cell = self.model.random.choice(cells_to_move)
