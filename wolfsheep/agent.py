@@ -119,7 +119,7 @@ class WolfAgent(WolfSheepAgent):
     # Choose a neighboring cell with sheep
     def move(self):
         self.model: WolfSheepModel
-        if self.model.allow_hunting:
+        if self.model.allow_hunting:  # and self.energy > 0 and self.model.random.random() < (self.energy ** -0.5):
             cells = self.model.grid.get_neighborhood(
                 pos=self.pos,
                 moore=True,
@@ -135,10 +135,9 @@ class WolfAgent(WolfSheepAgent):
                         cells_to_move.append(cell)
             if len(cells_to_move) > 0:
                 dest_cell = self.model.random.choice(cells_to_move)
-                self.model.grid.move_agent(self, dest_cell)
             else:
                 dest_cell = self.model.random.choice(cells)
-                self.model.grid.move_agent(self, dest_cell)
+            self.model.grid.move_agent(self, dest_cell)
         else:
             super().move()
 
@@ -158,7 +157,7 @@ class SheepAgent(WolfSheepAgent):
                 
     def move(self):
         self.model: WolfSheepModel
-        if self.model.allow_flocking and self.energy > 0:
+        if self.model.allow_flocking and self.energy > 0:  # if energy is too low focus on survival
             cells = self.model.grid.get_neighborhood(
                 pos=self.pos,
                 moore=True,
@@ -177,10 +176,9 @@ class SheepAgent(WolfSheepAgent):
                                 cells_to_move.append(cell)
             if len(cells_to_move) > 0:
                 dest_cell = self.model.random.choice(cells_to_move)
-                self.model.grid.move_agent(self, dest_cell)
             else:
                 dest_cell = self.model.random.choice(cells)
-                self.model.grid.move_agent(self, dest_cell)
+            self.model.grid.move_agent(self, dest_cell)
         else:
             super().move()
 
