@@ -76,9 +76,11 @@ class WolfSheepAgent(Agent):
                 agent: WolfSheepAgent
                 mates = [agent for agent in self.model.grid.get_cell_list_contents([self.pos])
                          if agent.race == self.race and agent.gender != self.gender and agent.can_reproduce]
-                if len(mates) == 0 or self.gender is False:
+                if len(mates) == 0:
                     return
             self.energy = self.energy // 2
+            if self.gender is False:
+                return
             if self.race == 0:
                 child = WolfAgent(self.model.next_id(), self.model, self.energy_from_food, self.reproduction_rate)
                 child.gender = False
