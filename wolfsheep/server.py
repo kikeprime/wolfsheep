@@ -64,7 +64,7 @@ model_params = {
     "wolf_energy_from_food": Slider("Energy gain from eating (wolves)",
                                     20, 0, 100, 1, ""),
     "sheep_energy_from_food": Slider("Energy gain from eating (sheep)",
-                                     4, 0, 100, 1, ""),
+                                     20, 0, 100, 1, ""),
     "wolf_reproduction_rate": Slider("Reproduction rate of the wolves (%)",
                                      5, 0, 100, 1, ""),
     "sheep_reproduction_rate": Slider("Reproduction rate of the sheep (%)",
@@ -73,6 +73,7 @@ model_params = {
     "allow_hunting": Checkbox("Allow hunting", True, "The wolves actively hunt."),
     "allow_flocking": Checkbox("Allow flocking", True, "The sheep will flock."),
     "hunting_exponent": NumberInput("Hunting exponent", -0.5, "Limiting the hunting"),
+    "allow_seed": Checkbox("Allow Seed", True, ""),
     "seed": NumberInput("Random Seed", 474, "Seed for random number generators")
 }
 
