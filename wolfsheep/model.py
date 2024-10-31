@@ -11,7 +11,7 @@ class WolfSheepModel(Model):
                  model_type, n_wolf, n_sheep,
                  wolf_energy_from_food, sheep_energy_from_food,
                  wolf_reproduction_rate, sheep_reproduction_rate, regrow_time,
-                 allow_hunting, allow_flocking, seed):
+                 allow_hunting, allow_flocking, hunting_exponent, seed):
         super().__init__()
         self.schedule = RandomActivation(self)
         self.grid = MultiGrid(width, height, torus)
@@ -29,6 +29,7 @@ class WolfSheepModel(Model):
 
         self.allow_hunting = allow_hunting
         self.allow_flocking = allow_flocking
+        self.hunting_exponent = -abs(hunting_exponent)
 
         self.random.seed(seed)
 

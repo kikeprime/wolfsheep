@@ -28,7 +28,7 @@ def ws_model_portrayal(agent):
         if agent.grown:
             portrayal["Color"] = ["green"]
         else:
-            portrayal["Color"] = ["brown"]
+            portrayal["Color"] = ["#663300"]
         portrayal["Shape"] = "rect"
         portrayal["Filled"] = "true"
         portrayal["Layer"] = 0
@@ -72,6 +72,7 @@ model_params = {
     "regrow_time": Slider("Grass regrow time", 30, 0, 100, 1, ""),
     "allow_hunting": Checkbox("Allow hunting", True, "The wolves actively hunt."),
     "allow_flocking": Checkbox("Allow flocking", True, "The sheep will flock."),
+    "hunting_exponent": NumberInput("Hunting exponent", -0.5, "Limiting the hunting"),
     "seed": NumberInput("Random Seed", 474, "Seed for random number generators")
 }
 
