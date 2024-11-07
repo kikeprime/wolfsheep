@@ -78,3 +78,4 @@ model_params = {
 }
 
 server = ModularServer(ws.WolfSheepModel, visualization_elements,"Wolves and Sheep", model_params)
+server.description = "Wolves and Sheep model"
