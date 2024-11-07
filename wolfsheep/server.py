@@ -38,7 +38,7 @@ def ws_model_portrayal(agent):
     return portrayal
 
 
-canvas_element = CanvasGrid(ws_model_portrayal, 30, 30, 500, 500)
+canvas_element = CanvasGrid(ws_model_portrayal, 30, 30, 600, 600)
 chart_list = [
     {"Label": "Number of wolves", "Color": "red"},
     {"Label": "Number of sheep", "Color": "blue"},
@@ -64,7 +64,7 @@ model_params = {
     "wolf_energy_from_food": Slider("Energy gain from eating (wolves)",
                                     20, 0, 100, 1, ""),
     "sheep_energy_from_food": Slider("Energy gain from eating (sheep)",
-                                     20, 0, 100, 1, ""),
+                                     4, 0, 100, 1, ""),
     "wolf_reproduction_rate": Slider("Reproduction rate of the wolves (%)",
                                      5, 0, 100, 1, ""),
     "sheep_reproduction_rate": Slider("Reproduction rate of the sheep (%)",
