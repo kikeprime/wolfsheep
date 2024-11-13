@@ -1,8 +1,56 @@
-# English
-# Wolves and Sheep population model
+# English<br>Wolves and Sheep population model <img src="wolfsheep/pics/wolf.png"> <img src="wolfsheep/pics/fsheep.png">
 
-# Magyar
-# Farkasok és bárányok populációmodell <img src="wolfsheep/pics/wolf.png"> <img src="wolfsheep/pics/fsheep.png">
+## Introduction
+The "Wolves and Sheep" is a self-programmed mesa implementation and further development of an agent-based model created in NetLogo.
+This model models the cohabitation of a predator species and one of its prey in three ways.
+The default model type contains my extensions while the rest two are meant to implement the original model's two types as faithfully as possible.
+
+## The model types' operational characteristics
+### Mutual characteristics
+In all three models, there are two animal species, one predator and one of its prey, which are represented by wolves and sheep.
+These animals live in a grassy area and the sheep graze the grass, the wolves eat the sheep.
+Furthermore, all entities have some energy (energy point from now on) which is decreased by one in every step (the model's change of state) but is increased by the given parameter by eating. If there energy is fully consumed (not 0 but less than 0 energy point) they die. The can also reproduce randomly, however doing so halves their energy.
+
+In the original model, the grass were put in the cells as patches while in this implementation as agents. In the case of all three models, the number of grass agents equals to the number of cells. The grass has two states, grown and grazed.
+
+New parameters which work for all three models:
+
+<ul>
+<li>Whether the wolves should hunt actively.</li>
+<li>The exponent that limits the hunt. See below.</li>
+<li>Whether the sheep try to flock.</li>
+<li>The seed that controls the random functions. The seed makes the runs reproducable, but can be turned off.</li>
+</ul>
+
+The exponent that limits the hunt means that the probability of a wolf hunts actively is $\text{(energy point)}^{-|\text{exponent}|}$.
+So, if the exponent is 0 there's no limitation. It's imortant to note the reason behind the exponent being nonpositive is that the probability would be 100% just like in case of 0 due to how the code works. Overhunt is typical in case of free hunt this was the motivation behind the exponent.
+
+### Wolves and sheep
+<ul>
+<li>The simplest model type, which was directly implemented from the original model.</li>
+<li>All the grasses are always grown.</li>
+<li>The sheep have infinite energy (it doesn't change).</li>
+<li>The wolves eat one sheep from the cell they're residing with given probability.</li>
+<li>The entities give birth to one descendant with given probability which descendant is put into one of the neighboring cells.</li>
+</ul>
+
+### Wolves, sheep and grass
+<ul>
+<li>Also implemented from the original model.</li>
+<li>The rules above are still intact alongside the ones below.</li>
+<li>The sheep's energy changes just like the wolves'.</li>
+<li>The grazed grass agents become grown again after given number of steps.</li>
+</ul>
+
+### Extended model
+<ul>
+<li>The model type extended by me.</li>
+<li>The animal agents have gender.</li>
+<li>For reproduction, two entities with different genders must be present in the same cell and both parents must "want" it.</li>
+<li>Because of the new reproduction conditions, one parent's reproduction probability is the square root of the parameter, so the parents give the parameter together.</li>
+</ul>
+
+# Magyar<br>Farkasok és bárányok populációmodell <img src="wolfsheep/pics/wolf.png"> <img src="wolfsheep/pics/fsheep.png">
 
 ## Előszó
 A "Farkasok és bárányok" egy NetLogoban készült ágens alapú modell saját programozású mesa implementációja, illetve továbbfejlesztése.
@@ -11,7 +59,7 @@ Az alapértelmezett modelltípus a saját bővítéseimet tartalmazza, míg a m�
 
 ## A modelltípusok működési jellemzői
 ### Közös jellemzők
-Mindhárom modellben van két állatfaj, egy ragadozó és annak egy prédája, amelyeket mint farkasok és bárányok reprezentálunk.
+Mindhárom modellben van két állatfaj, egy ragadozó és annak egy prédája, amelyeket farkasokkal és bárányokkal reprezentálunk.
 Ezek az állatok egy füves területen élnek és a bárányok legelik a füvet, a farkasok megeszik a bárányokat.
 Továbbá minden egyednek van valamennyi energiája (továbbiakban energiapont), amely minden lépésben (a modell állapotváltozása) eggyel csökken, de evés által a megadott paraméternyivel megnő. Ha elfogy az energiájuk (nem 0, hanem kevesebb, mint 0 energiapont), akkor meghalnak. Ezek mellett képesek is szaporodni valószínűségi alapon, azonban ekkor az energiájuk megfeleződik.
 
@@ -26,7 +74,7 @@ Az eredeti modellben a fű mint "patchek" voltak a cellákba helyezve, míg ebbe
 <li>A random függvényeket szabályzó seed. A seed segítségével reprodukálhatóvá válnak a futtattások, de kikapcsolható.</li>
 </ul>
 
-A vadászatot korlátozó kitevő azt jelenti, hogy annak a valószínűsége, hogy egy farkas aktívan vadászik $\text{energiapont}^{-|\text{kitevő}|}$. Tehát, ha a kitevő 0, akkor nincs korlátozás. Fontos megjegyezni, hogy a kitevő azért nempozitív, mert különben a kódban működéséből kifolyólag a valószínűség 100% lenne, mint a 0 esetében. Szabad vadászat esetén a túlvadászat a jellemző, ez volt a kitevő bevezetésének motivációja.
+A vadászatot korlátozó kitevő azt jelenti, hogy annak a valószínűsége, hogy egy farkas aktívan vadászik $\text{energiapont}^{-|\text{kitevő}|}$. Tehát, ha a kitevő 0, akkor nincs korlátozás. Fontos megjegyezni, hogy a kitevő azért nempozitív, mert különben a kód működéséből kifolyólag a valószínűség 100% lenne, mint a 0 esetében. Szabad vadászat esetén jellemző a túlvadászat, ez volt a kitevő bevezetésének motivációja.
 
 ### Farkasok és bárányok
 <ul>
@@ -42,7 +90,7 @@ A vadászatot korlátozó kitevő azt jelenti, hogy annak a valószínűsége, h
 <li>Szintén az eredeti modellből implementálva.</li>
 <li>A fentiek érvényesek az alábbiak mellett.</li>
 <li>A bárányok energiája ugyanúgy változik, mint a farkasoké.</li>
-<li>A lelegelt fű ágensek megadott lépésenként nőnek ki újra.</li>
+<li>A lelegelt fű ágensek megadott számú lépés után nőnek ki újra.</li>
 </ul>
 
 ### Bővített modell
