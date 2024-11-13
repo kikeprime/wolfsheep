@@ -77,9 +77,9 @@ Sajnálatos módon, csak Linux alatt ajánlott a futtatás, mert valamilyen ok f
 
 A fenti ábrán egy az alapértelmezett paraméterekkel, kezdeti állapotban készült képernyőkép látható.
 
-A felső sávban látható a modell neve, mellette az $,,\text{About}"$ gomb, amelyre rákattintva egy angol nyelvű leírás ugrik fel. A sáv jobb szélén a $,,\text{Start}"$, $,,\text{Step}"$ és $,,\text{Stop}"$ gombok vannak, amelyek közül a középső a modellt lépteti.
+A felső sávban látható a modell neve, mellette az "About" gomb, amelyre rákattintva egy angol nyelvű leírás ugrik fel. A sáv jobb szélén a "Start", "Step" és "Stop" gombok vannak, amelyek közül a középső a modellt lépteti.
 
-A bal oldalon a modell paraméterei állíthatók be, középen a modellt vizualizáló négyzetrács látható, amely felett a rendes, Start gombbal való indított szimuláció sebessége allítható, amely alapértelmezett értéke 3 lépés/másodperc, azonban ez az ágensek számától függően változhat (például túlszaporodás esetén lassabb). A rács alatt két grafikon látható (az alsó nem fért a képre), amely közül a felső az egyedek számát ábrázolja fajonként, illetve nemenként a lépésszám függvényében. Az alsó grafikon a kinőtt fűágensek százalékos arányát ábrázolja szintén a lépésszám függvényében. A lejjebb lévő $,,$ Vizualizáció nélküli futtattás $"$ szakaszban ugyanezen grafikonok láthatóak.
+A bal oldalon a modell paraméterei állíthatók be, középen a modellt vizualizáló négyzetrács látható, amely felett a rendes, Start gombbal való indított szimuláció sebessége allítható, amely alapértelmezett értéke 3 lépés/másodperc, azonban ez az ágensek számától függően változhat (például túlszaporodás esetén lassabb). A rács alatt két grafikon látható (az alsó nem fért a képre), amely közül a felső az egyedek számát ábrázolja fajonként, illetve nemenként a lépésszám függvényében. Az alsó grafikon a kinőtt fűágensek százalékos arányát ábrázolja szintén a lépésszám függvényében. A lejjebb lévő "Vizualizáció nélküli futtattás" szakaszban ugyanezen grafikonok láthatóak.
 
 A nőstény farkasok narancssárgák, a hímek szürkék, a nőstény bárányok fehérek, a hímek feketék. Ennek a választásnak a következménye az, hogy az öröklött modelltípusokban minden farkas hím és minden bárány nőstény.
 
