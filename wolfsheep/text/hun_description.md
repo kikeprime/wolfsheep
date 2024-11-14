@@ -80,7 +80,7 @@ A bal oldalon a modell paraméterei állíthatók be, középen a modellt vizual
 
 A nőstény farkasok narancssárgák, a hímek szürkék, a nőstény bárányok fehérek, a hímek feketék. Ennek a választásnak a következménye az, hogy az öröklött modelltípusokban minden farkas hím és minden bárány nőstény.
 
-<h1>References / Hivatkozások</h1>
+<h1>Hivatkozások</h1>
 <ul>
 <li>Wilensky, U. (1997). NetLogo Wolf Sheep Predation model. http://ccl.northwestern.edu/netlogo/models/WolfSheepPredation. Center for Connected Learning and Computer-Based Modeling, Northwestern University, Evanston, IL.</li>
 </ul>
