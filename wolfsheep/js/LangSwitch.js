@@ -4,23 +4,12 @@ let lang = "en"
 navbar = document.getElementById("navbar")
 config = { attributes: true, childList: true, subtree: true }
 
-switch(lang) {
-    default:
-    case "hu":
-    navbar.innerHTML += `
+navbar.innerHTML += `
+<div><p>Tab</p></div>
 <div id="lang-flag">
-<img src="/local/custom/wolfsheep/pics/hu_flag.png">
+<img width="64" src="https://upload.wikimedia.org/wikipedia/commons/c/c1/Flag_of_Hungary.svg">
 </div>
 `
-    break;
-    case "en":
-    navbar.innerHTML += `
-<div id="lang-flag">
-<img src="/local/custom/wolfsheep/pics/en_flag.png">
-</div>
-`
-    break;
-}
 
 // Initialize description
 fetch("/local/custom/wolfsheep/text/eng_description.md")
@@ -59,7 +48,7 @@ function SwitchToHun() {
     HeaderToHun()
     ButtonsToHun()
     ParamsToHun()
-    lang_flag.firstElementChild.src = "/local/custom/wolfsheep/pics/eng_flag.png"
+    lang_flag.firstElementChild.src = "https://upload.wikimedia.org/wikipedia/commons/a/a5/Flag_of_the_United_Kingdom_(1-2).svg"
     lang = "hu"
 }
 
@@ -135,7 +124,7 @@ function SwitchToEng() {
     HeaderToEng()
     ButtonsToEng()
     ParamsToEng()
-    lang_flag.firstElementChild.src = "/local/custom/wolfsheep/pics/hun_flag.png"
+    lang_flag.firstElementChild.src = "https://upload.wikimedia.org/wikipedia/commons/c/c1/Flag_of_Hungary.svg"
     lang = "en"
 }
 
