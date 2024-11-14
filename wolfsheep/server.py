@@ -1,3 +1,7 @@
+import os
+
+import tornado.web
+
 from mesa_viz_tornado.ModularVisualization import ModularServer
 from mesa_viz_tornado.modules import CanvasGrid, ChartModule
 from mesa_viz_tornado.UserParam import *
@@ -17,13 +21,15 @@ def ws_model_portrayal(agent):
             portrayal["Shape"] = "wolfsheep/pics/wolf.png"
         portrayal["scale"] = 1
         portrayal["Layer"] = 1
+        portrayal["energy"] = agent.energy
     if isinstance(agent, ws.SheepAgent):
         if agent.gender:
             portrayal["Shape"] = "wolfsheep/pics/fsheep.png"
         else:
             portrayal["Shape"] = "wolfsheep/pics/sheep.png"
         portrayal["scale"] = 1
-        portrayal["Layer"] = 2
+        portrayal["Layer"] = 1
+        portrayal["energy"] = agent.energy
     if isinstance(agent, ws.GrassAgent):
         if agent.grown:
             portrayal["Color"] = ["green"]
@@ -39,6 +45,7 @@ def ws_model_portrayal(agent):
 
 
 canvas_element = CanvasGrid(ws_model_portrayal, 30, 30, 600, 600)
+
 chart_list = [
     {"Label": "Number of wolves", "Color": "red"},
     {"Label": "Number of sheep", "Color": "blue"},
@@ -77,5 +84,6 @@ model_params = {
     "seed": NumberInput("Random Seed", 474, "Seed for random number generators")
 }
 
-server = ModularServer(ws.WolfSheepModel, visualization_elements,"Wolves and Sheep", model_params)
+server = ModularServer(ws.WolfSheepModel, visualization_elements, "Wolves and Sheep", model_params)
 server.description = "Wolves and Sheep model"
+server.local_js_includes.add("custom/wolfsheep/js/LangSwitch.js")
