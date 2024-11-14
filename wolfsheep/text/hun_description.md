@@ -1,4 +1,4 @@
-<h1>English<br>Wolves and Sheep population model <img src="wolfsheep/pics/wolf.png"> <img src="wolfsheep/pics/fsheep.png"></h1>
+# English<br>Wolves and Sheep population model <img src="/local/custom/wolfsheep/pics/wolf.png"> <img src="/local/custom/wolfsheep/pics/fsheep.png">
 
 ## Introduction
 The "Wolves and Sheep" is a self-programmed mesa implementation and further development of an agent-based model created in NetLogo.

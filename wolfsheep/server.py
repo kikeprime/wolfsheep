@@ -19,17 +19,15 @@ def ws_model_portrayal(agent):
             portrayal["Shape"] = "wolfsheep/pics/fwolf.png"
         else:
             portrayal["Shape"] = "wolfsheep/pics/wolf.png"
-        portrayal["scale"] = 1
         portrayal["Layer"] = 1
-        portrayal["energy"] = agent.energy
+        portrayal["Energy"] = agent.energy
     if isinstance(agent, ws.SheepAgent):
         if agent.gender:
             portrayal["Shape"] = "wolfsheep/pics/fsheep.png"
         else:
             portrayal["Shape"] = "wolfsheep/pics/sheep.png"
-        portrayal["scale"] = 1
         portrayal["Layer"] = 1
-        portrayal["energy"] = agent.energy
+        portrayal["Energy"] = agent.energy
     if isinstance(agent, ws.GrassAgent):
         if agent.grown:
             portrayal["Color"] = ["green"]
@@ -79,11 +77,10 @@ model_params = {
     "regrow_time": Slider("Grass regrow time", 30, 0, 100, 1, ""),
     "allow_hunting": Checkbox("Allow hunting", True, "The wolves actively hunt."),
     "allow_flocking": Checkbox("Allow flocking", True, "The sheep will flock."),
-    "hunting_exponent": NumberInput("Hunting exponent", -0.5, "Limiting the hunting"),
+    "hunting_exponent": NumberInput("Hunt limiter exponent", -0.5, "Limiting the hunting"),
     "allow_seed": Checkbox("Allow Seed", True, ""),
     "seed": NumberInput("Random Seed", 474, "Seed for random number generators")
 }
 
 server = ModularServer(ws.WolfSheepModel, visualization_elements, "Wolves and Sheep", model_params)
-server.description = "Wolves and Sheep model"
 server.local_js_includes.add("custom/wolfsheep/js/LangSwitch.js")
