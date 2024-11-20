@@ -7,12 +7,12 @@ config = { attributes: true, childList: true, subtree: true }
 navbar.innerHTML += `
 <div><p>Tab</p></div>
 <div id="lang-flag">
-<img width="64" src="https://upload.wikimedia.org/wikipedia/commons/c/c1/Flag_of_Hungary.svg">
+<img width="64" src="wolfsheep/pics/Flag_of_Hungary.svg">
 </div>
 `
 
 // Initialize description
-fetch("/local/custom/wolfsheep/text/eng_description.md")
+fetch("wolfsheep/text/eng_description.md")
     .then(response => response.text())
     .then(text => description.innerHTML = text)
 
@@ -48,7 +48,7 @@ function SwitchToHun() {
     HeaderToHun()
     ButtonsToHun()
     ParamsToHun()
-    lang_flag.firstElementChild.src = "https://upload.wikimedia.org/wikipedia/commons/a/a5/Flag_of_the_United_Kingdom_(1-2).svg"
+    lang_flag.firstElementChild.src = "wolfsheep/pics/Flag_of_the_United_Kingdom_(1-2).svg"
     lang = "hu"
 }
 
@@ -57,7 +57,7 @@ function HeaderToHun() {
     document.getElementsByClassName("navbar-brand")[0].innerText = "Farkasok és bárányok"
     document.getElementsByClassName("modal-title")[0].innerText = "Farkasok és bárányok leírás"
 
-    fetch("/local/custom/wolfsheep/text/hun_description.md")
+    fetch("wolfsheep/text/hun_description.md")
         .then(response => response.text())
         .then(text => description.innerHTML = text)
 }
@@ -124,7 +124,7 @@ function SwitchToEng() {
     HeaderToEng()
     ButtonsToEng()
     ParamsToEng()
-    lang_flag.firstElementChild.src = "https://upload.wikimedia.org/wikipedia/commons/c/c1/Flag_of_Hungary.svg"
+    lang_flag.firstElementChild.src = "wolfsheep/pics/Flag_of_Hungary.svg"
     lang = "en"
 }
 
@@ -133,7 +133,7 @@ function HeaderToEng() {
     document.getElementsByClassName("navbar-brand")[0].innerText = "Wolves and Sheep"
     document.getElementsByClassName("modal-title")[0].innerText = "About Wolves and Sheep"
 
-    fetch("/local/custom/wolfsheep/text/eng_description.md")
+    fetch("wolfsheep/text/eng_description.md")
         .then(response => response.text())
         .then(text => description.innerHTML = text)
 }

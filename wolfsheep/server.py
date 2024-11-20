@@ -1,12 +1,32 @@
-import os
-
-import tornado.web
-
 from mesa_viz_tornado.ModularVisualization import ModularServer
 from mesa_viz_tornado.modules import CanvasGrid, ChartModule
 from mesa_viz_tornado.UserParam import *
+import tornado.web
 
 import wolfsheep as ws
+
+
+# Accessing the files directly instead of from /local/custom
+class WolfSheepServer(ModularServer):
+    def __init__(
+        self,
+        model_cls,
+        visualization_elements,
+        name="Mesa Model",
+        model_params=None,
+        port=None,
+    ):
+        super().__init__(
+            model_cls,
+            visualization_elements,
+            name,
+            model_params,
+            port,
+        )
+
+        self.handlers.append((r"/(.*)", tornado.web.StaticFileHandler, {"path": ""}))
+
+        super(ModularServer, self).__init__(self.handlers, **self.settings)
 
 
 def ws_model_portrayal(agent):
@@ -56,10 +76,10 @@ chart_list = [
 chart_element = ChartModule(chart_list[:-1], data_collector_name="datacollector")
 chart_element_grass = ChartModule([chart_list[-1]], data_collector_name="datacollector")
 
-visualization_elements = [canvas_element, chart_element, chart_element_grass]
+viz_elements = [canvas_element, chart_element, chart_element_grass]
 
 model_types = ["Extended model", "Wolves, sheep and grass model", "Wolves and sheep model"]
-model_params = {
+params = {
     "width": 30,
     "height": 30,
     "torus": Checkbox("Torus", True, "Whether the edges are connected or not."),
@@ -82,5 +102,5 @@ model_params = {
     "seed": NumberInput("Random Seed", 474, "Seed for random number generators")
 }
 
-server = ModularServer(ws.WolfSheepModel, visualization_elements, "Wolves and Sheep", model_params)
+server = WolfSheepServer(ws.WolfSheepModel, viz_elements, "Wolves and Sheep", params)
 server.local_js_includes.add("custom/wolfsheep/js/LangSwitch.js")
