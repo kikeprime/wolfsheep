@@ -6,7 +6,7 @@ import tornado.web
 import wolfsheep as ws
 
 
-# Accessing the files directly instead of from /local/custom
+# Accessing the files from root instead of from /local/custom
 class WolfSheepServer(ModularServer):
     def __init__(
         self,

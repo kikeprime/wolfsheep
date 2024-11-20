@@ -73,13 +73,13 @@ class WolfSheepModel(Model):
 
         self.datacollector = DataCollector(
             model_reporters={
-                "Number of wolves": wolf_counter,
-                "Number of sheep": sheep_counter,
-                "Number of female wolves": fwolf_counter,
-                "Number of male wolves": mwolf_counter,
-                "Number of female sheep": fsheep_counter,
-                "Number of male sheep": msheep_counter,
-                "Ratio of grass patches (%)": grass_counter
+                "Number of wolves": self.wolf_counter,
+                "Number of sheep": self.sheep_counter,
+                "Number of female wolves": self.fwolf_counter,
+                "Number of male wolves": self.mwolf_counter,
+                "Number of female sheep": self.fsheep_counter,
+                "Number of male sheep": self.msheep_counter,
+                "Ratio of grass patches (%)": self.grass_counter
             }
         )
         self.datacollector.collect(self)
@@ -93,46 +93,46 @@ class WolfSheepModel(Model):
         neighborhood = self.grid.get_neighborhood(pos, True, include_center=False, radius=1)
         self.grid.place_agent(child, self.random.choice(neighborhood))
 
+    # Agent counters
+    @staticmethod
+    def agent_counter(model, race, by_gender, gender=False):
+        result = 0
+        for agent in model.schedule.agents:
+            agent: ws.WolfAgent | ws.SheepAgent
+            if agent.race == race:
+                if by_gender and agent.gender == gender or not by_gender:
+                    result += 1
+        return result
 
-# Agent counters
-def agent_counter(model, race, by_gender, gender=False):
-    result = 0
-    for agent in model.schedule.agents:
-        agent: ws.WolfAgent | ws.SheepAgent
-        if agent.race == race:
-            if by_gender and agent.gender == gender or not by_gender:
+    @staticmethod
+    def wolf_counter(model):
+        return model.agent_counter(model, 0, False)
+
+    @staticmethod
+    def sheep_counter(model):
+        return model.agent_counter(model, 1, False)
+
+    @staticmethod
+    def fwolf_counter(model):
+        return model.agent_counter(model, 0, True, True)
+
+    @staticmethod
+    def mwolf_counter(model):
+        return model.agent_counter(model, 0, True, False)
+
+    @staticmethod
+    def fsheep_counter(model):
+        return model.agent_counter(model, 1, True, True)
+
+    @staticmethod
+    def msheep_counter(model):
+        return model.agent_counter(model, 1, True, False)
+
+    @staticmethod
+    def grass_counter(model):
+        result = 0
+        for agent in model.schedule.agents:
+            agent: ws.GrassAgent
+            if agent.race == 2 and agent.grown:
                 result += 1
-    return result
-
-
-def wolf_counter(model):
-    return agent_counter(model,0, False)
-
-
-def sheep_counter(model):
-    return agent_counter(model, 1, False)
-
-
-def fwolf_counter(model):
-    return agent_counter(model, 0, True, True)
-
-
-def mwolf_counter(model):
-    return agent_counter(model, 0, True, False)
-
-
-def fsheep_counter(model):
-    return agent_counter(model, 1, True, True)
-
-
-def msheep_counter(model):
-    return agent_counter(model, 1, True, False)
-
-
-def grass_counter(model):
-    result = 0
-    for agent in model.schedule.agents:
-        agent: ws.GrassAgent
-        if agent.race == 2 and agent.grown:
-            result += 1
-    return 100 * result / float(model.grid.width * model.grid.height)
+        return 100 * result / float(model.grid.width * model.grid.height)
