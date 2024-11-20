@@ -26,7 +26,18 @@ New parameters which work for all three models:
 <li>The seed that controls the random functions. The seed makes the runs reproducable, but can be turned off.</li>
 </ul>
 
-The hunt limiter exponent means that the probability of a wolf hunts actively is $\text{(energy point)}^{-|\text{exponent}|}$.
+The hunt limiter exponent means that the probability of a wolf hunts actively is
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <msup>
+    <mtext>(energy point)</mtext>
+    <mrow data-mjx-texclass="ORD">
+      <mo>−</mo>
+      <mo data-mjx-texclass="ORD" stretchy="false">|</mo>
+      <mtext>exponent</mtext>
+      <mo data-mjx-texclass="ORD" stretchy="false">|</mo>
+    </mrow>
+  </msup>
+</math>.
 So, if the exponent is 0 there's no limitation. It's imortant to note the reason behind the exponent being nonpositive is that the probability would be 100% just like in case of 0 due to how the code works. Overhunt is typical in case of free hunt this was the motivation behind the exponent.
 
 <h3>Wolves and sheep</h3>
