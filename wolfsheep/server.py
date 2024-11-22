@@ -8,6 +8,9 @@ import wolfsheep as ws
 
 # Accessing the files from root instead of from /local/custom
 class WolfSheepServer(ModularServer):
+    """
+    Attach the wolfsheep module's folder to the web server's root then reinitialize the server.
+    """
     def __init__(
         self,
         model_cls,
@@ -16,20 +19,31 @@ class WolfSheepServer(ModularServer):
         model_params=None,
         port=None,
     ):
+        """Override ModularServer.__init__"""
+
+        # call ModularServer.__init__
         super().__init__(
-            model_cls,
-            visualization_elements,
-            name,
-            model_params,
-            port,
+            model_cls=model_cls,
+            visualization_elements=visualization_elements,
+            name=name,
+            model_params=model_params,
+            port=port,
         )
 
+        # Attach the wolfsheep module's folder to the web server's root
         self.handlers.append((r"/(.*)", tornado.web.StaticFileHandler, {"path": ""}))
 
+        # Reinitialize server by calling tornado.web.Application.__init__
+        # Taken from the end of ModularServer.__init__
         super(ModularServer, self).__init__(self.handlers, **self.settings)
 
 
 def ws_model_portrayal(agent):
+    """
+    Handle agent portrayals, including icons by gender.
+    Return the agent portrayal dictionary.
+    """
+
     if agent is None:
         return
 
@@ -62,7 +76,9 @@ def ws_model_portrayal(agent):
     return portrayal
 
 
-canvas_element = CanvasGrid(ws_model_portrayal, 30, 30, 600, 600)
+canvas_element = CanvasGrid(portrayal_method=ws_model_portrayal,
+                            grid_width=30, grid_height=30,
+                            canvas_width=600, canvas_height=600)
 
 chart_list = [
     {"Label": "Number of wolves", "Color": "red"},
@@ -73,8 +89,8 @@ chart_list = [
     {"Label": "Number of male sheep", "Color": "black"},
     {"Label": "Ratio of grass patches (%)", "Color": "green"}
 ]
-chart_element = ChartModule(chart_list[:-1], data_collector_name="datacollector")
-chart_element_grass = ChartModule([chart_list[-1]], data_collector_name="datacollector")
+chart_element = ChartModule(series=chart_list[:-1], data_collector_name="datacollector")
+chart_element_grass = ChartModule(series=[chart_list[-1]], data_collector_name="datacollector")
 
 viz_elements = [canvas_element, chart_element, chart_element_grass]
 
@@ -82,25 +98,28 @@ model_types = ["Extended model", "Wolves, sheep and grass model", "Wolves and sh
 params = {
     "width": 30,
     "height": 30,
-    "torus": Checkbox("Torus", True, "Whether the edges are connected or not."),
-    "model_type": Choice("Model type", model_types[0], model_types, ""),
-    "n_wolf": Slider("Initial number of wolves", 50, 0, 100, 1, ""),
-    "n_sheep": Slider("Initial number of sheep", 100, 0, 100, 1, ""),
-    "wolf_energy_from_food": Slider("Energy gain from eating (wolves)",
-                                    20, 0, 100, 1, ""),
-    "sheep_energy_from_food": Slider("Energy gain from eating (sheep)",
-                                     4, 0, 100, 1, ""),
+    "torus": Checkbox(name="Torus", value=True, description="Whether the edges are connected or not."),
+    "model_type": Choice(name="Model type", value=model_types[0], choices=model_types),
+    "n_wolf": Slider(name="Initial number of wolves", value=50, min_value=0, max_value=100, step=1),
+    "n_sheep": Slider(name="Initial number of sheep", value=100, min_value=0, max_value=100, step=1),
+    "wolf_energy_from_food": Slider(name="Energy gain from eating (wolves)",
+                                    value=20, min_value=0, max_value=100, step=1),
+    "sheep_energy_from_food": Slider(name="Energy gain from eating (sheep)",
+                                     value=4, min_value=0, max_value=100, step=1),
     "wolf_reproduction_rate": Slider("Reproduction rate of the wolves (%)",
-                                     5, 0, 100, 1, ""),
-    "sheep_reproduction_rate": Slider("Reproduction rate of the sheep (%)",
-                                      4, 0, 100, 1, ""),
-    "regrow_time": Slider("Grass regrow time", 30, 0, 100, 1, ""),
-    "allow_hunting": Checkbox("Allow hunting", True, "The wolves actively hunt."),
-    "allow_flocking": Checkbox("Allow flocking", True, "The sheep will flock."),
-    "hunting_exponent": NumberInput("Hunt limiter exponent", -0.5, "Limiting the hunting"),
-    "allow_seed": Checkbox("Allow Seed", True, ""),
-    "seed": NumberInput("Random Seed", 474, "Seed for random number generators")
+                                     value=5, min_value=0, max_value=100, step=1),
+    "sheep_reproduction_rate": Slider(name="Reproduction rate of the sheep (%)",
+                                      value=4, min_value=0, max_value=100, step=1),
+    "regrow_time": Slider(name="Grass regrow time", value=30, min_value=0, max_value=100, step=1),
+    "allow_hunting": Checkbox(name="Allow hunting", value=True, description="The wolves actively hunt."),
+    "allow_flocking": Checkbox(name="Allow flocking", value=True, description="The sheep will flock."),
+    "hunting_exponent": NumberInput(name="Hunt limiter exponent", value=-0.5, description="Limiting the hunting"),
+    "allow_seed": Checkbox(name="Allow Seed", value=True),
+    "seed": NumberInput(name="Random Seed", value=474, description="Seed for random number generators")
 }
 
-server = WolfSheepServer(ws.WolfSheepModel, viz_elements, "Wolves and Sheep", params)
+server = WolfSheepServer(model_cls=ws.WolfSheepModel,
+                         visualization_elements=viz_elements,
+                         name="Wolves and Sheep",
+                         model_params=params)
 server.local_js_includes.add("custom/wolfsheep/js/LangSwitch.js")

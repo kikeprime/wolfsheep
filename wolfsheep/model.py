@@ -7,15 +7,37 @@ import wolfsheep as ws
 
 
 class WolfSheepModel(Model):
-    def __init__(self, width, height, torus,
-                 model_type, n_wolf, n_sheep,
-                 wolf_energy_from_food, sheep_energy_from_food,
-                 wolf_reproduction_rate, sheep_reproduction_rate, regrow_time,
-                 allow_hunting, allow_flocking, hunting_exponent,
-                 allow_seed, seed):
+    """
+    Class for the WolfSheep model.
+
+    Attributes:
+        width (int): Width of the grid
+        height (int): Height of the grid
+        torus (bool): Torus for grid
+        model_type: Type of the model (see below)
+        n_wolf (int): Initial number of wolves
+        n_sheep (int): Initial number of sheep
+        wolf_ep_gain (int): Energy point gain for wolves
+        sheep_ep_gain (int): Energy point gain for sheep
+        wolf_reproduction_rate (float): Reproduction rate for wolves
+        sheep_reproduction_rate (float): Reproduction rate for sheep
+        regrow_time (int): Regrow step count for grass agents
+        allow_hunt (bool): Allow hunting
+        allow_flocking (bool): Allow flocking
+        hunt_exponent (float): Limiter exponent for hunt
+        allow_seed (bool): Allow seed usage
+        seed (int): Random seed
+
+    """
+    def __init__(self, width: int, height: int, torus: bool,
+                 model_type: int, n_wolf: int, n_sheep: int,
+                 wolf_ep_gain: int, sheep_ep_gain: int,
+                 wolf_reproduction_rate: float, sheep_reproduction_rate: float, regrow_time: int,
+                 allow_hunt: bool, allow_flocking: bool, hunt_exponent: float,
+                 allow_seed: bool, seed: int):
         super().__init__()
-        self.schedule = RandomActivation(self)
-        self.grid = MultiGrid(width, height, torus)
+        self.schedule = RandomActivation(model=self)
+        self.grid = MultiGrid(width=width, height=height, torus=torus)
 
         # model-version in the NetLogo code
         model_types = {
@@ -28,28 +50,34 @@ class WolfSheepModel(Model):
         self.n_wolf = n_wolf
         self.n_sheep = n_sheep
 
-        self.allow_hunting = allow_hunting
+        self.allow_hunting = allow_hunt
         self.allow_flocking = allow_flocking
-        self.hunting_exponent = -abs(hunting_exponent)
+        self.hunting_exponent = -abs(hunt_exponent)
 
         if allow_seed:
             self.random.seed(seed)
 
         # Adding wolves
         for wolf_id in range(self.n_wolf):
-            wolf = ws.WolfAgent(self.next_id(), self, wolf_energy_from_food, wolf_reproduction_rate)
+            wolf = ws.WolfAgent(unique_id=self.next_id(),
+                                model=self,
+                                ep_gain=wolf_ep_gain,
+                                reproduction_rate=wolf_reproduction_rate)
             if self.model_type == 0:
                 wolf.gender = self.random.choice([True, False])
             else:
                 wolf.gender = False
-            self.schedule.add(wolf)
+            self.schedule.add(agent=wolf)
             x = self.random.randrange(width)
             y = self.random.randrange(height)
-            self.grid.place_agent(wolf, (x, y))
+            self.grid.place_agent(agent=wolf, pos=(x, y))
 
         # Adding sheep
         for sheep_id in range(self.n_sheep):
-            sheep = ws.SheepAgent(self.next_id(), self, sheep_energy_from_food, sheep_reproduction_rate)
+            sheep = ws.SheepAgent(unique_id=self.next_id(),
+                                  model=self,
+                                  ep_gain=sheep_ep_gain,
+                                  reproduction_rate=sheep_reproduction_rate)
             if self.model_type == 0:
                 sheep.gender = self.random.choice([True, False])
             else:
@@ -65,20 +93,20 @@ class WolfSheepModel(Model):
                 grass = ws.GrassAgent(self.next_id(), self, True, 0)
             else:
                 grown = self.random.choice([True, False])
-                grass = ws.GrassAgent(self.next_id(), self, grown, regrow_time)
+                grass = ws.GrassAgent(unique_id=self.next_id(), model=self, grown=grown, regrow_time=regrow_time)
                 if not grass.grown:
                     grass.countdown = self.random.randrange(regrow_time)
-            self.schedule.add(grass)
-            self.grid.place_agent(grass, (grass_id % width, grass_id // width))
+            self.schedule.add(agent=grass)
+            self.grid.place_agent(agent=grass, pos=(grass_id % width, grass_id // width))
 
         self.datacollector = DataCollector(
             model_reporters={
                 "Number of wolves": self.wolf_counter,
                 "Number of sheep": self.sheep_counter,
-                "Number of female wolves": self.fwolf_counter,
-                "Number of male wolves": self.mwolf_counter,
-                "Number of female sheep": self.fsheep_counter,
-                "Number of male sheep": self.msheep_counter,
+                "Number of female wolves": self.female_wolf_counter,
+                "Number of male wolves": self.male_wolf_counter,
+                "Number of female sheep": self.female_sheep_counter,
+                "Number of male sheep": self.male_sheep_counter,
                 "Ratio of grass patches (%)": self.grass_counter
             }
         )
@@ -89,13 +117,22 @@ class WolfSheepModel(Model):
         self.datacollector.collect(self)
 
     def place_child(self, child, pos):
-        self.schedule.add(child)
-        neighborhood = self.grid.get_neighborhood(pos, True, include_center=False, radius=1)
-        self.grid.place_agent(child, self.random.choice(neighborhood))
+        self.schedule.add(agent=child)
+        neighborhood = self.grid.get_neighborhood(pos=pos, moore=True, include_center=False, radius=1)
+        self.grid.place_agent(child=child, pos=self.random.choice(neighborhood))
 
     # Agent counters
     @staticmethod
-    def agent_counter(model, race, by_gender, gender=False):
+    def agent_counter(model, race: int, by_gender=False, gender=False) -> int:
+        """
+        Count number of wolves and sheep.
+
+        Attributes:
+            model (WolfSheepModel): model instance
+            race (int): agent race
+            by_gender (bool): whether to count specific gender (optional)
+            gender (bool): specify gender (optional)
+        """
         result = 0
         for agent in model.schedule.agents:
             agent: ws.WolfAgent | ws.SheepAgent
@@ -105,31 +142,32 @@ class WolfSheepModel(Model):
         return result
 
     @staticmethod
-    def wolf_counter(model):
-        return model.agent_counter(model, 0, False)
+    def wolf_counter(model) -> int:
+        return model.agent_counter(model=model, race=0)
 
     @staticmethod
-    def sheep_counter(model):
-        return model.agent_counter(model, 1, False)
+    def sheep_counter(model) -> int:
+        return model.agent_counter(model=model, race=1)
 
     @staticmethod
-    def fwolf_counter(model):
-        return model.agent_counter(model, 0, True, True)
+    def female_wolf_counter(model) -> int:
+        return model.agent_counter(model=model, race=0, by_gender=True, gender=True)
 
     @staticmethod
-    def mwolf_counter(model):
-        return model.agent_counter(model, 0, True, False)
+    def male_wolf_counter(model) -> int:
+        return model.agent_counter(model=model, race=0, by_gender=True, gender=False)
 
     @staticmethod
-    def fsheep_counter(model):
-        return model.agent_counter(model, 1, True, True)
+    def female_sheep_counter(model) -> int:
+        return model.agent_counter(model=model, race=1, by_gender=True, gender=True)
 
     @staticmethod
-    def msheep_counter(model):
-        return model.agent_counter(model, 1, True, False)
+    def male_sheep_counter(model) -> int:
+        return model.agent_counter(model=model, race=1, by_gender=True, gender=False)
 
     @staticmethod
-    def grass_counter(model):
+    def grass_counter(model) -> float:
+        """Return percentage of grown grass."""
         result = 0
         for agent in model.schedule.agents:
             agent: ws.GrassAgent

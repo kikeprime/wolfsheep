@@ -1,3 +1,11 @@
+"""
+Wolves and Sheep agent based population model
+
+Based on: http://ccl.northwestern.edu/netlogo/models/WolfSheepPredation
+
+See wolfsheep.ipynb or README.md for details.
+"""
+
 # The model must be imported 1st
 from wolfsheep.model import WolfSheepModel
 from wolfsheep.agent import WolfAgent
