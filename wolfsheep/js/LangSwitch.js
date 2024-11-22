@@ -90,10 +90,10 @@ function ParamsToHun() {
     // Initial number of sheep
     document.getElementById("n_sheep_id_tooltip").innerText = "A bárányok kezdeti száma"
     // Energy gain from eating (wolves)
-    document.getElementById("wolf_energy_from_food_id_tooltip").innerText =
+    document.getElementById("wolf_ep_gain_id_tooltip").innerText =
         "Táplálékból nyert energiapont (farkasok)"
     // Energy gain from eating (sheep)
-    document.getElementById("sheep_energy_from_food_id_tooltip").innerText =
+    document.getElementById("sheep_ep_gain_id_tooltip").innerText =
         "Táplálékból nyert energiapont (bárányok)"
     // Reproduction rate of the wolves (%)
     document.getElementById("wolf_reproduction_rate_id_tooltip").innerText =
@@ -104,13 +104,13 @@ function ParamsToHun() {
     // Grass regrow time
     document.getElementById("regrow_time_id_tooltip").innerText = "A fű visszanövési ideje"
     // Allow hunting
-    let allow_hunting = document.getElementById("allow_hunting_id")
+    let allow_hunting = document.getElementById("allow_hunt_id")
     allow_hunting.parentElement.firstElementChild.innerText = "Vadászat engedélyezése"
     // Allow flocking
     let allow_flocking = document.getElementById("allow_flocking_id")
     allow_flocking.parentElement.firstElementChild.innerText = "Nyájba szerveződés engedélyezése"
     // Hunt limiter exponent
-    hunting_exponent = document.getElementById("hunting_exponent_id")
+    hunting_exponent = document.getElementById("hunt_exponent_id")
     hunting_exponent.parentElement.firstElementChild.firstElementChild.innerText = "A vadászatot korlátozó kitevő"
     // Allow Seed
     let allow_seed = document.getElementById("allow_seed_id")
@@ -165,10 +165,10 @@ function ParamsToEng() {
     // Initial number of sheep
     document.getElementById("n_sheep_id_tooltip").innerText = "Initial number of sheep"
     // Energy gain from eating (wolves)
-    document.getElementById("wolf_energy_from_food_id_tooltip").innerText =
+    document.getElementById("wolf_ep_gain_id_tooltip").innerText =
         "Energy gain from eating (wolves)"
     // Energy gain from eating (sheep)
-    document.getElementById("sheep_energy_from_food_id_tooltip").innerText =
+    document.getElementById("sheep_ep_gain_id_tooltip").innerText =
         "Energy gain from eating (sheep)"
     // Reproduction rate of the wolves (%)
     document.getElementById("wolf_reproduction_rate_id_tooltip").innerText =
@@ -179,13 +179,13 @@ function ParamsToEng() {
     // Grass regrow time
     document.getElementById("regrow_time_id_tooltip").innerText = "Grass regrow time"
     // Allow hunting
-    let allow_hunting = document.getElementById("allow_hunting_id")
-    allow_hunting.parentElement.firstElementChild.innerText = "Allow hunting"
+    let allow_hunting = document.getElementById("allow_hunt_id")
+    allow_hunting.parentElement.firstElementChild.innerText = "Allow hunt"
     // Allow flocking
     let allow_flocking = document.getElementById("allow_flocking_id")
     allow_flocking.parentElement.firstElementChild.innerText = "Allow flocking"
     // Hunt limiter exponent
-    hunting_exponent = document.getElementById("hunting_exponent_id")
+    hunting_exponent = document.getElementById("hunt_exponent_id")
     hunting_exponent.parentElement.firstElementChild.firstElementChild.innerText = "Hunt limiter exponent"
     // Allow Seed
     let allow_seed = document.getElementById("allow_seed_id")
