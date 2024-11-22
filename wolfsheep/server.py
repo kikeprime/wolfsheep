@@ -20,7 +20,6 @@ class WolfSheepServer(ModularServer):
         port=None,
     ):
         """Override ModularServer.__init__"""
-
         # call ModularServer.__init__
         super().__init__(
             model_cls=model_cls,
@@ -102,18 +101,18 @@ params = {
     "model_type": Choice(name="Model type", value=model_types[0], choices=model_types),
     "n_wolf": Slider(name="Initial number of wolves", value=50, min_value=0, max_value=100, step=1),
     "n_sheep": Slider(name="Initial number of sheep", value=100, min_value=0, max_value=100, step=1),
-    "wolf_energy_from_food": Slider(name="Energy gain from eating (wolves)",
+    "wolf_ep_gain": Slider(name="Energy gain from eating (wolves)",
                                     value=20, min_value=0, max_value=100, step=1),
-    "sheep_energy_from_food": Slider(name="Energy gain from eating (sheep)",
+    "sheep_ep_gain": Slider(name="Energy gain from eating (sheep)",
                                      value=4, min_value=0, max_value=100, step=1),
     "wolf_reproduction_rate": Slider("Reproduction rate of the wolves (%)",
                                      value=5, min_value=0, max_value=100, step=1),
     "sheep_reproduction_rate": Slider(name="Reproduction rate of the sheep (%)",
                                       value=4, min_value=0, max_value=100, step=1),
     "regrow_time": Slider(name="Grass regrow time", value=30, min_value=0, max_value=100, step=1),
-    "allow_hunting": Checkbox(name="Allow hunting", value=True, description="The wolves actively hunt."),
+    "allow_hunt": Checkbox(name="Allow hunting", value=True, description="The wolves actively hunt."),
     "allow_flocking": Checkbox(name="Allow flocking", value=True, description="The sheep will flock."),
-    "hunting_exponent": NumberInput(name="Hunt limiter exponent", value=-0.5, description="Limiting the hunting"),
+    "hunt_exponent": NumberInput(name="Hunt limiter exponent", value=-0.5, description="Limiting the hunting"),
     "allow_seed": Checkbox(name="Allow Seed", value=True),
     "seed": NumberInput(name="Random Seed", value=474, description="Seed for random number generators")
 }
