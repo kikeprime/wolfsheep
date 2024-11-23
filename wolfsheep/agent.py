@@ -133,7 +133,7 @@ class WolfAgent(WolfSheepAgent):
     Implement eating sheep and active hunt.
 
     Attributes:
-        unique_id (int): Unique identifier for this agent (legacy support)
+        unique_id (int): Unique identifier for instance agent (legacy support)
         model (WolfSheepModel): the WolfSheep model
         ep_gain (int): energy point gained from eating
         reproduction_rate (float): probability of reproduction

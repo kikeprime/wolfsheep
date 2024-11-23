@@ -1,7 +1,8 @@
 """
 Wolves and Sheep agent based population model
 
-Based on: http://ccl.northwestern.edu/netlogo/models/WolfSheepPredation
+Based on:
+    https://ccl.northwestern.edu/netlogo/models/WolfSheepPredation
 
 See wolfsheep.ipynb or README.md for details.
 """
