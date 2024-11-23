@@ -12,7 +12,7 @@ class WolfSheepAgent(Agent):
 
     Define shared methods, implement default movement and reproduction, handle steps.
 
-    Attributes:
+    Parameters:
         unique_id (int): Unique identifier for this agent (legacy support)
         model (WolfSheepModel): the WolfSheep model
         ep_gain (int): energy point gained from eating
@@ -45,7 +45,6 @@ class WolfSheepAgent(Agent):
         self.race = None
 
         self.can_reproduce = False
-        self.dead = False
 
     def step(self):
         self.model: WolfSheepModel
@@ -54,9 +53,9 @@ class WolfSheepAgent(Agent):
         if not (self.model.model_type == 2 and self.race == 1):
             self.energy -= 1
             self.eat()
-            self.die()
-        if not self.dead:
+            # for some reason these two were swapped originally
             self.reproduce()
+            self.die()
 
     def move(self):
         """Default move method, no hunting and no flocking."""
@@ -94,7 +93,7 @@ class WolfSheepAgent(Agent):
                 if len(mates) == 0:
                     return
             self.energy = self.energy // 2
-            if self.gender is False:
+            if self.model.model_type == 0 and self.gender is False:
                 return
             if self.race == 0:
                 child = WolfAgent(unique_id=self.model.next_id(),
@@ -123,7 +122,6 @@ class WolfSheepAgent(Agent):
         self.model: WolfSheepModel
         self.model.grid.remove_agent(agent=self)
         self.model.schedule.remove(agent=self)
-        self.dead = True
 
 
 class WolfAgent(WolfSheepAgent):
@@ -229,7 +227,7 @@ class SheepAgent(WolfSheepAgent):
                         for neighbor in self.model.grid.get_neighborhood(pos=cell,
                                                                          moore=True,
                                                                          include_center=True,
-                                                                         radius=5):
+                                                                         radius=1):
                             if neighbor in cells:
                                 cells_to_move.append(cell)
             if len(cells_to_move) > 0:

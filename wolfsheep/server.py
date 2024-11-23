@@ -9,15 +9,16 @@ import wolfsheep as ws
 # Accessing the files from root instead of from /local/custom
 class WolfSheepServer(ModularServer):
     """
-    Attach the wolfsheep module's folder to the web server's root then reinitialize the server.
+    Attach the module's folder to the web server's root then reinitialize the server.
     """
+
     def __init__(
-        self,
-        model_cls,
-        visualization_elements,
-        name="Mesa Model",
-        model_params=None,
-        port=None,
+            self,
+            model_cls,
+            visualization_elements,
+            name="Mesa Model",
+            model_params=None,
+            port=None,
     ):
         """Override ModularServer.__init__"""
         # call ModularServer.__init__
@@ -29,7 +30,7 @@ class WolfSheepServer(ModularServer):
             port=port,
         )
 
-        # Attach the wolfsheep module's folder to the web server's root
+        # Attach the module's folder to the web server's root
         self.handlers.append((r"/(.*)", tornado.web.StaticFileHandler, {"path": ""}))
 
         # Reinitialize server by calling tornado.web.Application.__init__
@@ -102,10 +103,10 @@ params = {
     "n_wolf": Slider(name="Initial number of wolves", value=50, min_value=0, max_value=100, step=1),
     "n_sheep": Slider(name="Initial number of sheep", value=100, min_value=0, max_value=100, step=1),
     "wolf_ep_gain": Slider(name="Energy gain from eating (wolves)",
-                                    value=20, min_value=0, max_value=100, step=1),
+                           value=20, min_value=0, max_value=100, step=1),
     "sheep_ep_gain": Slider(name="Energy gain from eating (sheep)",
-                                     value=4, min_value=0, max_value=100, step=1),
-    "wolf_reproduction_rate": Slider("Reproduction rate of the wolves (%)",
+                            value=4, min_value=0, max_value=100, step=1),
+    "wolf_reproduction_rate": Slider(name="Reproduction rate of the wolves (%)",
                                      value=5, min_value=0, max_value=100, step=1),
     "sheep_reproduction_rate": Slider(name="Reproduction rate of the sheep (%)",
                                       value=4, min_value=0, max_value=100, step=1),

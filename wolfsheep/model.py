@@ -10,7 +10,7 @@ class WolfSheepModel(Model):
     """
     Class for the WolfSheep model.
 
-    Attributes:
+    Parameters:
         width (int): Width of the grid
         height (int): Height of the grid
         torus (bool): Torus for grid
@@ -119,7 +119,7 @@ class WolfSheepModel(Model):
     def place_child(self, child, pos):
         self.schedule.add(agent=child)
         neighborhood = self.grid.get_neighborhood(pos=pos, moore=True, include_center=False, radius=1)
-        self.grid.place_agent(child=child, pos=self.random.choice(neighborhood))
+        self.grid.place_agent(agent=child, pos=self.random.choice(neighborhood))
 
     # Agent counters
     @staticmethod
@@ -127,7 +127,7 @@ class WolfSheepModel(Model):
         """
         Count number of wolves and sheep.
 
-        Attributes:
+        Parameters:
             model (WolfSheepModel): model instance
             race (int): agent race
             by_gender (bool): whether to count specific gender (optional)
