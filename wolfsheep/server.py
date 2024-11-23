@@ -12,14 +12,12 @@ class WolfSheepServer(ModularServer):
     Attach the module's folder to the web server's root then reinitialize the server.
     """
 
-    def __init__(
-            self,
-            model_cls,
-            visualization_elements,
-            name="Mesa Model",
-            model_params=None,
-            port=None,
-    ):
+    def __init__(self,
+                 model_cls,
+                 visualization_elements,
+                 name="Mesa Model",
+                 model_params=None,
+                 port=None):
         """Override ModularServer.__init__"""
         # call ModularServer.__init__
         super().__init__(

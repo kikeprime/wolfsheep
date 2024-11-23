@@ -1,4 +1,4 @@
-<h1>English<br>Wolves and Sheep population model <img src="wolfsheep/pics/wolf.png"> <img src="wolfsheep/pics/fsheep.png"></h1>
+<h1>English <br>Wolves and Sheep population model <img src="wolfsheep/pics/wolf.png"> <img src="wolfsheep/pics/fsheep.png"></h1>
 
 <h2>Introduction</h2>
 
@@ -80,7 +80,7 @@ The model's parameters can be set on the left side, the grid that visualizes the
 
 The female wolves are orange, the male ones are gray, the female sheep are white, the male ones are black. The consequence of this choice is that in the inherited models all wolves are male and all sheep are female.
 
-<h1>Magyar<br>Farkasok és bárányok populációmodell <img src="wolfsheep/pics/wolf.png"> <img src="wolfsheep/pics/fsheep.png"></h1>
+<h1>Magyar <br>Farkasok és bárányok populációmodell <img src="wolfsheep/pics/wolf.png"> <img src="wolfsheep/pics/fsheep.png"></h1>
 
 <h2>Előszó</h2>
 
