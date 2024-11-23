@@ -1,5 +1,5 @@
 """
-Rabbits, Grass and Weed agent based population model
+Rabbits, Grass and Weeds agent based population model
 
 Based on:
     https://ccl.northwestern.edu/netlogo/models/RabbitsGrassWeeds

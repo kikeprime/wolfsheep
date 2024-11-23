@@ -25,7 +25,7 @@ def main():
                                  fox_ep_gain=wolf_ep_gain, rabbit_ep_gain_grass=sheep_ep_gain,
                                  fox_reproduction_threshold=wolf_reproduction_rate,
                                  rabbit_reproduction_threshold=sheep_reproduction_rate,
-                                 regrow_time=regrow_time,
+                                 grass_regrow_rate=regrow_time,
                                  allow_hunt=allow_hunt,
                                  allow_flocking=allow_flocking,
                                  hunt_exponent=hunt_exponent,

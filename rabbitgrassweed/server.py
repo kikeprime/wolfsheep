@@ -7,17 +7,18 @@ import rabbitgrassweed as ws
 
 
 # Accessing the files from root instead of from /local/custom
-class WolfSheepServer(ModularServer):
+class RabbitGrassWeedServer(ModularServer):
     """
-    Attach the rabbitgrassweed module's folder to the web server's root then reinitialize the server.
+    Attach the module's folder to the web server's root then reinitialize the server.
     """
+
     def __init__(
-        self,
-        model_cls,
-        visualization_elements,
-        name="Mesa Model",
-        model_params=None,
-        port=None,
+            self,
+            model_cls,
+            visualization_elements,
+            name="Mesa Model",
+            model_params=None,
+            port=None,
     ):
         """Override ModularServer.__init__"""
         # call ModularServer.__init__
@@ -29,7 +30,7 @@ class WolfSheepServer(ModularServer):
             port=port,
         )
 
-        # Attach the rabbitgrassweed module's folder to the web server's root
+        # Attach the module's folder to the web server's root
         self.handlers.append((r"/(.*)", tornado.web.StaticFileHandler, {"path": ""}))
 
         # Reinitialize server by calling tornado.web.Application.__init__
@@ -40,6 +41,7 @@ class WolfSheepServer(ModularServer):
 def ws_model_portrayal(agent):
     """
     Handle agent portrayals, including icons by gender.
+
     Return the agent portrayal dictionary.
     """
 
@@ -56,14 +58,17 @@ def ws_model_portrayal(agent):
         portrayal["Energy"] = agent.energy
     if isinstance(agent, ws.RabbitAgent):
         if agent.gender:
-            portrayal["Shape"] = "rabbitgrassweed/pics/fsheep.png"
+            portrayal["Shape"] = "rabbitgrassweed/pics/frabbit.png"
         else:
-            portrayal["Shape"] = "rabbitgrassweed/pics/sheep.png"
+            portrayal["Shape"] = "rabbitgrassweed/pics/rabbit.png"
         portrayal["Layer"] = 1
         portrayal["Energy"] = agent.energy
     if isinstance(agent, ws.GrassAgent):
         if agent.grown:
-            portrayal["Color"] = ["green"]
+            if agent.race == 2:
+                portrayal["Color"] = ["green"]
+            else:
+                portrayal["Color"] = ["purple"]
         else:
             portrayal["Color"] = ["#663300"]
         portrayal["Shape"] = "rect"
@@ -80,45 +85,53 @@ canvas_element = CanvasGrid(portrayal_method=ws_model_portrayal,
                             canvas_width=600, canvas_height=600)
 
 chart_list = [
-    {"Label": "Number of wolves", "Color": "red"},
-    {"Label": "Number of sheep", "Color": "blue"},
-    {"Label": "Number of female wolves", "Color": "orange"},
-    {"Label": "Number of male wolves", "Color": "grey"},
-    {"Label": "Number of female sheep", "Color": "white"},
-    {"Label": "Number of male sheep", "Color": "black"},
-    {"Label": "Ratio of grass patches (%)", "Color": "green"}
+    {"Label": "Number of rabbits", "Color": "blue"},
+    {"Label": "Number of foxes", "Color": "red"},
+    {"Label": "Number of female rabbits", "Color": "gray"},
+    {"Label": "Number of male rabbits", "Color": "brown"},
+    {"Label": "Number of female foxes", "Color": "orange"},
+    {"Label": "Number of male foxes", "Color": "black"},
+    {"Label": "Ratio of grass patches (%)", "Color": "green"},
+    {"Label": "Ratio of weed patches (%)", "Color": "purple"}
 ]
-chart_element = ChartModule(series=chart_list[:-1], data_collector_name="datacollector")
-chart_element_grass = ChartModule(series=[chart_list[-1]], data_collector_name="datacollector")
+chart_element = ChartModule(series=chart_list[:-2], data_collector_name="datacollector")
+chart_element_grass = ChartModule(series=chart_list[-2:], data_collector_name="datacollector")
 
 viz_elements = [canvas_element, chart_element, chart_element_grass]
 
-model_types = ["Extended model", "Wolves, sheep and grass model", "Wolves and sheep model"]
+model_types = ["Extended model", "Rabbits, grass and weeds model"]
 params = {
     "width": 30,
     "height": 30,
     "torus": Checkbox(name="Torus", value=True, description="Whether the edges are connected or not."),
-    "model_type": Choice(name="Model type", value=model_types[0], choices=model_types),
-    "n_wolf": Slider(name="Initial number of wolves", value=50, min_value=0, max_value=100, step=1),
-    "n_sheep": Slider(name="Initial number of sheep", value=100, min_value=0, max_value=100, step=1),
-    "wolf_ep_gain": Slider(name="Energy gain from eating (wolves)",
-                                    value=20, min_value=0, max_value=100, step=1),
-    "sheep_ep_gain": Slider(name="Energy gain from eating (sheep)",
-                                     value=4, min_value=0, max_value=100, step=1),
-    "wolf_reproduction_rate": Slider("Reproduction rate of the wolves (%)",
-                                     value=5, min_value=0, max_value=100, step=1),
-    "sheep_reproduction_rate": Slider(name="Reproduction rate of the sheep (%)",
-                                      value=4, min_value=0, max_value=100, step=1),
-    "regrow_time": Slider(name="Grass regrow time", value=30, min_value=0, max_value=100, step=1),
-    "allow_hunt": Checkbox(name="Allow hunting", value=True, description="The wolves actively hunt."),
-    "allow_flocking": Checkbox(name="Allow flocking", value=True, description="The sheep will flock."),
+    "model_type": Choice(name="Model type", value=model_types[1], choices=model_types),
+    "n_rabbit": Slider(name="Initial number of rabbits", value=150, min_value=0, max_value=200, step=1),
+    "n_fox": Slider(name="Initial number of foxes", value=0, min_value=0, max_value=200, step=1),
+    "rabbit_ep_gain_grass": Slider(name="EP gain from eating grass (rabbits)",
+                                   value=5, min_value=0, max_value=100, step=1),
+    "rabbit_ep_gain_weed": Slider(name="EP gain from eating weeds (rabbits)",
+                                  value=0, min_value=0, max_value=100, step=1),
+    "fox_ep_gain": Slider(name="EP gain from eating (foxes)",
+                          value=5, min_value=0, max_value=100, step=1),
+    "rabbit_max_init_ep": Slider(name="Maximus initial EP (rabbits)",
+                                 value=10, min_value=0, max_value=100, step=1),
+    "fox_max_init_ep": Slider(name="Maximus initial EP (foxes)",
+                              value=10, min_value=0, max_value=100, step=1),
+    "rabbit_reproduction_threshold": Slider("Necessary EP for rabbit reproduction",
+                                            value=15, min_value=0, max_value=100, step=1),
+    "fox_reproduction_threshold": Slider(name="Necessary EP for fox reproduction",
+                                         value=15, min_value=0, max_value=100, step=1),
+    "grass_regrow_rate": Slider(name="Grass regrow rate (%)", value=15, min_value=0, max_value=100, step=1),
+    "weed_regrow_rate": Slider(name="Weed regrow rate (%)", value=0, min_value=0, max_value=100, step=1),
+    "allow_hunt": Checkbox(name="Allow hunt", value=False, description="The foxes actively hunt."),
+    "allow_flocking": Checkbox(name="Allow flocking", value=False, description="The rabbits will flock."),
     "hunt_exponent": NumberInput(name="Hunt limiter exponent", value=-0.5, description="Limiting the hunting"),
     "allow_seed": Checkbox(name="Allow Seed", value=True),
-    "seed": NumberInput(name="Random Seed", value=474, description="Seed for random number generators")
+    "seed": NumberInput(name="Random Seed", value=474, description="Seed for random number generator functions")
 }
 
-server = WolfSheepServer(model_cls=ws.RabbitGrassWeedModel,
-                         visualization_elements=viz_elements,
-                         name="Wolves and Sheep",
-                         model_params=params)
-server.local_js_includes.add("custom/rabbitgrassweed/js/LangSwitch.js")
+server = RabbitGrassWeedServer(model_cls=ws.RabbitGrassWeedModel,
+                               visualization_elements=viz_elements,
+                               name="Rabbits, Grass and Weeds",
+                               model_params=params)
+# server.local_js_includes.add("custom/rabbitgrassweed/js/LangSwitch.js")
