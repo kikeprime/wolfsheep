@@ -20,13 +20,11 @@ class WolfSheepServer(ModularServer):
                  port=None):
         """Override ModularServer.__init__"""
         # call ModularServer.__init__
-        super().__init__(
-            model_cls=model_cls,
-            visualization_elements=visualization_elements,
-            name=name,
-            model_params=model_params,
-            port=port,
-        )
+        super().__init__(model_cls=model_cls,
+                         visualization_elements=visualization_elements,
+                         name=name,
+                         model_params=model_params,
+                         port=port)
 
         # Attach the module's folder to the web server's root
         self.handlers.append((r"/(.*)", tornado.web.StaticFileHandler, {"path": ""}))
@@ -103,7 +101,7 @@ params = {
     "wolf_ep_gain": Slider(name="Energy gain from eating (wolves)",
                            value=20, min_value=0, max_value=100, step=1),
     "sheep_ep_gain": Slider(name="Energy gain from eating (sheep)",
-                            value=4, min_value=0, max_value=100, step=1),
+                            value=20, min_value=0, max_value=100, step=1),
     "wolf_reproduction_rate": Slider(name="Reproduction rate of the wolves (%)",
                                      value=5, min_value=0, max_value=100, step=1),
     "sheep_reproduction_rate": Slider(name="Reproduction rate of the sheep (%)",

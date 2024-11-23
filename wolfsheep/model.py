@@ -26,7 +26,7 @@ class WolfSheepModel(Model):
         allow_flocking (bool): Allow flocking
         hunt_exponent (float): Limiter exponent for hunt
         allow_seed (bool): Allow seed usage
-        seed (int): Random seed
+        random_seed (int): Random seed
 
     """
     def __init__(self, width: int, height: int, torus: bool,
@@ -34,7 +34,7 @@ class WolfSheepModel(Model):
                  wolf_ep_gain: int, sheep_ep_gain: int,
                  wolf_reproduction_rate: float, sheep_reproduction_rate: float, regrow_time: int,
                  allow_hunt: bool, allow_flocking: bool, hunt_exponent: float,
-                 allow_seed: bool, seed: int):
+                 allow_seed: bool, random_seed: int):
         super().__init__()
         self.schedule = RandomActivation(model=self)
         self.grid = MultiGrid(width=width, height=height, torus=torus)
@@ -55,7 +55,7 @@ class WolfSheepModel(Model):
         self.hunting_exponent = -abs(hunt_exponent)
 
         if allow_seed:
-            self.random.seed(seed)
+            self.random.seed(random_seed)
 
         # Adding wolves
         for wolf_id in range(self.n_wolf):
