@@ -15,8 +15,8 @@ class RabbitGrassWeedModel(Model):
         height (int): Height of the grid
         torus (bool): Torus for grid
         model_type: Type of the model (see below)
-        n_fox (int): Initial number of wolves
-        n_rabbit (int): Initial number of sheep
+        n_rabbit (int): Initial number of rabbits
+        n_fox (int): Initial number of foxes
         rabbit_ep_gain_grass (int): Energy point gain for rabbits from grass
         rabbit_ep_gain_weed (int): Energy point gain for rabbits from weed
         fox_ep_gain (int): Energy point gain for foxes

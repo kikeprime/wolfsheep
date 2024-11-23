@@ -6,15 +6,15 @@ from rabbitgrassweed import RabbitGrassWeedModel
 mesa_version = version("mesa")
 
 
-class WolfSheepAgent(Agent):
+class RabbitFoxAgent(Agent):
     """
     Agent class for the animal agents.
 
     Define shared methods, implement default movement and reproduction, handle steps.
 
-    Attributes:
-        unique_id (int): Unique identifier for this agent (legacy support)
-        model (RabbitGrassWeedModel): the WolfSheep model
+    Parameters:
+        unique_id (int): Unique identifier for instance agent (legacy support)
+        model (RabbitGrassWeedModel): the RabbitGrassWeed model
         ep_gain (int): energy point gained from eating
         reproduction_rate (float): probability of reproduction
     """
@@ -88,7 +88,7 @@ class WolfSheepAgent(Agent):
         if self.model.random.random() < reproduction_rate:
             self.can_reproduce = True
             if self.model.model_type == 0:
-                agent: WolfSheepAgent
+                agent: RabbitFoxAgent
                 mates = [agent for agent in self.model.grid.get_cell_list_contents([self.pos])
                          if agent.race == self.race and agent.gender != self.gender and agent.can_reproduce]
                 if len(mates) == 0:
@@ -126,13 +126,13 @@ class WolfSheepAgent(Agent):
         self.dead = True
 
 
-class FoxAgent(WolfSheepAgent):
+class FoxAgent(RabbitFoxAgent):
     """
     Agent class for wolves.
 
     Implement eating sheep and active hunt.
 
-    Attributes:
+    Parameters:
         unique_id (int): Unique identifier for this agent (legacy support)
         model (RabbitGrassWeedModel): the WolfSheep model
         ep_gain (int): energy point gained from eating
@@ -186,12 +186,12 @@ class FoxAgent(WolfSheepAgent):
                 self.model.random.random() < (self.energy ** self.model.hunt_exponent))
 
 
-class RabbitAgent(WolfSheepAgent):
+class RabbitAgent(RabbitFoxAgent):
     """Agent class for sheep.
 
     Implement grazing and flocking.
 
-    Attributes:
+    Parameters:
         unique_id (int): Unique identifier for this agent (legacy support)
         model (RabbitGrassWeedModel): the WolfSheep model
         ep_gain (int): energy point gained from eating
@@ -245,7 +245,7 @@ class GrassAgent(Agent):
     """
     Agent class for grass.
 
-    Attributes:
+    Parameters:
         unique_id (int): Unique identifier for this agent (legacy support)
         model (RabbitGrassWeedModel): the WolfSheep model
         grown (bool): grass state, True for grown grass, False for grazed cell

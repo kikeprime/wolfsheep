@@ -49,9 +49,9 @@ def ws_model_portrayal(agent):
     portrayal = {}
     if isinstance(agent, ws.FoxAgent):
         if agent.gender:
-            portrayal["Shape"] = "rabbitgrassweed/pics/fwolf.png"
+            portrayal["Shape"] = "rabbitgrassweed/pics/ffox.png"
         else:
-            portrayal["Shape"] = "rabbitgrassweed/pics/wolf.png"
+            portrayal["Shape"] = "rabbitgrassweed/pics/fox.png"
         portrayal["Layer"] = 1
         portrayal["Energy"] = agent.energy
     if isinstance(agent, ws.RabbitAgent):

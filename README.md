@@ -1,8 +1,8 @@
-<h1>English<br>Wolves and Sheep population model <img src="rabbitgrassweed/pics/wolf.png"> <img src="rabbitgrassweed/pics/fsheep.png"></h1>
+<h1>English<br>Rabbits, Grass and Weeds population model <img src="rabbitgrassweed/pics/fox.png"> <img src="rabbitgrassweed/pics/fsheep.png"></h1>
 
 <h2>Introduction</h2>
 
-The "Wolves and Sheep" is a self-programmed mesa implementation and further development of an agent-based model created in NetLogo.
+The "Rabbits, Grass and Weed" is a self-programmed mesa implementation and further development of an agent-based model created in NetLogo.
 This model models the cohabitation of a predator species and one of its prey in three ways.
 The default model type contains my extensions while the rest two are meant to implement the original model's two types as faithfully as possible.
 
@@ -80,7 +80,7 @@ The model's parameters can be set on the left side, the grid that visualizes the
 
 The female wolves are orange, the male ones are gray, the female sheep are white, the male ones are black. The consequence of this choice is that in the inherited models all wolves are male and all sheep are female.
 
-<h1>Magyar<br>Farkasok és bárányok populációmodell <img src="rabbitgrassweed/pics/wolf.png"> <img src="rabbitgrassweed/pics/fsheep.png"></h1>
+<h1>Magyar<br>Farkasok és bárányok populációmodell <img src="rabbitgrassweed/pics/fox.png"> <img src="rabbitgrassweed/pics/fsheep.png"></h1>
 
 <h2>Előszó</h2>
 
