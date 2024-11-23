@@ -12,23 +12,19 @@ class RabbitGrassWeedServer(ModularServer):
     Attach the module's folder to the web server's root then reinitialize the server.
     """
 
-    def __init__(
-            self,
-            model_cls,
-            visualization_elements,
-            name="Mesa Model",
-            model_params=None,
-            port=None,
-    ):
+    def __init__(self,
+                 model_cls,
+                 visualization_elements,
+                 name="Mesa Model",
+                 model_params=None,
+                 port=None):
         """Override ModularServer.__init__"""
         # call ModularServer.__init__
-        super().__init__(
-            model_cls=model_cls,
-            visualization_elements=visualization_elements,
-            name=name,
-            model_params=model_params,
-            port=port,
-        )
+        super().__init__(model_cls=model_cls,
+                         visualization_elements=visualization_elements,
+                         name=name,
+                         model_params=model_params,
+                         port=port)
 
         # Attach the module's folder to the web server's root
         self.handlers.append((r"/(.*)", tornado.web.StaticFileHandler, {"path": ""}))
@@ -127,7 +123,8 @@ params = {
     "allow_flocking": Checkbox(name="Allow flocking", value=False, description="The rabbits will flock."),
     "hunt_exponent": NumberInput(name="Hunt limiter exponent", value=-0.5, description="Limiting the hunting"),
     "allow_seed": Checkbox(name="Allow Seed", value=True),
-    "seed": NumberInput(name="Random Seed", value=474, description="Seed for random number generator functions")
+    # cannot be named "seed" otherwise it cannot be turned off
+    "random_seed": NumberInput(name="Random Seed", value=474, description="Seed for random number generator functions")
 }
 
 server = RabbitGrassWeedServer(model_cls=ws.RabbitGrassWeedModel,

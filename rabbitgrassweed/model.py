@@ -8,7 +8,7 @@ import rabbitgrassweed as ws
 
 class RabbitGrassWeedModel(Model):
     """
-    Class for the WolfSheep model.
+    Class for the RabbitGrassWeed model.
 
     Parameters:
         width (int): Width of the grid
@@ -30,7 +30,7 @@ class RabbitGrassWeedModel(Model):
         allow_flocking (bool): Allow flocking
         hunt_exponent (float): Limiter exponent for hunt
         allow_seed (bool): Allow seed usage
-        seed (int): Random seed
+        random_seed (int): Random seed
     """
 
     def __init__(self, width: int, height: int, torus: bool,
@@ -40,7 +40,7 @@ class RabbitGrassWeedModel(Model):
                  rabbit_reproduction_threshold: int, fox_reproduction_threshold: int,
                  grass_regrow_rate: int, weed_regrow_rate: int,
                  allow_hunt: bool, allow_flocking: bool, hunt_exponent: float,
-                 allow_seed: bool, seed: int):
+                 allow_seed: bool, random_seed: int):
         super().__init__()
         self.schedule = RandomActivation(model=self)
         self.grid = MultiGrid(width=width, height=height, torus=torus)
@@ -60,7 +60,7 @@ class RabbitGrassWeedModel(Model):
         self.hunt_exponent = -abs(hunt_exponent)
 
         if allow_seed:
-            self.random.seed(seed)
+            self.random.seed(random_seed)
 
         # Adding rabbits
         for i in range(self.n_rabbit):

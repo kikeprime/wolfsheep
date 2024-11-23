@@ -30,7 +30,7 @@ def main():
                                  allow_flocking=allow_flocking,
                                  hunt_exponent=hunt_exponent,
                                  allow_seed=allow_seed,
-                                 seed=seed)
+                                 random_seed=seed)
     t = 200
     for sim_t in range(t):
         model.step()
