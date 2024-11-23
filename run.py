@@ -1,7 +1,7 @@
 import os
 import sys
 
-from wolfsheep.server import server
+from rabbitgrassweed.server import server
 
 
 PROJECT_PATH = os.path.dirname(os.path.dirname(os.path.dirname(os.path.realpath("__file__"))))

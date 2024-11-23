@@ -1,4 +1,4 @@
-<h1>English<br>Wolves and Sheep population model <img src="wolfsheep/pics/wolf.png"> <img src="wolfsheep/pics/fsheep.png"></h1>
+<h1>English<br>Wolves and Sheep population model <img src="rabbitgrassweed/pics/wolf.png"> <img src="rabbitgrassweed/pics/fsheep.png"></h1>
 
 <h2>Introduction</h2>
 
@@ -68,7 +68,7 @@ Unfortunatley, running is only recommended under Linux, because for some reason 
 
 <h3>Handling</h3>
 
-<img src="wolfsheep/pics/viz_showcase.png" width=700>
+<img src="rabbitgrassweed/pics/viz_showcase.png" width=700>
 
 <br>
 
@@ -80,7 +80,7 @@ The model's parameters can be set on the left side, the grid that visualizes the
 
 The female wolves are orange, the male ones are gray, the female sheep are white, the male ones are black. The consequence of this choice is that in the inherited models all wolves are male and all sheep are female.
 
-<h1>Magyar<br>Farkasok és bárányok populációmodell <img src="wolfsheep/pics/wolf.png"> <img src="wolfsheep/pics/fsheep.png"></h1>
+<h1>Magyar<br>Farkasok és bárányok populációmodell <img src="rabbitgrassweed/pics/wolf.png"> <img src="rabbitgrassweed/pics/fsheep.png"></h1>
 
 <h2>Előszó</h2>
 
@@ -158,7 +158,7 @@ Sajnálatos módon, csak Linux alatt ajánlott a futtatás, mert valamilyen ok f
 
 <h3>Kezelés</h3>
 
-<img src="wolfsheep/pics/viz_showcase.png" width=700>
+<img src="rabbitgrassweed/pics/viz_showcase.png" width=700>
 
 <br>
 
