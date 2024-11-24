@@ -95,9 +95,9 @@ function ParamsToHun() {
     // EP gain from eating weeds (rabbits)
     document.getElementById("rabbit_ep_gain_weed_id_tooltip").innerText =
         "Gazokból nyert EP (nyulak)"
-    // EP gain from eating sheep (foxes)
+    // EP gain from eating rabbits (foxes)
     document.getElementById("fox_ep_gain_id_tooltip").innerText =
-        "Táplálékból nyert EP (rókák)"
+        "Nyulakból nyert EP (rókák)"
     // Rabbits' maximal initial EP
     document.getElementById("rabbit_max_init_ep_id_tooltip").innerText =
         "A nyulak maximális kezdeti EP-je"
@@ -181,9 +181,9 @@ function ParamsToEng() {
     // EP gain from eating weeds (rabbits)
     document.getElementById("rabbit_ep_gain_weed_id_tooltip").innerText =
         "EP gain from eating weeds (rabbits)"
-    // EP gain from eating sheep (foxes)
+    // EP gain from eating rabbits (foxes)
     document.getElementById("fox_ep_gain_id_tooltip").innerText =
-        "EP gain from eating sheep (foxes)"
+        "EP gain from eating rabbits (foxes)"
     // Rabbits' maximal initial EP
     document.getElementById("rabbit_max_init_ep_id_tooltip").innerText =
         "Rabbits' maximal initial EP"

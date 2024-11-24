@@ -107,7 +107,7 @@ params = {
                                    value=5, min_value=0, max_value=100, step=1),
     "rabbit_ep_gain_weed": Slider(name="EP gain from eating weeds (rabbits)",
                                   value=0, min_value=0, max_value=100, step=1),
-    "fox_ep_gain": Slider(name="EP gain from eating sheep (foxes)",
+    "fox_ep_gain": Slider(name="EP gain from eating rabbits (foxes)",
                           value=5, min_value=0, max_value=100, step=1),
     "rabbit_max_init_ep": Slider(name="Rabbits' maximal initial EP",
                                  value=10, min_value=0, max_value=100, step=1),
