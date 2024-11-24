@@ -27,7 +27,6 @@ class WolfSheepModel(Model):
         hunt_exponent (float): Limiter exponent for hunt
         allow_seed (bool): Allow seed usage
         random_seed (int): Random seed
-
     """
     def __init__(self, width: int, height: int, torus: bool,
                  model_type: int, n_wolf: int, n_sheep: int,
