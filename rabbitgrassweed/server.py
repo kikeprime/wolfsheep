@@ -121,13 +121,13 @@ params = {
                                             value=15, min_value=0, max_value=100, step=1),
     "fox_reproduction_threshold": Slider(name="Foxes' reproduction threshold (EP)",
                                          value=15, min_value=0, max_value=100, step=1),
-    "grass_regrow_rate": Slider(name="Grass' regrow rate (%)", value=2, min_value=0, max_value=100, step=1),
+    "grass_regrow_rate": Slider(name="Grass' regrow rate (%)", value=6, min_value=0, max_value=100, step=1),
     "weed_regrow_rate": Slider(name="Weeds' regrow rate (%)", value=0, min_value=0, max_value=100, step=1),
-    "allow_hunt": Checkbox(name="Allow hunt", value=False, description="The foxes actively hunt."),
+    "allow_hunt": Checkbox(name="Allow hunt", value=True, description="The foxes actively hunt."),
     "allow_flocking": Checkbox(name="Allow flocking", value=False, description="The rabbits will flock."),
     "hunt_exponent": NumberInput(name="Hunt limiter exponent", value=-0.5, description="Limiting the hunting"),
     "allow_seed": Checkbox(name="Allow Seed", value=True),
-    # cannot be named "seed" otherwise it cannot be turned off
+    # Cannot be named "seed" otherwise it cannot be turned off
     "random_seed": NumberInput(name="Random Seed", value=474, description="Seed for random number generator functions")
 }
 
