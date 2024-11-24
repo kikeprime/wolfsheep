@@ -7,12 +7,12 @@ config = { attributes: true, childList: true, subtree: true }
 navbar.innerHTML += `
 <div><p>Tab</p></div>
 <div id="lang-flag">
-<img width="64" src="wolfsheep/pics/Flag_of_Hungary.svg">
+<img width="64" src="rabbitgrassweed/pics/Flag_of_Hungary.svg" alt="Set language to Hungarian">
 </div>
 `
 
 // Initialize description
-fetch("wolfsheep/text/eng_description.md")
+fetch("rabbitgrassweed/text/eng_description.md")
     .then(response => response.text())
     .then(text => description.innerHTML = text)
 
@@ -26,7 +26,7 @@ currentStep = document.getElementById("currentStepText")
 
 fpsText = document.getElementById("elements-topbar").firstElementChild.firstElementChild
 
-StartButtonCallback = (mutationList, observer) => {
+StartButtonCallback = (mutationList) => {
     if (lang === "hu") {
         for (const mutation of mutationList) {
             if (startButton.firstElementChild.innerText === "Start") {
@@ -49,15 +49,16 @@ function SwitchToHun() {
     ButtonsToHun()
     ParamsToHun()
     lang_flag.firstElementChild.src = "rabbitgrassweed/pics/Flag_of_the_United_Kingdom_(1-2).svg"
+    lang_flag.firstElementChild.alt = "Nyelv angolra állítása"
     lang = "hu"
 }
 
 function HeaderToHun() {
-    document.title = "Farkasok és bárányok (Mesa vizualizáció)"
-    document.getElementsByClassName("navbar-brand")[0].innerText = "Farkasok és bárányok"
-    document.getElementsByClassName("modal-title")[0].innerText = "Farkasok és bárányok leírás"
+    document.title = "Nyulak, fű és gazok (Mesa vizualizáció)"
+    document.getElementsByClassName("navbar-brand")[0].innerText = "Nyulak, fű és gazok"
+    document.getElementsByClassName("modal-title")[0].innerText = "Nyulak, fű és gazok leírás"
 
-    fetch("wolfsheep/text/hun_description.md")
+    fetch("rabbitgrassweed/text/hun_description.md")
         .then(response => response.text())
         .then(text => description.innerHTML = text)
 }
@@ -80,43 +81,53 @@ function ParamsToHun() {
     let torus = document.getElementById("torus_id")
     torus.parentElement.firstElementChild.innerText = "Tórusz"
     // Model type
-    model_type = document.getElementById("model_type_id")
+    let model_type = document.getElementById("model_type_id")
     model_type.parentElement.firstElementChild.firstElementChild.innerText = "Modelltípus"
     model_type.children[0].innerText = "Bővített modell"
-    model_type.children[1].innerText = "Farkasok, bárányok és fű modell"
-    model_type.children[2].innerText = "Farkasok és bárányok modell"
-    // Initial number of wolves
-    document.getElementById("n_wolf_id_tooltip").innerText = "A farkasok kezdeti száma"
-    // Initial number of sheep
-    document.getElementById("n_sheep_id_tooltip").innerText = "A bárányok kezdeti száma"
-    // Energy gain from eating (wolves)
-    document.getElementById("wolf_ep_gain_id_tooltip").innerText =
-        "Táplálékból nyert energiapont (farkasok)"
-    // Energy gain from eating (sheep)
-    document.getElementById("sheep_ep_gain_id_tooltip").innerText =
-        "Táplálékból nyert energiapont (bárányok)"
-    // Reproduction rate of the wolves (%)
-    document.getElementById("wolf_reproduction_rate_id_tooltip").innerText =
-        "A farkasok szaporodási rátája (%)"
-    // Reproduction rate of the sheep (%)
-    document.getElementById("sheep_reproduction_rate_id_tooltip").innerText =
-        "A bárányok szaporodási rátája (%)"
-    // Grass regrow time
-    document.getElementById("regrow_time_id_tooltip").innerText = "A fű visszanövési ideje"
-    // Allow hunting
-    let allow_hunting = document.getElementById("allow_hunt_id")
-    allow_hunting.parentElement.firstElementChild.innerText = "Vadászat engedélyezése"
+    model_type.children[1].innerText = "Nyulak, fű és gazok modell"
+    // Initial number of rabbits
+    document.getElementById("n_rabbit_id_tooltip").innerText = "A nyulak kezdeti száma"
+    // Initial number of foxes
+    document.getElementById("n_fox_id_tooltip").innerText = "A rókák kezdeti száma"
+    // EP gain from eating grass (rabbits)
+    document.getElementById("rabbit_ep_gain_grass_id_tooltip").innerText =
+        "Fűből nyert EP (nyulak)"
+    // EP gain from eating weeds (rabbits)
+    document.getElementById("rabbit_ep_gain_weed_id_tooltip").innerText =
+        "Gazokból nyert EP (nyulak)"
+    // EP gain from eating sheep (foxes)
+    document.getElementById("fox_ep_gain_id_tooltip").innerText =
+        "Táplálékból nyert EP (rókák)"
+    // Rabbits' maximal initial EP
+    document.getElementById("rabbit_max_init_ep_id_tooltip").innerText =
+        "A nyulak maximális kezdeti EP-je"
+    // Foxes' maximal initial EP
+    document.getElementById("fox_max_init_ep_id_tooltip").innerText =
+        "A rókák maximális kezdeti EP-je"
+    // Rabbits' reproduction threshold (EP)
+    document.getElementById("rabbit_reproduction_threshold_id_tooltip").innerText =
+        "A nyulak szaporodási küszöbe (EP)"
+    // Foxes' reproduction threshold (EP)
+    document.getElementById("fox_reproduction_threshold_id_tooltip").innerText =
+        "A rókák szaporodási küszöbe (EP)"
+    // Grass' regrow rate (%)
+    document.getElementById("grass_regrow_rate_id_tooltip").innerText = "A fű visszanövési rátája (%)"
+    // Weeds' regrow rate (%)
+    document.getElementById("weed_regrow_rate_id_tooltip").innerText = "A gazok visszanövési rátája (%)"
+    // Allow hunt
+    let allow_hunt = document.getElementById("allow_hunt_id")
+    allow_hunt.parentElement.firstElementChild.innerText = "Vadászat engedélyezése"
     // Allow flocking
     let allow_flocking = document.getElementById("allow_flocking_id")
-    allow_flocking.parentElement.firstElementChild.innerText = "Nyájba szerveződés engedélyezése"
+    allow_flocking.parentElement.firstElementChild.innerText = "Csordába szerveződés engedélyezése"
     // Hunt limiter exponent
-    hunting_exponent = document.getElementById("hunt_exponent_id")
-    hunting_exponent.parentElement.firstElementChild.firstElementChild.innerText = "A vadászatot korlátozó kitevő"
+    let hunt_exponent = document.getElementById("hunt_exponent_id")
+    hunt_exponent.parentElement.firstElementChild.firstElementChild.innerText = "A vadászatot korlátozó kitevő"
     // Allow Seed
     let allow_seed = document.getElementById("allow_seed_id")
     allow_seed.parentElement.firstElementChild.innerText = "Seed engedélyezése"
     // Random Seed
-    let seed = document.getElementById("seed_id")
+    let seed = document.getElementById("random_seed_id")
     seed.parentElement.firstElementChild.firstElementChild.innerText = "Random seed"
 }
 
@@ -125,15 +136,16 @@ function SwitchToEng() {
     ButtonsToEng()
     ParamsToEng()
     lang_flag.firstElementChild.src = "rabbitgrassweed/pics/Flag_of_Hungary.svg"
+    lang_flag.firstElementChild.alt = "Set language to Hungarian"
     lang = "en"
 }
 
 function HeaderToEng() {
-    document.title = "Wolves and Sheep (Mesa visualization)"
-    document.getElementsByClassName("navbar-brand")[0].innerText = "Wolves and Sheep"
-    document.getElementsByClassName("modal-title")[0].innerText = "About Wolves and Sheep"
+    document.title = "Rabbits, Grass and Weeds (Mesa visualization)"
+    document.getElementsByClassName("navbar-brand")[0].innerText = "Rabbits, Grass and Weeds"
+    document.getElementsByClassName("modal-title")[0].innerText = "About Rabbits, Grass and Weeds"
 
-    fetch("wolfsheep/text/eng_description.md")
+    fetch("rabbitgrassweed/text/eng_description.md")
         .then(response => response.text())
         .then(text => description.innerHTML = text)
 }
@@ -155,43 +167,53 @@ function ParamsToEng() {
     let torus = document.getElementById("torus_id")
     torus.parentElement.firstElementChild.innerText = "Torus"
     // Model type
-    model_type = document.getElementById("model_type_id")
+    let model_type = document.getElementById("model_type_id")
     model_type.parentElement.firstElementChild.firstElementChild.innerText = "Model type"
     model_type.children[0].innerText = "Extended model"
-    model_type.children[1].innerText = "Wolves, sheep and grass model"
-    model_type.children[2].innerText = "Wolves and sheep model"
-    // Initial number of wolves
-    document.getElementById("n_wolf_id_tooltip").innerText = "Initial number of wolves"
-    // Initial number of sheep
-    document.getElementById("n_sheep_id_tooltip").innerText = "Initial number of sheep"
-    // Energy gain from eating (wolves)
-    document.getElementById("wolf_ep_gain_id_tooltip").innerText =
-        "Energy gain from eating (wolves)"
-    // Energy gain from eating (sheep)
-    document.getElementById("sheep_ep_gain_id_tooltip").innerText =
-        "Energy gain from eating (sheep)"
-    // Reproduction rate of the wolves (%)
-    document.getElementById("wolf_reproduction_rate_id_tooltip").innerText =
-        "Reproduction rate of the wolves (%)"
-    // Reproduction rate of the sheep (%)
-    document.getElementById("sheep_reproduction_rate_id_tooltip").innerText =
-        "Reproduction rate of the sheep (%)"
-    // Grass regrow time
-    document.getElementById("regrow_time_id_tooltip").innerText = "Grass regrow time"
-    // Allow hunting
-    let allow_hunting = document.getElementById("allow_hunt_id")
-    allow_hunting.parentElement.firstElementChild.innerText = "Allow hunt"
+    model_type.children[1].innerText = "Rabbits, Grass and Weeds model"
+    // Initial number of rabbits
+    document.getElementById("n_rabbit_id_tooltip").innerText = "Initial number of rabbits"
+    // Initial number of foxes
+    document.getElementById("n_fox_id_tooltip").innerText = "Initial number of foxes"
+    // EP gain from eating grass (rabbits)
+    document.getElementById("rabbit_ep_gain_grass_id_tooltip").innerText =
+        "EP gain from eating grass (rabbits)"
+    // EP gain from eating weeds (rabbits)
+    document.getElementById("rabbit_ep_gain_weed_id_tooltip").innerText =
+        "EP gain from eating weeds (rabbits)"
+    // EP gain from eating sheep (foxes)
+    document.getElementById("fox_ep_gain_id_tooltip").innerText =
+        "EP gain from eating sheep (foxes)"
+    // Rabbits' maximal initial EP
+    document.getElementById("rabbit_max_init_ep_id_tooltip").innerText =
+        "Rabbits' maximal initial EP"
+    // Foxes' maximal initial EP
+    document.getElementById("fox_max_init_ep_id_tooltip").innerText =
+        "Foxes' maximal initial EP"
+    // Rabbits' reproduction threshold (EP)
+    document.getElementById("rabbit_reproduction_threshold_id_tooltip").innerText =
+        "Rabbits' reproduction threshold (EP)"
+    // Foxes' reproduction threshold (EP)
+    document.getElementById("fox_reproduction_threshold_id_tooltip").innerText =
+        "Foxes' reproduction threshold (EP)"
+    // Grass' regrow rate (%)
+    document.getElementById("grass_regrow_rate_id_tooltip").innerText = "Grass' regrow rate (%)"
+    // Weeds' regrow rate (%)
+    document.getElementById("weed_regrow_rate_id_tooltip").innerText = "Weeds' regrow rate (%)"
+    // Allow hunt
+    let allow_hunt = document.getElementById("allow_hunt_id")
+    allow_hunt.parentElement.firstElementChild.innerText = "Allow hunt"
     // Allow flocking
     let allow_flocking = document.getElementById("allow_flocking_id")
     allow_flocking.parentElement.firstElementChild.innerText = "Allow flocking"
     // Hunt limiter exponent
-    hunting_exponent = document.getElementById("hunt_exponent_id")
-    hunting_exponent.parentElement.firstElementChild.firstElementChild.innerText = "Hunt limiter exponent"
+    let hunt_exponent = document.getElementById("hunt_exponent_id")
+    hunt_exponent.parentElement.firstElementChild.firstElementChild.innerText = "Hunt limiter exponent"
     // Allow Seed
     let allow_seed = document.getElementById("allow_seed_id")
     allow_seed.parentElement.firstElementChild.innerText = "Allow Seed"
     // Random Seed
-    let seed = document.getElementById("seed_id")
+    let seed = document.getElementById("random_seed_id")
     seed.parentElement.firstElementChild.firstElementChild.innerText = "Random Seed"
 }
 

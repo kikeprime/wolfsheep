@@ -1,5 +1,5 @@
 <h1>Farkasok és bárányok populációmodell<br>
-<img src="wolfsheep/pics/wolf.png"> <img src="wolfsheep/pics/fsheep.png"></h1>
+<img src="rabbitgrassweed/pics/frabbit.png"></h1>
 
 <h2>Előszó</h2>
 
@@ -94,7 +94,7 @@ Sajnálatos módon, csak Linux alatt ajánlott a futtatás, mert valamilyen ok f
 
 <h3>Kezelés</h3>
 
-<img src="wolfsheep/pics/viz_showcase.png" width=500>
+<img src="rabbitgrassweed/pics/viz_showcase.png" width=500>
 
 <br>
 
@@ -109,7 +109,7 @@ A nőstény farkasok narancssárgák, a hímek szürkék, a nőstény bárányok
 <h1>Hivatkozások</h1>
 
 <ul>
-<li>Wilensky, U. (1997). NetLogo Wolf Sheep Predation model. http://ccl.northwestern.edu/netlogo/models/WolfSheepPredation. Center for Connected Learning and Computer-Based Modeling, Northwestern University, Evanston, IL.</li>
+<li>Wilensky, U. (1997). NetLogo Wolf Sheep Predation model. http://ccl.northwestern.edu/netlogo/models/rabbitgrassweedPredation. Center for Connected Learning and Computer-Based Modeling, Northwestern University, Evanston, IL.</li>
 <li><a href=https://upload.wikimedia.org/wikipedia/commons/c/c1/Flag_of_Hungary.svg>https://upload.wikimedia.org/wikipedia/commons/c/c1/Flag_of_Hungary.svg</a></li>
 <li><a href=https://upload.wikimedia.org/wikipedia/commons/a/a5/Flag_of_the_United_Kingdom_(1-2).svg>https://upload.wikimedia.org/wikipedia/commons/c/c1/Flag_of_Hungary.svg</a></li>
 <li><a href=https://mesa.readthedocs.io/stable/tutorials/visualization_tutorial.html>https://mesa.readthedocs.io/stable/tutorials/visualization_tutorial.html</a> (halott link)</li>

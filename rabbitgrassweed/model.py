@@ -32,7 +32,6 @@ class RabbitGrassWeedModel(Model):
         allow_seed (bool): Allow seed usage
         random_seed (int): Random seed
     """
-
     def __init__(self, width: int, height: int, torus: bool,
                  model_type: int, n_rabbit: int, n_fox: int,
                  rabbit_ep_gain_grass: int, rabbit_ep_gain_weed: int, fox_ep_gain: int,

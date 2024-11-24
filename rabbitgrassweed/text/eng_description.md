@@ -1,5 +1,5 @@
 <h1>Wolves and Sheep population model<br>
-<img src="wolfsheep/pics/wolf.png"> <img src="wolfsheep/pics/fsheep.png"></h1>
+<img src="rabbitgrassweed/pics/frabbit.png"></h1>
 
 <h2>Introduction</h2>
 
@@ -80,7 +80,7 @@ Unfortunatley, running is only recommended under Linux, because for some reason 
 
 <h3>Handling</h3>
 
-<img src="wolfsheep/pics/viz_showcase.png" width=700>
+<img src="rabbitgrassweed/pics/viz_showcase.png" width=700>
 
 <br>
 
@@ -95,7 +95,7 @@ The female wolves are orange, the male ones are gray, the female sheep are white
 <h1>References</h1>
 
 <ul>
-<li>Wilensky, U. (1997). NetLogo Wolf Sheep Predation model. http://ccl.northwestern.edu/netlogo/models/WolfSheepPredation. Center for Connected Learning and Computer-Based Modeling, Northwestern University, Evanston, IL.</li>
+<li>Wilensky, U. (1997). NetLogo Wolf Sheep Predation model. http://ccl.northwestern.edu/netlogo/models/rabbitgrassweedPredation. Center for Connected Learning and Computer-Based Modeling, Northwestern University, Evanston, IL.</li>
 <li><a href=https://upload.wikimedia.org/wikipedia/commons/c/c1/Flag_of_Hungary.svg>https://upload.wikimedia.org/wikipedia/commons/c/c1/Flag_of_Hungary.svg</a></li>
 <li><a href=https://upload.wikimedia.org/wikipedia/commons/a/a5/Flag_of_the_United_Kingdom_(1-2).svg>https://upload.wikimedia.org/wikipedia/commons/c/c1/Flag_of_Hungary.svg</a></li>
 <li><a href=https://mesa.readthedocs.io/stable/tutorials/visualization_tutorial.html>https://mesa.readthedocs.io/stable/tutorials/visualization_tutorial.html</a> (dead link)</li>
