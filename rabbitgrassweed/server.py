@@ -1,3 +1,7 @@
+"""
+This file is responsible for creating the server and its components.
+"""
+
 from mesa_viz_tornado.ModularVisualization import ModularServer
 from mesa_viz_tornado.modules import CanvasGrid, ChartModule
 from mesa_viz_tornado.UserParam import *
@@ -82,11 +86,11 @@ canvas_element = CanvasGrid(portrayal_method=ws_model_portrayal,
 
 chart_list = [
     {"Label": "Number of rabbits", "Color": "blue"},
-    {"Label": "Number of foxes", "Color": "red"},
+    {"Label": "Number of foxes", "Color": "black"},
     {"Label": "Number of female rabbits", "Color": "gray"},
     {"Label": "Number of male rabbits", "Color": "brown"},
     {"Label": "Number of female foxes", "Color": "orange"},
-    {"Label": "Number of male foxes", "Color": "black"},
+    {"Label": "Number of male foxes", "Color": "red"},
     {"Label": "Ratio of grass patches (%)", "Color": "green"},
     {"Label": "Ratio of weed patches (%)", "Color": "purple"}
 ]
@@ -117,7 +121,7 @@ params = {
                                             value=15, min_value=0, max_value=100, step=1),
     "fox_reproduction_threshold": Slider(name="Foxes' reproduction threshold (EP)",
                                          value=15, min_value=0, max_value=100, step=1),
-    "grass_regrow_rate": Slider(name="Grass' regrow rate (%)", value=15, min_value=0, max_value=100, step=1),
+    "grass_regrow_rate": Slider(name="Grass' regrow rate (%)", value=2, min_value=0, max_value=100, step=1),
     "weed_regrow_rate": Slider(name="Weeds' regrow rate (%)", value=0, min_value=0, max_value=100, step=1),
     "allow_hunt": Checkbox(name="Allow hunt", value=False, description="The foxes actively hunt."),
     "allow_flocking": Checkbox(name="Allow flocking", value=False, description="The rabbits will flock."),

@@ -14,7 +14,7 @@ class RabbitGrassWeedModel(Model):
         width (int): Width of the grid
         height (int): Height of the grid
         torus (bool): Torus for grid
-        model_type: Model type
+        model_type (str): Model type
         n_rabbit (int): Initial number of rabbits
         n_fox (int): Initial number of foxes
         rabbit_ep_gain_grass (int): Energy point gain for rabbits from grass
@@ -33,7 +33,7 @@ class RabbitGrassWeedModel(Model):
         random_seed (int): Random seed
     """
     def __init__(self, width: int, height: int, torus: bool,
-                 model_type: int, n_rabbit: int, n_fox: int,
+                 model_type: str, n_rabbit: int, n_fox: int,
                  rabbit_ep_gain_grass: int, rabbit_ep_gain_weed: int, fox_ep_gain: int,
                  rabbit_max_init_ep: int, fox_max_init_ep: int,
                  rabbit_reproduction_threshold: int, fox_reproduction_threshold: int,
