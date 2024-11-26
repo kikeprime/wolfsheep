@@ -22,7 +22,7 @@ class WolfSheepModel(Model):
         wolf_reproduction_rate (float): Reproduction rate for wolves
         sheep_reproduction_rate (float): Reproduction rate for sheep
         regrow_time (int): Regrow step count for grass agents
-        allow_hunt (bool): Allow hunting
+        allow_hunt (bool): Allow hunt
         allow_flocking (bool): Allow flocking
         hunt_exponent (float): Limiter exponent for hunt
         allow_seed (bool): Allow seed usage

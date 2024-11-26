@@ -107,11 +107,11 @@ params = {
     "sheep_reproduction_rate": Slider(name="Reproduction rate of the sheep (%)",
                                       value=4, min_value=0, max_value=100, step=1),
     "regrow_time": Slider(name="Grass regrow time", value=30, min_value=0, max_value=100, step=1),
-    "allow_hunt": Checkbox(name="Allow hunting", value=True, description="The wolves actively hunt."),
+    "allow_hunt": Checkbox(name="Allow hunt", value=True, description="The wolves actively hunt."),
     "allow_flocking": Checkbox(name="Allow flocking", value=True, description="The sheep will flock."),
-    "hunt_exponent": NumberInput(name="Hunt limiter exponent", value=-0.5, description="Limiting the hunting"),
-    "allow_seed": Checkbox(name="Allow Seed", value=True),
-    "seed": NumberInput(name="Random Seed", value=474, description="Seed for random number generators")
+    "hunt_exponent": NumberInput(name="Hunt limiter exponent", value=-0.5, description="Limiting the hunting."),
+    "allow_seed": Checkbox(name="Allow seed", value=True),
+    "random_seed": NumberInput(name="Random seed", value=474, description="Seed for random number generators")
 }
 
 server = WolfSheepServer(model_cls=ws.WolfSheepModel,

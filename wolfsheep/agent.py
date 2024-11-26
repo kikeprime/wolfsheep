@@ -130,7 +130,7 @@ class WolfAgent(WolfSheepAgent):
 
     Implement eating sheep and active hunt.
 
-    Attributes:
+    Parameters:
         unique_id (int): Unique identifier for instance agent (legacy support)
         model (WolfSheepModel): the WolfSheep model
         ep_gain (int): energy point gained from eating
@@ -189,7 +189,7 @@ class SheepAgent(WolfSheepAgent):
 
     Implement grazing and flocking.
 
-    Attributes:
+    Parameters:
         unique_id (int): Unique identifier for this agent (legacy support)
         model (WolfSheepModel): the WolfSheep model
         ep_gain (int): energy point gained from eating
@@ -243,7 +243,7 @@ class GrassAgent(Agent):
     """
     Agent class for grass.
 
-    Attributes:
+    Parameters:
         unique_id (int): Unique identifier for this agent (legacy support)
         model (WolfSheepModel): the WolfSheep model
         grown (bool): grass state, True for grown grass, False for grazed cell
