@@ -55,14 +55,14 @@ def ws_model_portrayal(agent):
         else:
             portrayal["Shape"] = "rabbitgrassweed/pics/fox.png"
         portrayal["Layer"] = 1
-        portrayal["Energy"] = agent.energy
+        portrayal["EP"] = agent.energy + 1
     if isinstance(agent, ws.RabbitAgent):
         if agent.gender:
             portrayal["Shape"] = "rabbitgrassweed/pics/frabbit.png"
         else:
             portrayal["Shape"] = "rabbitgrassweed/pics/rabbit.png"
         portrayal["Layer"] = 1
-        portrayal["Energy"] = agent.energy
+        portrayal["EP"] = agent.energy + 1
     if isinstance(agent, ws.GrassAgent):
         if agent.grown:
             if agent.race == 2:
@@ -80,15 +80,16 @@ def ws_model_portrayal(agent):
     return portrayal
 
 
+# Grid sizes must be adjusted here too.
 canvas_element = CanvasGrid(portrayal_method=ws_model_portrayal,
                             grid_width=30, grid_height=30,
                             canvas_width=600, canvas_height=600)
 
 chart_list = [
     {"Label": "Number of rabbits", "Color": "blue"},
-    {"Label": "Number of foxes", "Color": "black"},
     {"Label": "Number of female rabbits", "Color": "gray"},
-    {"Label": "Number of male rabbits", "Color": "brown"},
+    {"Label": "Number of male rabbits", "Color": "#975C24"},
+    {"Label": "Number of foxes", "Color": "black"},
     {"Label": "Number of female foxes", "Color": "orange"},
     {"Label": "Number of male foxes", "Color": "red"},
     {"Label": "Ratio of grass patches (%)", "Color": "green"},
@@ -99,7 +100,7 @@ chart_element_grass = ChartModule(series=chart_list[-2:], data_collector_name="d
 
 viz_elements = [canvas_element, chart_element, chart_element_grass]
 
-model_types = ["Extended model", "Rabbits, grass and weeds model"]
+model_types = ["Extended model", "Rabbits, Grass and Weeds model"]
 params = {
     "width": 30,
     "height": 30,
@@ -114,17 +115,17 @@ params = {
     "fox_ep_gain": Slider(name="EP gain from eating rabbits (foxes)",
                           value=5, min_value=0, max_value=100, step=1),
     "rabbit_max_init_ep": Slider(name="Rabbits' maximal initial EP",
-                                 value=10, min_value=0, max_value=100, step=1),
+                                 value=10, min_value=1, max_value=100, step=1),
     "fox_max_init_ep": Slider(name="Foxes' maximal initial EP",
-                              value=10, min_value=0, max_value=100, step=1),
+                              value=10, min_value=1, max_value=100, step=1),
     "rabbit_reproduction_threshold": Slider("Rabbits' reproduction threshold (EP)",
-                                            value=15, min_value=0, max_value=100, step=1),
+                                            value=15, min_value=1, max_value=100, step=1),
     "fox_reproduction_threshold": Slider(name="Foxes' reproduction threshold (EP)",
-                                         value=15, min_value=0, max_value=100, step=1),
+                                         value=15, min_value=1, max_value=100, step=1),
     "grass_regrow_rate": Slider(name="Grass' regrow rate (%)", value=6, min_value=0, max_value=100, step=1),
     "weed_regrow_rate": Slider(name="Weeds' regrow rate (%)", value=0, min_value=0, max_value=100, step=1),
-    "allow_hunt": Checkbox(name="Allow hunt", value=True, description="The foxes actively hunt."),
     "allow_flocking": Checkbox(name="Allow flocking", value=False, description="The rabbits will flock."),
+    "allow_hunt": Checkbox(name="Allow hunt", value=True, description="The foxes actively hunt."),
     "hunt_exponent": NumberInput(name="Hunt limiter exponent", value=-0.5, description="Limiting the hunting"),
     "allow_seed": Checkbox(name="Allow Seed", value=True),
     # Cannot be named "seed" otherwise it cannot be turned off

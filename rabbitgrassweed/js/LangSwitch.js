@@ -114,12 +114,12 @@ function ParamsToHun() {
     document.getElementById("grass_regrow_rate_id_tooltip").innerText = "A fű visszanövési rátája (%)"
     // Weeds' regrow rate (%)
     document.getElementById("weed_regrow_rate_id_tooltip").innerText = "A gazok visszanövési rátája (%)"
-    // Allow hunt
-    let allow_hunt = document.getElementById("allow_hunt_id")
-    allow_hunt.parentElement.firstElementChild.innerText = "Vadászat engedélyezése"
     // Allow flocking
     let allow_flocking = document.getElementById("allow_flocking_id")
     allow_flocking.parentElement.firstElementChild.innerText = "Csordába szerveződés engedélyezése"
+    // Allow hunt
+    let allow_hunt = document.getElementById("allow_hunt_id")
+    allow_hunt.parentElement.firstElementChild.innerText = "Vadászat engedélyezése"
     // Hunt limiter exponent
     let hunt_exponent = document.getElementById("hunt_exponent_id")
     hunt_exponent.parentElement.firstElementChild.firstElementChild.innerText = "A vadászatot korlátozó kitevő"
@@ -200,12 +200,12 @@ function ParamsToEng() {
     document.getElementById("grass_regrow_rate_id_tooltip").innerText = "Grass' regrow rate (%)"
     // Weeds' regrow rate (%)
     document.getElementById("weed_regrow_rate_id_tooltip").innerText = "Weeds' regrow rate (%)"
-    // Allow hunt
-    let allow_hunt = document.getElementById("allow_hunt_id")
-    allow_hunt.parentElement.firstElementChild.innerText = "Allow hunt"
     // Allow flocking
     let allow_flocking = document.getElementById("allow_flocking_id")
     allow_flocking.parentElement.firstElementChild.innerText = "Allow flocking"
+    // Allow hunt
+    let allow_hunt = document.getElementById("allow_hunt_id")
+    allow_hunt.parentElement.firstElementChild.innerText = "Allow hunt"
     // Hunt limiter exponent
     let hunt_exponent = document.getElementById("hunt_exponent_id")
     hunt_exponent.parentElement.firstElementChild.firstElementChild.innerText = "Hunt limiter exponent"

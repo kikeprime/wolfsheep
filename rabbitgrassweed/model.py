@@ -24,10 +24,10 @@ class RabbitGrassWeedModel(Model):
         fox_max_init_ep (int): maximum initial energy point for foxes
         rabbit_reproduction_threshold (int): Reproduction threshold for rabbits
         fox_reproduction_threshold (int): Reproduction threshold for foxes
-        grass_regrow_rate (int): Probability of grass (%)
-        weed_regrow_rate (int): Probability of weed (%)
-        allow_hunt (bool): Allow hunting
+        grass_regrow_rate (int): Probability of grass growth (%)
+        weed_regrow_rate (int): Probability of weed growth (%)
         allow_flocking (bool): Allow flocking
+        allow_hunt (bool): Allow hunt
         hunt_exponent (float): Limiter exponent for hunt
         allow_seed (bool): Allow seed usage
         random_seed (int): Random seed
@@ -38,7 +38,7 @@ class RabbitGrassWeedModel(Model):
                  rabbit_max_init_ep: int, fox_max_init_ep: int,
                  rabbit_reproduction_threshold: int, fox_reproduction_threshold: int,
                  grass_regrow_rate: int, weed_regrow_rate: int,
-                 allow_hunt: bool, allow_flocking: bool, hunt_exponent: float,
+                 allow_flocking: bool, allow_hunt: bool, hunt_exponent: float,
                  allow_seed: bool, random_seed: int):
         super().__init__()
         self.schedule = RandomActivation(model=self)
@@ -47,7 +47,7 @@ class RabbitGrassWeedModel(Model):
         # model-version in the NetLogo code
         model_types = {
             "Extended model": 0,
-            "Rabbits, grass and weeds model": 1,
+            "Rabbits, Grass and Weeds model": 1,
         }
         self.model_type = model_types[model_type]
 

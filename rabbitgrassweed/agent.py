@@ -41,10 +41,7 @@ class RabbitFoxAgent(Agent):
         self.max_init_ep = max_init_ep
         self.reproduction_threshold = reproduction_threshold
 
-        if self.max_init_ep > 0:
-            self.energy = self.model.random.randrange(self.max_init_ep)
-        else:
-            self.energy = 0
+        self.energy = self.model.random.randrange(self.max_init_ep)
 
         # True: female
         # False: male
