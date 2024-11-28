@@ -1,32 +1,63 @@
-<h1>Farkasok és bárányok populációmodell<br>
-<img src="rabbitgrassweed/pics/frabbit.png"></h1>
+<h1>Nyulak, fű és gazok populációmodell<br>
+<img src="rabbitgrassweed/pics/frabbit.png">
+<img src="rabbitgrassweed/pics/rabbit.png"></h1>
 
 <h2>Előszó</h2>
 
-A "Farkasok és bárányok" egy NetLogoban készült ágens alapú modell saját programozású mesa implementációja, illetve továbbfejlesztése.
-Ez a modell egy ragadozófaj és annak egy prédájának populációinak együttélését modellezi háromféleképpen.
-Az alapértelmezett modelltípus a saját bővítéseimet tartalmazza, míg a másik kettő az eredeti modell két típusát hivatott a lehető leghűbben implementálni.
+A "Nyulak, fű és gazok" egy NetLogoban készült ágens alapú modell saját programozású mesa implementációja, illetve továbbfejlesztése.
+Ez a modell egy növényevőfaj és annak kétféle táplálékának populációinak együttélését modellezi háromféleképpen.
+Az alapértelmezett modelltípus az eredeti modellt hivatott a lehető leghűbben implementálni, míg a "Bővített modell" típusban az egyedenek neme is van.
 
 <h2>A modelltípusok működési jellemzői</h2>
 
 <h3>Közös jellemzők</h3>
 
-Mindhárom modellben van két állatfaj, egy ragadozó és annak egy prédája, amelyeket farkasokkal és bárányokkal reprezentálunk.
-Ezek az állatok egy füves területen élnek, ahol a bárányok legelik a füvet, a farkasok megeszik a bárányokat.
-Továbbá minden egyednek van valamennyi energiája (továbbiakban energiapont), amely minden lépésben (a modell állapotváltozása) eggyel csökken, de evés által a megadott paraméternyivel megnő. Ha elfogy az energiájuk (nem 0, hanem kevesebb, mint 0 energiapont), akkor meghalnak. Ezek mellett képesek is szaporodni valószínűségi alapon, azonban ekkor az energiájuk megfeleződik.
+Mindkét modelltípusban van egy növényevőfaj, amelyet nyulakkal reprezentálunk.
+Ezek a nyulak egy olyan területen élnek, ahol fű és gazok nőhetnek valószínűségi alapon, amelyeknek különböző a tápértéke.
+Továbbá minden egyednek van valamennyi energiája (továbbiakban energiapont, röviden EP), amely minden lépésben (a modell állapotváltozása) eggyel csökken, de evés által a megevett táplálék típusától függő paraméternyivel megnő. Ha elfogy az energiájuk, akkor meghalnak. Ezek mellett képesek is szaporodni, amennyiben egy megadott szint feletti energiapontjuk van, azonban ekkor az energiájuk megfeleződik. A modell egy lépésében a nyúl ágensek egy szomszédos cellába lépnek át, ahol a szomszédos cellák a Moore-féle szomszédokat jelenti az ágens aktuális cellájának kivételével, tehát a nyúl ágensek nem maradhatnak egy helyben.
 
-Az eredeti modellben a fű mint "patchek" voltak a cellákba helyezve, míg ebben az implementációban ágensként. Mindhárom modell esetén annyi fű ágens van ahány cella. A fűnek két állapota van, a kinőtt és a lelegelt.
+Az energiapontról annyit érdemes tudni, hogy a program eggyel kevesebb energiaponttal dolgozik, mint ami egy állaton látható a vizualizációs alkalmazásban, ha rájuk tesszük a kurzort. Ez azt hivatott korrigálni, hogy a szaporodási küszöb és a kezdeti maximális EP paraméterek szigorú egyenlőtleséggel működnek. Ezen paraméterek csúszkái a kijelzett értékek szerint állíthatók. Tehát a felhasználónak az alkalmazás legalább 1 EP-t jelez. Az állatokra rátéve a kurzort látható egy "Layer: 1" érték is, ami réteget jelent és kötelező érték. A fű ágenseknél ez az érték 0 és ennek köszönhető, hogy csak az állatokon jelenik meg ez a jelzés.
 
-Új paraméterek, amely mindhárom modellnél működnek:
+Az eredeti modellben a fű és gazok mint "patchek" voltak a cellákba helyezve, míg ebben az implementációban ágensként.
+Mindkét modelltípus esetén a füvet és a gazokat egy közös fű ágens kezeli, amennyiből annyi van, ahány cella. A fű ágenseknek két állapota van, kinőtt és lelegelt.
+Fontos tulajdonság, hogy a cellákban nagyobb valószínűséggel nő ki fű, mint gazok. Ennek az az oka, hogy először az dől el, hogy gazok nőhetnek-e ki és utána, hogy fű, azonban ez felülírja gazokat, amennyiben bekövetkezik. Tehát, ha fű kinőhet a megadott valószínűség szerint, akkor fű nő ki függetlenül attól, hogy gazok kinőhetnek-e vagy sem. Ez a viselkedés az eredeti modellből származik.
+
+A modell továbbfejlesztése céljából, lehetőség van egy ragadozófaj hozzáadásához, amelyet rókákkal reprezentálunk. A rókák alapértelmezetten ugyanúgy működnek, mint a nyulak, de természetesen a rókák a nyulakat eszik meg. A rókák rendelkeznek a nyulakéhoz hasonló paramétererekkel.
+
+A paraméterek sorrendben és alapértelmezett értékük:
 
 <ul>
-<li>A farkasok aktívan vadásszanak-e.</li>
-<li>A vadászatot korlátozó kitevő. Lásd lejjebb.</li>
-<li>A bárányok nyájba igyekezzenek-e szerveződni.</li>
-<li>A random függvényeket szabályzó seed. A seed segítségével reprodukálhatóvá válnak a futtattások, de kikapcsolható.</li>
+<li>A rács szélessége és magassága, ami csak a kód módosításával állítható. Ennek a vizualizációs alkalmazás korlátai az oka.
+<br><i>30 x 30</i></li>
+<li>Tórusz: Ha egy állat ágens a rács szélén van, akkor átléphetnek-e a szemben lévő szélre vagy sem.
+<br><i>Igaz</i></li>
+<li>Modelltípus, amely lehet az eredeti modell, a "Nyulak, fű és gazok modell", vagy a "Bővített modell", amiben az állatoknak van neme.
+<br><i>Nyulak, fű és gazok modell</i></li>
+<li>A nyulak kezdeti száma.
+<br><i>150</i></li>
+<li>A rókák kezdeti száma.
+<br><i>0</i></li>
+<li>A nyulak fűből és gazokból nyert energiapont mennyisége.
+<br><i>5 és 0</i></li>
+<li>A rókák nyulakból nyert energiapont mennyisége.
+<br><i>5</i></li>
+<li>A nyulak és rókák maximális kezdeti energiapont mennyisége, eredetileg ez az érték nem volt változtatható.
+<br><i>10 és 10</i></li>
+<li>A nyulak és rókák szaporodási küszöbe. Legalább ennyi energiapontra van szüksége egy egyednek a szaporodáshoz.
+<br><i>15 és 15</i></li>
+<li>A fű és gazok kinövési valószínűsége százalékban. Az eredeti modellben ezrelékben, de a csúszkák ilyen sűrű beosztásű intervallumon pontatlanok.
+<br><i>6%, eredetileg 15 ezrelék, vagyis 1,5%</i></li>
+<li>A nyulak csordába igyekezzenek-e szerveződni.
+<br><i>Hamis</i></li>
+<li>A rókák aktívan vadásszanak-e.
+<br><i>Igaz</i></li>
+<li>A vadászatot korlátozó kitevő. Lásd lejjebb!
+<br><i><math xmlns="http://www.w3.org/1998/Math/MathML"><mo>-</mo><mn>0,5</mn></math></i></li>
+<li>A random függvényeket szabályzó seed. A seed segítségével reprodukálhatóvá válnak a futtattások, de kikapcsolható.
+<br><i>Igaz és 474</i></li>
 </ul>
 
-A vadászatot korlátozó kitevő azt jelenti, hogy annak a valószínűsége, hogy egy farkas aktívan vadászik
+A vadászatot korlátozó kitevő azt jelenti, hogy annak a valószínűsége, hogy egy róka aktívan vadászik, vagyis csak olyan szomszédos cellába lép, ahol van nyúl,
 <math xmlns="http://www.w3.org/1998/Math/MathML">
   <msup>
     <mtext>energiapont</mtext>
@@ -38,9 +69,9 @@ A vadászatot korlátozó kitevő azt jelenti, hogy annak a valószínűsége, h
     </mrow>
   </msup>
 </math>.
-Tehát, ha a kitevő 0, akkor nincs korlátozás. Fontos megjegyezni, hogy a kitevő azért nempozitív, mert különben a kód működéséből kifolyólag a valószínűség 100% lenne, mint a 0 esetében. Szabad vadászat esetén jellemző a túlvadászat, ez volt a kitevő bevezetésének motivációja.
+Tehát, ha a kitevő 0, akkor nincs korlátozás. Fontos megjegyezni, hogy a kitevő azért nem pozitív, mert különben a kód működéséből kifolyólag a valószínűség 100% lenne, mint 0 esetében. Szabad vadászat esetén jellemző a túlvadászat, ez volt a kitevő bevezetésének motivációja.
 
-<h3>Farkasok és bárányok</h3>
+<h3>Nyulak, fű és gazok populációmodell</h3>
 
 <ul>
 <li>A legegyszerűbb modelltípus, amely az eredeti modellből lett közvetlenül implementálva.</li>
@@ -109,7 +140,8 @@ A nőstény farkasok narancssárgák, a hímek szürkék, a nőstény bárányok
 <h1>Hivatkozások</h1>
 
 <ul>
-<li>Wilensky, U. (1997). NetLogo Wolf Sheep Predation model. http://ccl.northwestern.edu/netlogo/models/rabbitgrassweedPredation. Center for Connected Learning and Computer-Based Modeling, Northwestern University, Evanston, IL.</li>
+<ul>
+<li>Wilensky, U. (1997). NetLogo Wolf Sheep Predation model. <a href=http://ccl.northwestern.edu/netlogo/models/WolfSheepPredation>http://ccl.northwestern.edu/netlogo/models/WolfSheepPredation</a>. Center for Connected Learning and Computer-Based Modeling, Northwestern University, Evanston, IL.</li>
 <li><a href=https://upload.wikimedia.org/wikipedia/commons/c/c1/Flag_of_Hungary.svg>https://upload.wikimedia.org/wikipedia/commons/c/c1/Flag_of_Hungary.svg</a></li>
 <li><a href=https://upload.wikimedia.org/wikipedia/commons/a/a5/Flag_of_the_United_Kingdom_(1-2).svg>https://upload.wikimedia.org/wikipedia/commons/c/c1/Flag_of_Hungary.svg</a></li>
 <li><a href=https://mesa.readthedocs.io/stable/tutorials/visualization_tutorial.html>https://mesa.readthedocs.io/stable/tutorials/visualization_tutorial.html</a> (halott link)</li>
