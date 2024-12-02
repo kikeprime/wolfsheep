@@ -49,7 +49,7 @@ class RabbitGrassWeedModel(Model):
             "Extended model": 0,
             "Rabbits, Grass and Weeds model": 1,
             "Bővített modell": 0,
-            "Nyulak, fű és gazok modell": 1
+            "Nyulak, fű és gyomok modell": 1
         }
         self.model_type = model_types[model_type]
 

@@ -54,9 +54,9 @@ function SwitchToHun() {
 }
 
 function HeaderToHun() {
-    document.title = "Nyulak, fű és gazok (Mesa vizualizáció)"
-    document.getElementsByClassName("navbar-brand")[0].innerText = "Nyulak, fű és gazok"
-    document.getElementsByClassName("modal-title")[0].innerText = "Nyulak, fű és gazok leírás"
+    document.title = "Nyulak, fű és gyomok (Mesa vizualizáció)"
+    document.getElementsByClassName("navbar-brand")[0].innerText = "Nyulak, fű és gyomok"
+    document.getElementsByClassName("modal-title")[0].innerText = "Nyulak, fű és gyomok leírás"
 
     fetch("rabbitgrassweed/text/hun_description.md")
         .then(response => response.text())
@@ -84,7 +84,7 @@ function ParamsToHun() {
     let model_type = document.getElementById("model_type_id")
     model_type.parentElement.firstElementChild.firstElementChild.innerText = "Modelltípus"
     model_type.children[0].innerText = "Bővített modell"
-    model_type.children[1].innerText = "Nyulak, fű és gazok modell"
+    model_type.children[1].innerText = "Nyulak, fű és gyomok modell"
     // Initial number of rabbits
     document.getElementById("n_rabbit_id_tooltip").innerText = "A nyulak kezdeti száma"
     // Initial number of foxes
@@ -94,7 +94,7 @@ function ParamsToHun() {
         "Fűből nyert EP (nyulak)"
     // EP gain from eating weeds (rabbits)
     document.getElementById("rabbit_ep_gain_weed_id_tooltip").innerText =
-        "Gazokból nyert EP (nyulak)"
+        "Gyomokból nyert EP (nyulak)"
     // EP gain from eating rabbits (foxes)
     document.getElementById("fox_ep_gain_id_tooltip").innerText =
         "Nyulakból nyert EP (rókák)"
@@ -113,7 +113,7 @@ function ParamsToHun() {
     // Grass' regrow rate (%)
     document.getElementById("grass_regrow_rate_id_tooltip").innerText = "A fű visszanövési rátája (%)"
     // Weeds' regrow rate (%)
-    document.getElementById("weed_regrow_rate_id_tooltip").innerText = "A gazok visszanövési rátája (%)"
+    document.getElementById("weed_regrow_rate_id_tooltip").innerText = "A gyomok visszanövési rátája (%)"
     // Allow flocking
     let allow_flocking = document.getElementById("allow_flocking_id")
     allow_flocking.parentElement.firstElementChild.innerText = "Csordába szerveződés engedélyezése"
