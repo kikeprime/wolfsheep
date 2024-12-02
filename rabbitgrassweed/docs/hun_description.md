@@ -10,7 +10,7 @@ A "Nyulak, fű és gyomok" egy NetLogoban készült ágens alapú modell saját 
 Ez a modell egy növényevőfaj és annak kétféle táplálékának populációinak együttélését modellezi.
 Az alapértelmezett modelltípus az eredeti modellt hivatott a lehető leghűbben implementálni, míg a "Bővített modell" típusban az egyedenek neme is van.<br>
 
-Egy ilyen modellt főként a mezőgazdaság és a természetvédelem területén lehet hasznosítani. A mezőgazdaságon belül az állattartás megtervezésénél lehet hasznos, míg a természetvédelemben a veszélyeztetett fajok érdekében történő beavatkozások hatásai szimulálhatók. Természetesen pontosan ez a modell egyikre sem alkalmas, mert primitív, azonban egy kiindulási alapként szolgálhat. A modell jelenlegi állapotában főként szemléltetésre használható.<br>
+Egy ilyen modellt főként a mezőgazdaság és a természetvédelem területén lehet hasznosítani. A mezőgazdaságon belül az állattartás megtervezésénél lehet hasznos, míg a természetvédelemben a veszélyeztetett fajok érdekében történő beavatkozások hatásai szimulálhatók. Természetesen pontosan ez a modell egyikre sem alkalmas, mert primitív, azonban egy kiindulási alapként szolgálhat. A modell jelenlegi állapotában leginkább szemléltetésre használható.<br>
 
 <br><h2>A modelltípusok működési jellemzői</h2>
 
@@ -90,11 +90,21 @@ A fent leírt alapértelmezett paraméterek esetén, amelyek a fű kinövési va
 
 Érdekes jelenség, hogy teljesen különböző paraméterek mellett is az indítás után az állatok száma lezuhan, de előfordulhat, hogy a zuhanást egy kis növekedés előzi meg, azonban ez a seedtől függ.<br>
 
-A modell akkor is stabil marad, ha a modelltípust átállítjuk, azonban rókákkal már ez nem teljesül, mert a rókák kihalnak. Mindkét modelltípusban megmarad a stabilitás, ha a gyomok szaporodási valószínűségét 12% állítjuk, de a gyomok tápértéke továbbra is 0.<br>
+<img src="rabbitgrassweed/pics/graph_anomaly.png" width=300><br>
+
+A modell akkor is stabil marad, ha a modelltípust átállítjuk, azonban rókákkal már ez nem teljesül, mert a rókák kihalnak. Mindkét modelltípusban megmarad a stabilitás, ha a gyomok szaporodási valószínűségét 12% állítjuk, de a gyomok tápértéke továbbra is 0.
+
+<img src="rabbitgrassweed/pics/extended_model_rabbits.png" width=500><br>
+
+<img src="rabbitgrassweed/pics/extended_model_weeds.png" width=500><br>
 
 Ha a kezdeti rókák száma 50 és az aktív vadászat ki van kapcsolva, akkor a rókák csak úgy élhetnek túl, ha valamilyen paramétert átállítunk. Több teszt futtatása után a nyulak tápértékének növelése bizonyult kifizetődőnek. A minimális tápérték amellett stabil a modell az 12.<br>
 
+<img src="rabbitgrassweed/pics/default_model_foxes.png" width=500><br>
+
 A bővített modell rókákkal együtt jellemzően nem stabil, ami a rókák kihalását jelenti, de a nyúl populáció ezután stabilizálódik. Csak szélsőséges paraméterek mellett jellemző a nyulak kihalása. A rókák kihalása jellemzően úgy zajlik, hogy az említett kezdeti csökkenés után a nyulak száma megugrik, amelyet követ a rókák gyarapodása, de már kis mértékű gyarapodás után a nyulak száma olyan szintre zuhan, ami nem képes eltartani a rókákat, így a rókák kihalnak, amely kihalást a rókák aktív vadászata csak felgyorsít. Az egyik legjobb eredmény az, hogy a rókák száma 30 körül marad tartósan, de ugyanezen paraméterek mellett 474-es seeddel ez a szám csak 10. A paraméterek ehhez a kísérlethez a rókák kezdeti száma 75, a nyulak tápértéke 10 EP, a rókák szaporodási küszöbe 30 EP, fű 15% eséllyel nő újra, a rókák nem vadásznak aktívan, seed nem engedélyezve vagy a seed 474.<br>
+
+<img src="rabbitgrassweed/pics/extended_model_foxes.png" width=500><br>
 
 <br><h2>A vizualizációs program</h2>
 

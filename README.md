@@ -1,59 +1,65 @@
-<h1>English <br>Rabbits, Grass and Weeds population model <img src="rabbitgrassweed/pics/frabbit.png"></h1>
+<h1>English <br>Rabbits, Grass and Weeds population model <img src="rabbitgrassweed/pics/frabbit.png"> <img src="rabbitgrassweed/pics/rabbit.png"></h1>
 
 <h2>Introduction</h2>
 
-The "Rabbits, Grass and Weed" is a self-programmed mesa implementation and further development of an agent-based model created in NetLogo.
-This model models the cohabitation of a predator species and one of its prey in three ways.
-The default model type contains my extensions while the rest two are meant to implement the original model's two types as faithfully as possible.
+The "Rabbits, Grass and Weed" is a self-programmed mesa implementation and extension of an agent-based model created in NetLogo.
+This model models the cohabitation of a herbivorous species and two of its foods.
+The default model type is meant to implement the original model as faithfully as possible while in the "Extended model" type the animals have genders.
+
+This kind of model can primarily be utilized in the fields of agriculture and nature conservation. Within agriculture it can be useful for planning animal husbandry while within nature conservation the effects of intervention for the preservation of the endangered species can be simulated. Naturally, this exact model cannot be applied for either use cases since it's primitive but it can serve as a starting point instead. The model in its current form can be mostly used for presentation.
 
 <h2>The model types' operational characteristics</h2>
 
 <h3>Mutual characteristics</h3>
 
-In all three models, there are two animal species, one predator and one of its prey, which are represented by wolves and sheep.
-These animals live in a grassy area where the sheep graze the grass, the wolves eat the sheep.
-Furthermore, all entities have some energy (energy point from now on) which is decreased by one in every step (the model's change of state) but is increased by the given parameter by eating. If there energy is fully consumed (not 0 but less than 0 energy point) they die. They can also reproduce randomly, however doing so halves their energy.
+In both model types, there is a herbivorous species, which is represented by rabbits.
+These rabbits live in such an area where grass and weeds can grow randomly and have a set nutritional value.
+Furthermore, all entities have some energy (energy point or EP for short from now on) which is decreased by one in every step (the model's change of state) but is increased by a given parameter based on the food type by eating. If their energy is fully consumed, they die. They can also reproduce if their EP is above a set threshold, however doing so halves their energy. During one step of the model, the animal agents move to one of the neighboring cells where the neighbors are the Moore-neighbors excluding the agent's current cell so they can't stay still.
 
-In the original model, the grass were put in the cells as patches while in this implementation as agents. In the case of all three models, the number of grass agents is the same as the number of cells. The grass has two states, grown and grazed.
+In the original model, the grass and weeds were put in the cells as patches while in this implementation as agents. The grass and weeds are handled by a grass agent whose number is the same as the number of cells. The grass agents have two states, grown and grazed. Important to note that grass has a higher chance to grow than weeds. This is because firstly it is decided if weeds can grow and then if grass can grow but it overrides the weeds if it happens. So, if grass can grow due to the set probability then grass will grow disregarding if weeds can grow. This behavior comes from the original model.
 
-New parameters which work for all three models:
-
-<ul>
-<li>Whether the wolves should hunt actively.</li>
-<li>Hunting limiter exponent. See below.</li>
-<li>Whether the sheep try to flock.</li>
-<li>The seed that controls the random functions. The seed makes the runs reproducable, but can be turned off.</li>
-</ul>
-
-The hunt limiter exponent means that the probability of a wolf hunts actively is $(\text{energy point})^{-|\text{exponent}|}$.
-So, if the exponent is 0 there's no limitation. It's imortant to note the reason behind the exponent being nonpositive is that the probability would be 100% just like in case of 0 due to how the code works. Overhunt is typical in case of free hunt this was the motivation behind the exponent.
-
-<h3>Wolves and sheep</h3>
+The parameters in order and their default values:
 
 <ul>
-<li>The simplest model type, which was directly implemented from the original model.</li>
-<li>All the grasses are always grown.</li>
-<li>The sheep have infinite energy (it doesn't change).</li>
-<li>The wolves eat one sheep from the cell they're residing with given probability.</li>
-<li>The entities give birth to one descendant with given probability which descendant is put into one of the neighboring cells.</li>
+<li>The grid's width and height, which can only be changed in the code due to the limitations of the visualization application.
+<br><i>30 x 30</i></li>
+<li>Torus: If the animal agents are at on of the edges then if they can get to the opposite edge.
+<br><i>True</i></li>
+<li>Model type, which can either be the original model, the "Rabbits, Grass and Weeds model", or the "Extended model", in which the animals have genders.
+<br><i>Rabbits, Grass and Weeds model</i></li>
+<li>The initial number of rabbits.
+<br><i>150</i></li>
+<li>The initial number of foxes.
+<br><i>0</i></li>
+<li>The rabbits' EP gain from grass and weeds.
+<br><i>5 and 0</i></li>
+<li>The foxes' EP gain from rabbits.
+<br><i>5</i></li>
+<li>The rabbits and foxes' maximal initial EP, originally this couldn't be changed.
+<br><i>10 and 10</i></li>
+<li>The rabbits and foxes' reproduction threshold. An entity needs at least this much EP to reproduce.
+<br><i>15 and 15</i></li>
+<li>The grass and weeds' regrowth rate in percents. In the original model in thousandths, but the sliders are imprecise in such densely divided interval.
+<br><i>6%, originally 15 thousandths or 1,5%</i></li>
+<li>If the rabbits can flock.
+<br><i>False</i></li>
+<li>If the foxes can hunt actively.
+<br><i>True</i></li>
+<li>The hunt limiter exponent. See below.
+<br><i><math xmlns="http://www.w3.org/1998/Math/MathML"><mo>-</mo><mn>0,5</mn></math></i></li>
+<li>The random seed. With the help of the seed the runs can be replicated, but it's toggleable.
+<br><i>True and 474</i></li>
 </ul>
 
-<h3>Wolves, sheep and grass</h3>
-
-<ul>
-<li>Also implemented from the original model.</li>
-<li>The rules above are still intact alongside the ones below.</li>
-<li>The sheep's energy changes just like the wolves'.</li>
-<li>The grazed grass agents become grown again after given number of steps.</li>
-</ul>
+The hunt limiter exponent means that the probability of a fox hunts actively, in other words they only move into those neighboring cell which has rabbits, is $(\text{energy point})^{-|\text{exponent}|}$.
+So, if the exponent is 0 there's no limitation. It's imortant to note the reason behind the exponent not being positive is that the probability would be 100% just like in case of 0 due to how the code works. Overhunt is typical in case of free hunt this was the motivation behind the exponent.
 
 <h3>Extended model</h3>
 
 <ul>
 <li>The model type extended by me.</li>
 <li>The animal agents have gender.</li>
-<li>For reproduction, two entities with different genders must be present in the same cell and both parents must "want" it.</li>
-<li>Because of the new reproduction conditions, one parent's reproduction probability is the square root of the parameter, so the parents give the parameter together.</li>
+<li>For reproduction, in addition to the necessary EP two entities with different genders must be present in the same cell.</li>
 </ul>
 
 <h2>The visualization application</h2>
@@ -64,7 +70,7 @@ The model's visualization is done by the mesa_viz_tornado python package (so Pyt
 
 The visualization application can be run in multiple ways. One way is to run run.py which is can be found alongside this file, or we type "mesa runserver" without quotation marks into a terminal opened in this folder.
 
-Unfortunatley, running is only recommended under Linux, because for some reason under Windows the interactive elements don't appear correctly on the webpage generated by mesa_viz_tornado, but despite this everything works fine. However, via WSL or virtual machine it can be perfectly run on Windows as well. Both methods were tested under Debian Linux. I recommend the WSL method, because the shown IP-address URL works (http://127.0.0.1:8521, which is equivalent with <a href=http://localhost:8521>localhost:8521</a>) unlike with a virtual machine, where the IP-address depends on the program and its settings, or we use the application inside the virtual machine.
+Unfortunatley, running is only recommended under Linux, because for some reason under Windows the interactive elements don't appear correctly on the webpage generated by mesa_viz_tornado, but despite this everything works fine. However, via WSL or virtual machine it can be perfectly run on Windows as well. Both methods were tested under Debian Linux. I recommend the WSL method, because the shown IP-address URL works (<a href=http://127.0.0.1:8521>http://127.0.0.1:8521</a>, which is equivalent with <a href=http://localhost:8521>localhost:8521</a>) unlike with a virtual machine, where the IP-address depends on the program and its settings, or we use the application inside the virtual machine.
 
 <h3>Handling</h3>
 
@@ -78,7 +84,7 @@ The default language of the webpage is English but by clicking on the flag in th
 
 The model's parameters can be set on the left side, the grid that visualizes the model is in the middle, above it the simulation's speed can be set whose default value is 3 steps/second, however the number of agents can effect it (for example in case of overgrowth it's slower). Under the grid the graphs can be seen, among them the 1st one is the number of entities by species and gender depending on the number of steps. The bottom graph is the percentage of the grown grass agents also depending on the number of steps.
 
-The female wolves are orange, the male ones are gray, the female sheep are white, the male ones are black. The consequence of this choice is that in the inherited models all wolves are male and all sheep are female.
+The female rabbits are white, the male ones are brown, the female foxes are orange, the male ones are gray. The consequence of this choice is that in the inherited models all rabbits are female and all foxes are male.
 
 <h1>Magyar <br>Nyulak, fű és gyomok populációmodell <img src="rabbitgrassweed/pics/frabbit.png"> <img src="rabbitgrassweed/pics/rabbit.png"></h1>
 
@@ -156,11 +162,21 @@ A fent leírt alapértelmezett paraméterek esetén, amelyek a fű kinövési va
 
 Érdekes jelenség, hogy teljesen különböző paraméterek mellett is az indítás után az állatok száma lezuhan, de előfordulhat, hogy a zuhanást egy kis növekedés előzi meg, azonban ez a seedtől függ.
 
+<img src="rabbitgrassweed/pics/graph_anomaly.png" width=300>
+
 A modell akkor is stabil marad, ha a modelltípust átállítjuk, azonban rókákkal már ez nem teljesül, mert a rókák kihalnak. Mindkét modelltípusban megmarad a stabilitás, ha a gyomok szaporodási valószínűségét 12% állítjuk, de a gyomok tápértéke továbbra is 0.
+
+<img src="rabbitgrassweed/pics/extended_model_rabbits.png" width=500><br>
+
+<img src="rabbitgrassweed/pics/extended_model_weeds.png" width=500>
 
 Ha a kezdeti rókák száma 50 és az aktív vadászat ki van kapcsolva, akkor a rókák csak úgy élhetnek túl, ha valamilyen paramétert átállítunk. Több teszt futtatása után a nyulak tápértékének növelése bizonyult kifizetődőnek. A minimális tápérték amellett stabil a modell az 12.
 
+<img src="rabbitgrassweed/pics/default_model_foxes.png" width=500>
+
 A bővített modell rókákkal együtt jellemzően nem stabil, ami a rókák kihalását jelenti, de a nyúl populáció ezután stabilizálódik. Csak szélsőséges paraméterek mellett jellemző a nyulak kihalása. A rókák kihalása jellemzően úgy zajlik, hogy az említett kezdeti csökkenés után a nyulak száma megugrik, amelyet követ a rókák gyarapodása, de már kis mértékű gyarapodás után a nyulak száma olyan szintre zuhan, ami nem képes eltartani a rókákat, így a rókák kihalnak, amely kihalást a rókák aktív vadászata csak felgyorsít. Az egyik legjobb eredmény az, hogy a rókák száma 30 körül marad tartósan, de ugyanezen paraméterek mellett 474-es seeddel ez a szám csak 10. A paraméterek ehhez a kísérlethez a rókák kezdeti száma 75, a nyulak tápértéke 10 EP, a rókák szaporodási küszöbe 30 EP, fű 15% eséllyel nő újra, a rókák nem vadásznak aktívan, seed nem engedélyezve vagy a seed 474.
+
+<img src="rabbitgrassweed/pics/extended_model_foxes.png" width=500>
 
 <h2>A vizualizációs program</h2>
 
