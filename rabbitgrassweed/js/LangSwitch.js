@@ -12,7 +12,7 @@ navbar.innerHTML += `
 `
 
 // Initialize description
-fetch("rabbitgrassweed/text/eng_description.md")
+fetch("rabbitgrassweed/docs/eng_description.md")
     .then(response => response.text())
     .then(text => description.innerHTML = text)
 
@@ -58,7 +58,7 @@ function HeaderToHun() {
     document.getElementsByClassName("navbar-brand")[0].innerText = "Nyulak, fű és gyomok"
     document.getElementsByClassName("modal-title")[0].innerText = "Nyulak, fű és gyomok leírás"
 
-    fetch("rabbitgrassweed/text/hun_description.md")
+    fetch("rabbitgrassweed/docs/hun_description.md")
         .then(response => response.text())
         .then(text => description.innerHTML = text)
 }
@@ -145,7 +145,7 @@ function HeaderToEng() {
     document.getElementsByClassName("navbar-brand")[0].innerText = "Rabbits, Grass and Weeds"
     document.getElementsByClassName("modal-title")[0].innerText = "About Rabbits, Grass and Weeds"
 
-    fetch("rabbitgrassweed/text/eng_description.md")
+    fetch("rabbitgrassweed/docs/eng_description.md")
         .then(response => response.text())
         .then(text => description.innerHTML = text)
 }
