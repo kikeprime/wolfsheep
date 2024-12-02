@@ -10,7 +10,11 @@ A "Nyulak, fű és gyomnövények" egy NetLogoban készült ágens alapú modell
 Ez a modell egy növényevőfaj és annak kétféle táplálékának populációinak együttélését modellezi.
 Az alapértelmezett modelltípus az eredeti modellt hivatott a lehető leghűbben implementálni, míg a "Bővített modell" típusban az egyedenek neme is van.<br>
 
-Egy ilyen modellt főként a mezőgazdaság és a természetvédelem területén lehet hasznosítani. A mezőgazdaságon belül az állattartás megtervezésénél lehet hasznos, míg a természetvédelemben a veszélyeztetett fajok érdekében történő beavatkozások hatásai szimulálhatók. Természetesen pontosan ez a modell egyikre sem alkalmas, mert primitív, azonban egy kiindulási alapként szolgálhat. A modell jelenlegi állapotában leginkább szemléltetésre használható.<br>
+Egy ilyen modellt főként a mezőgazdaság és a természetvédelem területén lehet hasznosítani. A mezőgazdaságon belül az állattartás megtervezésénél lehet hasznos, míg a természetvédelemben a veszélyeztetett fajok érdekében történő beavatkozások hatásai szimulálhatók. Természetesen pontosan ez a modell egyikre sem alkalmas, mert kezdetleges, azonban egy kiindulási alapként szolgálhat. A modell jelenlegi állapotában leginkább szemléltetésre használható.<br>
+
+Egy konkrétabb példa háttereként vehetjük a nyulak ausztráliai invázióját. Egy ehhez hasonló modellel megjósolható a nyulak populációjának változása, ahol az ausztráliai flora és fauna alapján állítjuk be a paramétereket. Amennyiben azt tapasztaljuk, hogy túlszaporodnak, akkor megtervezhetjük, mennyi ragadozóval lehet a számukat szabályozni, ami kulcskérdése a helyi ökoszisztéma helyreállításának. Egy további természetvédelmi felhasználás lehet az, hogy mennyi farkast kell betelepíteni az amerikai egyesült államokbeli Yellowstone Nemzeti Parkba, hogy a kihalt farkas populáció újjáéledjen.<br>
+
+Egy mezőgazdasági példa lehet a marhatenyésztés, ahol a vállalkozás fenntartásához vizsgáljuk meg, hogy milyen minőségű táplálékra és mennyi marhára van szükség. Itt arra célzok, hogy a vállalkozó min tud esetlegesen spórolni, hogy a csordája képes legyen önfenntartóvá válni.<br>
 
 <br><h2>A modelltípusok működési jellemzői</h2>
 

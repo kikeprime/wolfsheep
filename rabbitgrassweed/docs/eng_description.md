@@ -6,21 +6,21 @@
 
 The "Rabbits, Grass and Weed" is a self-programmed mesa implementation and extension of an agent-based model created in NetLogo.
 This model models the cohabitation of a herbivorous species and two of its foods.
-The default model type is meant to implement the original model as faithfully as possible while in the "Extended model" type the animals have genders.
+The default model type is meant to implement the original model as faithfully as possible while in the "Extended model" type the animals have genders.<br>
 
-This kind of model can primarily be utilized in the fields of agriculture and nature conservation. Within agriculture it can be useful for planning animal husbandry while within nature conservation the effects of intervention for the preservation of the endangered species can be simulated. Naturally, this exact model cannot be applied for either use cases since it's primitive but it can serve as a starting point instead. The model in its current form can be mostly used for presentation.
+This kind of model can primarily be utilized in the fields of agriculture and nature conservation. Within agriculture it can be useful for planning animal husbandry while within nature conservation the effects of intervention for the preservation of the endangered species can be simulated. Naturally, this exact model cannot be applied for either use cases since it's primitive but it can serve as a starting point instead. The model in its current form can be mostly used for presentation.<br>
 
-<h2>The model types' operational characteristics</h2>
+<br><h2>The model types' operational characteristics</h2>
 
 <h3>Mutual characteristics</h3>
 
 In both model types, there is a herbivorous species, which is represented by rabbits.
 These rabbits live in such an area where grass and weeds can grow randomly and have a set nutritional value.
-Furthermore, all entities have some energy (energy point or EP for short from now on) which is decreased by one in every step (the model's change of state) but is increased by a given parameter based on the food type by eating. If their energy is fully consumed, they die. They can also reproduce if their EP is above a set threshold, however doing so halves their energy. During one step of the model, the animal agents move to one of the neighboring cells where the neighbors are the Moore-neighbors excluding the agent's current cell so they can't stay still.
+Furthermore, all entities have some energy (energy point or EP for short from now on) which is decreased by one in every step (the model's change of state) but is increased by a given parameter based on the food type by eating. If their energy is fully consumed, they die. They can also reproduce if their EP is above a set threshold, however doing so halves their energy. During one step of the model, the animal agents move to one of the neighboring cells where the neighbors are the Moore-neighbors excluding the agent's current cell so they can't stay still.<br>
 
-In the original model, the grass and weeds were put in the cells as patches while in this implementation as agents. The grass and weeds are handled by a grass agent whose number is the same as the number of cells. The grass agents have two states, grown and grazed. Important to note that grass has a higher chance to grow than weeds. This is because firstly it is decided if weeds can grow and then if grass can grow but it overrides the weeds if it happens. So, if grass can grow due to the set probability then grass will grow disregarding if weeds can grow. This behavior comes from the original model.
+In the original model, the grass and weeds were put in the cells as patches while in this implementation as agents. The grass and weeds are handled by a grass agent whose number is the same as the number of cells. The grass agents have two states, grown and grazed. Important to note that grass has a higher chance to grow than weeds. This is because firstly it is decided if weeds can grow and then if grass can grow but it overrides the weeds if it happens. So, if grass can grow due to the set probability then grass will grow disregarding if weeds can grow. This behavior comes from the original model.<br>
 
-The parameters in order and their default values:
+The parameters in order and their default values:<br>
 
 <ul>
 <li>The grid's width and height, which can only be changed in the code due to the limitations of the visualization application.
@@ -65,9 +65,9 @@ The hunt limiter exponent means that the probability of a fox hunts actively, in
     </mrow>
   </msup>
 </math>.
-So, if the exponent is 0 there's no limitation. It's imortant to note the reason behind the exponent not being positive is that the probability would be 100% just like in case of 0 due to how the code works. Overhunt is typical in case of free hunt this was the motivation behind the exponent.
+So, if the exponent is 0 there's no limitation. It's imortant to note the reason behind the exponent not being positive is that the probability would be 100% just like in case of 0 due to how the code works. Overhunt is typical in case of free hunt this was the motivation behind the exponent.<br>
 
-<h3>Extended model</h3>
+<br><h3>Extended model</h3>
 
 <ul>
 <li>The model type extended by me.</li>
@@ -79,27 +79,25 @@ So, if the exponent is 0 there's no limitation. It's imortant to note the reason
 
 <h3>Running</h3>
 
-The model's visualization is done by the mesa_viz_tornado python package (so Python is a dependency) which is automatically installed during mesa version 2.4.0's installation but the newer versions (3.0.0+) don't use it anymore so for the sake of compatibility the neccessary elements are imported directly. 
+The model's visualization is done by the mesa_viz_tornado python package (so Python is a dependency) which is automatically installed during mesa version 2.4.0's installation but the newer versions (3.0.0+) don't use it anymore so for the sake of compatibility the neccessary elements are imported directly.<br>
 
-The visualization application can be run in multiple ways. One way is to run run.py which is can be found alongside this file, or we type "mesa runserver" without quotation marks into a terminal opened in this folder.
+The visualization application can be run in multiple ways. One way is to run run.py which is can be found alongside this file, or we type "mesa runserver" without quotation marks into a terminal opened in this folder.<br>
 
-Unfortunatley, running is only recommended under Linux, because for some reason under Windows the interactive elements don't appear correctly on the webpage generated by mesa_viz_tornado, but despite this everything works fine. However, via WSL or virtual machine it can be perfectly run on Windows as well. Both methods were tested under Debian Linux. I recommend the WSL method, because the shown IP-address URL works (<a href=http://127.0.0.1:8521>http://127.0.0.1:8521</a>, which is equivalent with <a href=http://localhost:8521>localhost:8521</a>) unlike with a virtual machine, where the IP-address depends on the program and its settings, or we use the application inside the virtual machine.
+Unfortunatley, running is only recommended under Linux, because for some reason under Windows the interactive elements don't appear correctly on the webpage generated by mesa_viz_tornado, but despite this everything works fine. However, via WSL or virtual machine it can be perfectly run on Windows as well. Both methods were tested under Debian Linux. I recommend the WSL method, because the shown IP-address URL works (<a href=http://127.0.0.1:8521>http://127.0.0.1:8521</a>, which is equivalent with <a href=http://localhost:8521>localhost:8521</a>) unlike with a virtual machine, where the IP-address depends on the program and its settings, or we use the application inside the virtual machine.<br>
 
-<h3>Handling</h3>
+<br><h3>Handling</h3>
 
-<img src="rabbitgrassweed/pics/viz_showcase_eng.png" width=700>
+<img src="rabbitgrassweed/pics/viz_showcase_eng.png" width=700><br>
 
-<br>
+The figure above is a screenshot of the app in initial state with deafult parameters.<br>
 
-The figure above is a screenshot of the app in initial state with deafult parameters.
+The default language of the webpage is English but by clicking on the flag in the top right corner it can be changed to Hungarian and back. The model's name can be seen in the top left corner, next to it by clicking on the About button README.md's shortened and current language version can be read. The Start, Step and Reset buttons are left to the flag which do what's on the tin but the Start button becomes the Stop button if the simulation is running.<br>
 
-The default language of the webpage is English but by clicking on the flag in the top right corner it can be changed to Hungarian and back. The model's name can be seen in the top left corner, next to it by clicking on the About button README.md's shortened and current language version can be read. The Start, Step and Reset buttons are left to the flag which do what's on the tin but the Start button becomes the Stop button if the simulation is running.
+The model's parameters can be set on the left side, the grid that visualizes the model is in the middle, above it the simulation's speed can be set whose default value is 3 steps/second, however the number of agents can effect it (for example in case of overgrowth it's slower). Under the grid the graphs can be seen, among them the 1st one is the number of entities by species and gender depending on the number of steps. The bottom graph is the percentage of the grown grass agents also depending on the number of steps.<br>
 
-The model's parameters can be set on the left side, the grid that visualizes the model is in the middle, above it the simulation's speed can be set whose default value is 3 steps/second, however the number of agents can effect it (for example in case of overgrowth it's slower). Under the grid the graphs can be seen, among them the 1st one is the number of entities by species and gender depending on the number of steps. The bottom graph is the percentage of the grown grass agents also depending on the number of steps.
+The female rabbits are white, the male ones are brown, the female foxes are orange, the male ones are gray. The consequence of this choice is that in the inherited models all rabbits are female and all foxes are male.<br>
 
-The female rabbits are white, the male ones are brown, the female foxes are orange, the male ones are gray. The consequence of this choice is that in the inherited models all rabbits are female and all foxes are male.
-
-<h1>References</h1>
+<br><h1>References</h1>
 
 <ul>
 <li>Wilensky, U. (2001). NetLogo Rabbits Grass Weeds model. <a href=http://ccl.northwestern.edu/netlogo/models/RabbitsGrassWeeds>http://ccl.northwestern.edu/netlogo/models/RabbitsGrassWeeds</a>. Center for Connected Learning and Computer-Based Modeling, Northwestern University, Evanston, IL.</li>
