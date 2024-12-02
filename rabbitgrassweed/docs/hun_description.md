@@ -1,4 +1,4 @@
-<h1>Nyulak, fű és gyomok populációmodell<br>
+<h1>Nyulak, fű és gyomnövények populációmodell<br>
 <img src="rabbitgrassweed/pics/frabbit.png">
 <img src="rabbitgrassweed/pics/rabbit.png"></h1>
 
@@ -6,7 +6,7 @@
 
 <h2>Előszó</h2>
 
-A "Nyulak, fű és gyomok" egy NetLogoban készült ágens alapú modell saját programozású mesa implementációja, illetve továbbfejlesztése.
+A "Nyulak, fű és gyomnövények" egy NetLogoban készült ágens alapú modell saját programozású mesa implementációja, illetve továbbfejlesztése.
 Ez a modell egy növényevőfaj és annak kétféle táplálékának populációinak együttélését modellezi.
 Az alapértelmezett modelltípus az eredeti modellt hivatott a lehető leghűbben implementálni, míg a "Bővített modell" típusban az egyedenek neme is van.<br>
 
@@ -17,14 +17,14 @@ Egy ilyen modellt főként a mezőgazdaság és a természetvédelem területén
 <h3>Közös jellemzők</h3>
 
 Mindkét modelltípusban van egy növényevőfaj, amelyet nyulakkal reprezentálunk.
-Ezek a nyulak egy olyan területen élnek, ahol fű vagy gyomok nőhetnek valószínűségi alapon, amelyeknek van egy adott tápértéke.
+Ezek a nyulak egy olyan területen élnek, ahol fű vagy gyomnövények nőhetnek valószínűségi alapon, amelyeknek van egy adott tápértéke.
 Továbbá minden egyednek van valamennyi energiája (továbbiakban energiapont, röviden EP), amely minden lépésben (a modell állapotváltozása) eggyel csökken, de evés által a megevett táplálék típusától függő paraméternyivel megnő. Ha elfogy az energiájuk, akkor meghalnak. Ezek mellett képesek is szaporodni, amennyiben egy megadott szint feletti energiapontjuk van, azonban ekkor az energiájuk megfeleződik. A modell egy lépésében az állat ágensek egy szomszédos cellába lépnek át, ahol a szomszédos cellák a Moore-féle szomszédokat jelentik az ágens aktuális cellájának kivételével, tehát az állat ágensek nem maradhatnak egy helyben.<br>
 
 Az energiapontról annyit érdemes tudni, hogy a program eggyel kevesebb energiaponttal dolgozik, mint ami egy állaton látható a vizualizációs alkalmazásban, ha rájuk tesszük a kurzort. Ez azt hivatott korrigálni, hogy a szaporodási küszöb és a kezdeti maximális EP paraméterek szigorú egyenlőtlenséget használnak. Ezen paraméterek csúszkái a kijelzett értékek szerint állíthatók. Tehát a felhasználónak az alkalmazás legalább 1 EP-t jelez. Az állatokra rátéve a kurzort látható egy "Layer: 1" érték is, ami réteget jelent és nem elhagyható. A fű ágenseknél ez a réteg 0 és ennek köszönhető, hogy csak az állatokon jelenik meg ez a jelzés.<br>
 
-Az eredeti modellben a fű és a gyomok mint "patchek" voltak a cellákba helyezve, míg ebben az implementációban ágensként.
-A füvet és a gyomokat egy közös fű ágens kezeli, amennyiből annyi van, ahány cella. A fű ágenseknek két állapota van, kinőtt és lelegelt.
-Fontos tulajdonság, hogy a cellákban nagyobb valószínűséggel nő ki fű, mint gyomok. Ennek az az oka, hogy először az dől el, hogy gyomok nőhetnek-e ki és utána, hogy fű, azonban ez felülírja gyomokat, amennyiben bekövetkezik. Tehát, ha fű kinőhet a megadott valószínűség szerint, akkor fű nő ki függetlenül attól, hogy gyomok kinőhetnek-e vagy sem. Ez a viselkedés az eredeti modellből származik.<br>
+Az eredeti modellben a fű és a gyomnövények mint "patchek" voltak a cellákba helyezve, míg ebben az implementációban ágensként.
+A füvet és a gyomnövényeket egy közös fű ágens kezeli, amennyiből annyi van, ahány cella. A fű ágenseknek két állapota van, kinőtt és lelegelt.
+Fontos tulajdonság, hogy a cellákban nagyobb valószínűséggel nő ki fű, mint gyomnövények. Ennek az az oka, hogy először az dől el, hogy gyomnövények nőhetnek-e ki és utána, hogy fű, azonban ez felülírja gyomnövényeket, amennyiben bekövetkezik. Tehát, ha fű kinőhet a megadott valószínűség szerint, akkor fű nő ki függetlenül attól, hogy gyomnövények kinőhetnek-e vagy sem. Ez a viselkedés az eredeti modellből származik.<br>
 
 A modell továbbfejlesztése céljából lehetőség van egy ragadozófaj hozzáadásához, amelyet rókákkal reprezentálunk. A rókák alapvetően ugyanúgy viselkednek, mint a nyulak, de természetesen a rókák a nyulakat eszik meg. Emellett képesek aktívan is vadászni, vagyis csak olyan szomszédos cellába lépni, amelyben van nyúl.<br>
 
@@ -35,13 +35,13 @@ A paraméterek sorrendben és alapértelmezett értékük:<br>
 <br><i>30 x 30</i></li>
 <li>Tórusz: Ha egy állat ágens a rács szélén van, akkor átléphetnek-e a szemben lévő szélre vagy sem.
 <br><i>Igaz</i></li>
-<li>Modelltípus, amely lehet az eredeti modell, a "Nyulak, fű és gyomok modell", vagy a "Bővített modell", amiben az állatoknak van neme.
-<br><i>Nyulak, fű és gyomok modell</i></li>
+<li>Modelltípus, amely lehet az eredeti modell, a "Nyulak, fű és gyomnövények modell", vagy a "Bővített modell", amiben az állatoknak van neme.
+<br><i>Nyulak, fű és gyomnövények modell</i></li>
 <li>A nyulak kezdeti száma.
 <br><i>150</i></li>
 <li>A rókák kezdeti száma.
 <br><i>0</i></li>
-<li>A nyulak fűből és gyomokból nyert energiapont mennyisége.
+<li>A nyulak fűből és gyomnövényekből nyert energiapont mennyisége.
 <br><i>5 és 0</i></li>
 <li>A rókák nyulakból nyert energiapont mennyisége.
 <br><i>5</i></li>
@@ -49,7 +49,7 @@ A paraméterek sorrendben és alapértelmezett értékük:<br>
 <br><i>10 és 10</i></li>
 <li>A nyulak és rókák szaporodási küszöbe. Legalább ennyi energiapontra van szüksége egy egyednek a szaporodáshoz.
 <br><i>15 és 15</i></li>
-<li>A fű és a gyomok kinövési valószínűsége százalékban. Az eredeti modellben ezrelékben, de a csúszkák ilyen sűrű beosztású intervallumon pontatlanok.
+<li>A fű és a gyomnövények kinövési valószínűsége százalékban. Az eredeti modellben ezrelékben, de a csúszkák ilyen sűrű beosztású intervallumon pontatlanok.
 <br><i>6%, eredetileg 15 ezrelék, vagyis 1,5%</i></li>
 <li>A nyulak csordába igyekezzenek-e szerveződni.
 <br><i>Hamis</i></li>
@@ -92,7 +92,7 @@ A fent leírt alapértelmezett paraméterek esetén, amelyek a fű kinövési va
 
 <img src="rabbitgrassweed/pics/graph_anomaly.png" width=300><br>
 
-A modell akkor is stabil marad, ha a modelltípust átállítjuk, azonban rókákkal már ez nem teljesül, mert a rókák kihalnak. Mindkét modelltípusban megmarad a stabilitás, ha a gyomok szaporodási valószínűségét 12% állítjuk, de a gyomok tápértéke továbbra is 0.
+A modell akkor is stabil marad, ha a modelltípust átállítjuk, azonban rókákkal már ez nem teljesül, mert a rókák kihalnak. Mindkét modelltípusban megmarad a stabilitás, ha a gyomnövények szaporodási valószínűségét 12% állítjuk, de a gyomnövények tápértéke továbbra is 0.
 
 <img src="rabbitgrassweed/pics/extended_model_rabbits.png" width=500><br>
 

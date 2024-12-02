@@ -11,9 +11,9 @@ def main():
     width = 30
     height = 30
     torus = True
-    model_type = "Rabbits, grass and weeds model"
+    model_type = "Rabbits, Grass and Weeds model"
+    n_rabbit = 150
     n_fox = 50
-    n_rabbit = 100
     rabbit_ep_gain_grass = 5
     rabbit_ep_gain_weed = 0
     fox_ep_gain = 5
@@ -24,7 +24,7 @@ def main():
     grass_regrow_rate = 30
     weed_regrow_rate = 0
     allow_hunt = True
-    allow_flocking = True
+    allow_flocking = False
     hunt_exponent = -0.5
     allow_seed = True
     seed = 474
@@ -49,7 +49,6 @@ def main():
     for sim_t in range(t):
         model.step()
 
-    model_data = model.datacollector.get_model_vars_dataframe()
     df = model.datacollector.get_model_vars_dataframe()
     df.index.name = "Step"
     df[df.columns[:2]].plot()
