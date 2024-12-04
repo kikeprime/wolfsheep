@@ -16,7 +16,11 @@ In both model types, there is a herbivorous species, which is represented by rab
 These rabbits live in such an area where grass and weeds can grow randomly and have a set nutritional value.
 Furthermore, all entities have some energy (energy point or EP for short from now on) which is decreased by one in every step (the model's change of state) but is increased by a given parameter based on the food type by eating. If their energy is fully consumed, they die. They can also reproduce if their EP is above a set threshold, however doing so halves their energy. During one step of the model, the animal agents move to one of the neighboring cells where the neighbors are the Moore-neighbors excluding the agent's current cell so they can't stay still.
 
+About the energy point it is worth noting that the program uses one less EP than what can be seen on an animal in the visualization application if the cursor is on it. This is meant to adjust that the reproduction threshold and intial maximal EP parameters work with strict inequality. These parameters' sliders can be set according to the displayed values. So the application displays at least 1 EP for the user. Pointing the cursor at an animal also displays a "Layer: 1" value which cannot be got rid of. For the grass agents the layer is 0 which hides this pop up on them but not on the animals.
+
 In the original model, the grass and weeds were put in the cells as patches while in this implementation as agents. The grass and weeds are handled by a grass agent whose number is the same as the number of cells. The grass agents have two states, grown and grazed. Important to note that grass has a higher chance to grow than weeds. This is because firstly it is decided if weeds can grow and then if grass can grow but it overrides the weeds if it happens. So, if grass can grow due to the set probability then grass will grow disregarding if weeds can grow. This behavior comes from the original model.
+
+As an extension to the model, a predator species can be added which is represented by foxes. The foxes behave basically the same as the rabbits but naturally they eat rabbits. Furthermore, they can also hunt actively which means they only choose such neighboring cells which contain rabbits.
 
 The parameters in order and their default values:
 
@@ -62,6 +66,10 @@ So, if the exponent is 0 there's no limitation. It's imortant to note the reason
 <li>For reproduction, in addition to the necessary EP two entities with different genders must be present in the same cell.</li>
 </ul>
 
+<h2>Observations</h2>
+
+This part has yet to be translated.
+
 <h2>The visualization application</h2>
 
 <h3>Running</h3>
@@ -91,7 +99,7 @@ The female rabbits are white, the male ones are brown, the female foxes are oran
 <h2>Előszó</h2>
 
 A "Nyulak, fű és gyomnövények" egy NetLogoban készült ágens alapú modellnek a saját programozású mesa implementációja, illetve továbbfejlesztése.
-Ez a modell egy növényevő faj, és azoknak a kétfajta táplálékának együttélését modellezi.
+Ez a modell egy növényevő faj, és kétfajta táplálékának együttélését modellezi.
 Az alapértelmezett modelltípus az eredeti modellt hivatott a lehető leghűbben implementálni, míg a "Bővített modell" típusban az egyedeknek neme is van.
 
 Egy ilyen modellt főként a mezőgazdaság és a természetvédelem területén lehet hasznosítani. A mezőgazdaságon belül az állattartás megtervezésénél lehet hasznos, míg a természetvédelemben a veszélyeztetett fajok érdekében történő beavatkozások hatásai szimulálhatók. Természetesen pontosan ez a modell egyikre sem alkalmas, mert kezdetleges, azonban egy kiindulási alapként szolgálhat. A modell jelenlegi állapotában leginkább szemléltetésre használható.
@@ -108,13 +116,13 @@ Mindkét modelltípusban van egy növényevő faj, amelyet nyulakkal reprezentá
 Ezek a nyulak egy olyan területen élnek, ahol fű vagy gyomnövények nőhetnek valószínűségi alapon, amelyeknek van egy adott tápértéke.
 Továbbá minden egyednek van valamennyi energiája (továbbiakban energiapont, röviden EP), amely minden lépésben (a modell állapotváltozása) 1-gyel csökken, de evés által a megevett táplálék típusától függő paraméternyivel megnő. Ha elfogy az energiájuk, akkor meghalnak. Ezek mellett képesek is szaporodni, amennyiben egy megadott szint feletti energiapontjuk van, azonban ekkor az energiájuk megfeleződik. A modell egy lépésében az állat ágensek egy szomszédos cellába lépnek át, ahol a szomszédos cellák a Moore-féle szomszédokat jelentik az ágens aktuális cellájának kivételével, tehát az állat ágensek nem maradhatnak egyhelyben.
 
-Az energiapontról annyit érdemes tudni, hogy a program eggyel kevesebb energiaponttal dolgozik, mint ami egy állaton látható a vizualizációs alkalmazásban, ha rájuk tesszük a kurzort. Ez azt hivatott korrigálni, hogy a szaporodási küszöb és a kezdeti maximális EP paraméterek szigorú egyenlőtlenséget használnak. Ezen paraméterek csúszkái a kijelzett értékek szerint állíthatók. Tehát a felhasználónak az alkalmazás legalább 1 EP-t jelez. Az állatokra rátéve a kurzort látható egy "Layer: 1" érték is, ami réteget jelent és nem elhagyható. A fű ágenseknél ez a réteg 0 és ennek köszönhető, hogy csak az állatokon jelenik meg ez a jelzés.
+Az energiapontról annyit érdemes tudni, hogy a program eggyel kevesebb energiaponttal dolgozik, mint ami egy állaton látható a vizualizációs alkalmazásban, ha rájtesszük a kurzort. Ez azt hivatott korrigálni, hogy a szaporodási küszöb és a kezdeti maximális EP paraméterek szigorú egyenlőtlenséget használnak. Ezen paraméterek csúszkái a kijelzett értékek szerint állíthatók. Tehát a felhasználónak az alkalmazás legalább 1 EP-t jelez. Az állatokra rátéve a kurzort látható egy "Layer: 1" érték is, ami réteget jelent és nem elhagyható. A fű ágenseknél ez a réteg 0 és ennek köszönhető, hogy csak az állatokon jelenik meg ez a jelzés.
 
 Az eredeti modellben a fű és a gyomnövények mint "patchek" voltak a cellákba helyezve, míg ebben az implementációban ágensként.
 A füvet és a gyomnövényeket egy közös fű ágens kezeli, amennyiből annyi van, ahány cella. A fű ágenseknek két állapota van, kinőtt és lelegelt.
 Fontos tulajdonság, hogy a cellákban nagyobb valószínűséggel nő ki fű, mint gyomnövények. Ennek az az oka, hogy először az dől el, hogy gyomnövények nőhetnek-e ki és utána, hogy fű. Azonban ez felülírja gyomnövényeket, amennyiben bekövetkezik. Tehát, ha fű kinőhet a megadott valószínűség szerint, akkor fű nő ki függetlenül attól, hogy gyomnövények kinőhetnek-e vagy sem. Ez a viselkedés az eredeti modellből származik.
 
-A modell továbbfejlesztése céljából lehetőség van egy ragadozófaj hozzáadásához, amelyet rókákkal reprezentálunk. A rókák alapvetően ugyanúgy viselkednek, mint a nyulak, de természetesen a rókák a nyulakat eszik meg. Emellett képesek aktívan is vadászni, vagyis csak olyan szomszédos cellába lépni, amelyben van nyúl.
+A modell bővítése céljából lehetőség van egy ragadozófaj hozzáadásához, amelyet rókákkal reprezentálunk. A rókák alapvetően ugyanúgy viselkednek, mint a nyulak, de természetesen a rókák a nyulakat eszik meg. Emellett képesek aktívan is vadászni, vagyis csak olyan szomszédos cellába lépni, amelyben van nyúl.
 
 A paraméterek sorrendben és alapértelmezett értékük:
 
