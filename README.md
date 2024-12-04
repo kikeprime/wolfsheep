@@ -68,7 +68,26 @@ So, if the exponent is 0 there's no limitation. It's imortant to note the reason
 
 <h2>Observations</h2>
 
-This part has yet to be translated.
+The most interesting property for the analyzation of the model is stability which means if the model's species go extinct or not.<br>
+In case of the above described default parameters, which came from the original model except the grass' regrowth rate and the new ones, the model is stable. The parameters of the foxes were set in such way that the model is also stable in case of 50 intial foxes. This latter example can be run a few cells below and is stable even after 10 000 steps.
+
+An interesting phenomenon is that even with strikingly different parameters after starting the model the number of animals drops but it is also possible that this is preceded by a slight increase, however this depends on the seed.
+
+<img src="rabbitgrassweed/pics/graph_anomaly.png" width=300>
+
+The model stays stable even if we set the new model type, however this is no longer the case with foxes because they go extinct. In both model types, if the weeds' regrowth rate is set to 12% but their EP gain is kept at 0, we get a stable model.
+
+<img src="rabbitgrassweed/pics/extended_model_rabbits.png" width=500><br>
+
+<img src="rabbitgrassweed/pics/extended_model_weeds.png" width=500>
+
+If the initial number of foxes is 50 and the active hunt is disabled then the foxes can only survive if we adjust some parameters. After running multiple testes, increasing the rabbits' EP gain beared fruits. The minimal EP gain which appeared to make a stable model is 12 EP.
+
+<img src="rabbitgrassweed/pics/default_model_foxes.png" width=500>
+
+The extended model with foxes is usually unstable which means the extinction of the foxes but the rabbit population stablizes afterwards. The extinction of the rabbits can only usually happen with extreme parameters. The course of the foxes' extinction is usually means that after the said intial drop the number of rabbits has a big increase which is also followed by the foxes but even if they have a little growth the rabbit population drops to such low levels which can't feed the foxes which ultimately causes their extinction and the foxes' active hunt only speeds this up. One of the best achievements was that there were around 30 foxes in a long term but with the same parameters and the 474 seed this value was only 10. The parameters for this experiment were the initial number of foxes was 70, the EP gain from rabbits was 10 EP, the foxes' reproduction threshold was 30 EP, the grass grows back with the probability of 15%, the foxes don't hunt actively and the seed is either disabled or set to 474.
+
+<img src="rabbitgrassweed/pics/extended_model_foxes.png" width=500>
 
 <h2>The visualization application</h2>
 
@@ -182,7 +201,7 @@ A modell akkor is stabil marad, ha a modelltípust átállítjuk, azonban róká
 
 <img src="rabbitgrassweed/pics/extended_model_weeds.png" width=500>
 
-Ha a kezdeti rókák száma 50 és az aktív vadászat ki van kapcsolva, akkor a rókák csak úgy élhetnek túl, ha valamilyen paramétert átállítunk. Több teszt futtatása után a nyulak tápértékének növelése bizonyult kifizetődőnek. A minimális tápérték amellett stabil a modell az 12 EP.
+Ha a rókák kezdeti száma 50 és az aktív vadászat ki van kapcsolva, akkor a rókák csak úgy élhetnek túl, ha valamilyen paramétert átállítunk. Több teszt futtatása után a nyulak tápértékének növelése bizonyult kifizetődőnek. A minimális tápérték amellett stabil a modell az 12 EP.
 
 <img src="rabbitgrassweed/pics/default_model_foxes.png" width=500>
 
